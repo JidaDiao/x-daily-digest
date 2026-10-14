@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>每日推送 · 总入口</title>
+<style>
+:root{--bg:#fafafa;--fg:#1d1d1f;--muted:#6e6e73;--border:#e5e5e8;--card:#fff;--primary:#0071e3}
+@media(prefers-color-scheme:dark){:root{--bg:#080808;--fg:#ededed;--muted:#8e8e93;--border:#282828;--card:#111;--primary:#4ea1ff}}
+*{box-sizing:border-box;margin:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC",system-ui,sans-serif;background:var(--bg);color:var(--fg);line-height:1.55;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:48px 20px}
+.k{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+h1{font-size:clamp(28px,6vw,44px);font-weight:600;letter-spacing:-.03em;margin-bottom:8px}
+.lead{color:var(--muted);margin-bottom:32px;font-size:15px}
+.card{display:block;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 22px;margin-bottom:14px;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-2px);box-shadow:0 16px 40px -28px rgba(0,0,0,.45)}
+.card .tag{font-size:11px;color:var(--primary);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.card h2{font-size:18px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
+.card p{font-size:13px;color:var(--muted)}
+.card .go{margin-top:12px;font-size:13px;color:var(--primary);font-weight:500}
+footer{margin-top:40px;font-size:12px;color:var(--muted)}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">Daily Hub · 2026-10-14</div>
+  <h1>今日推送入口</h1>
+  <p class="lead">把每天的网页版汇总在这里，点开就能看完整内容。</p>
+
+  <a class="card" href="../2026-10-14.html">
+    <div class="tag">X 精选 / Grok Bot 早报</div>
+    <h2>2026-10-14 日报</h2>
+    <p>16 条 · Gemini 4 Argon、自建节点、小圆新剧场版等</p>
+    <div class="go">打开网页版 →</div>
+  </a>
+
+  <a class="card" href="../design/2026-10-14.html">
+    <div class="tag">设计灵感</div>
+    <h2>2026-10-14 设计灵感</h2>
+    <p>每日 UI / 动效拆解（中午前后更新；若打不开说明还没发）</p>
+    <div class="go">打开设计页 →</div>
+  </a>
+
+  <a class="card" href="../">
+    <div class="tag">往期</div>
+    <h2>全部往期列表</h2>
+    <p>按日期浏览历史日报</p>
+    <div class="go">查看往期 →</div>
+  </a>
+
+  <footer>
+    仓库 <a href="https://github.com/JidaDiao/x-daily-digest">JidaDiao/x-daily-digest</a>
+    · 由「每日推送」汇总
+  </footer>
+</div>
+</body>
+</html>
