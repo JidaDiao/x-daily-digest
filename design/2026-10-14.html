@@ -54,10 +54,10 @@ footer{margin:32px 0 40px;font-size:12px;color:var(--muted);border-top:1px solid
 </style></head><body><div class="bgfx"></div>
 <div class="wrap">
 <div class="top in"><b>每日设计灵感</b><span>2026-10-14</span></div>
-<section class="hero"><div class="eyebrow in" style="animation-delay:.08s">Live demos · 5 个</div>
+<section class="hero"><div class="eyebrow in" style="animation-delay:.08s">Live demos · 6 个</div>
 <h1 class="in" style="animation-delay:.14s">把好设计<br>拆开来玩</h1>
 <p class="lead in" style="animation-delay:.22s">每块都是用代码复刻的可交互 demo，参数尽量取自原站源码 / Mobbin 截图。点「重播」看动画，展开看参数和代码；打星、收藏会自动同步。</p></section>
-<nav class="nav" aria-label="目录"><a href="#b-clerk" class="chip">Clerk</a><a href="#b-cal" class="chip">Cal.com</a><a href="#b-mintlify" class="chip">Mintlify</a><a href="#b-stoic" class="chip app">stoic.</a><a href="#b-cashapp" class="chip app">Cash App</a></nav>
+<nav class="nav" aria-label="目录"><a href="#b-clerk" class="chip">Clerk</a><a href="#b-cal" class="chip">Cal.com</a><a href="#b-mintlify" class="chip">Mintlify</a><a href="#b-stoic" class="chip app">stoic.</a><a href="#b-cashapp" class="chip app">Cash App</a><a href="#b-cosmos" class="chip app">Cosmos</a></nav>
 <section class="blocks">
 <article class="block design in" id="b-clerk" data-site="Clerk" data-url="https://clerk.com">
 <header class="bh"><span class="kind web">Web</span><h2>Clerk</h2><span class="sub">Auth 卡片切换 · letter-reveal · 轻浮 Agent 芯片</span></header>
@@ -420,6 +420,121 @@ r.querySelector('.cf-cta').onclick=()=>set(false);
 
 /* 大留白：正文靠上，CTA 贴底，中间故意空 */</textarea></details>
 <div class="ref"><img class="thumb" src="data:image/webp;base64,UklGRg4MAABXRUJQVlA4IAIMAABQRgCdASq0AJgBPp1MoUylpCMiIlUZ6LATiWlu4XNBGjOPu/HQ+v+BjAbYDzAecl0OnUAegB5a/sY/uJlR7Gv8lz9vjH2c5d3QfmL/KPtJ+T8tf7h4A/FLUC/H/55/je9m7aTRPMC9g/pvdzfzfoR9cv9N7gH8g/oX/B9S/8x4Df1r/f+wF/L/6b/y/8J/g/2q+lX+d/9XlE/Pf8r/6v9J8A/8z/sn/e/w/Z1/bP//+8B+5gyOBEjAwCB8/gqI9BNgVFysDRZyOug0Cuo6DcDcrjQ0utaEA5mX2IG3IvNr1jPqfBUW+SLE6qFVI30z7fRdbKg+X+BkTlqax0jJAKGeqyY2tlQx+ypSlPTTgOwDHfHDrZUHyYDxc8+KBVf9wDqDACx+5LqPsKeMr+uGsKE/j7hul6N0dnzcePfDw6s9PP3W5gZBylHGML8shs+4YpItk9lP54XvlJg4vpzz6kzVyddDQF++EdPWUCcgMVe1/F8U9qMXY8ybMCsCxjilC0g1DIW60e/ovuDIQFFRdbKhkICioutlQyEBRUXWyoZCAoqLrZUMhAUVF1sqGQgKKi62VDIQFFRdbKhkICioutlQyEBRUXWyoZCAmTAYaQ6aJaddpcdTKb5DAm9wTftv9i4shYyWCtxKAYJ52CEzUjGhgHa23yUYWDsWZHjm2rnjvZKmTi1RI/DomRUuFrEb+8OaLzaQCRsROqQMfLTOAEqUq5GILg/wwyL8dLOLDmdVPXJr/MuTK08tTG4AAP7/Kzt+PxBvDgdtVJUNo+WOgj0W4Sa+qQkuqnsF/JV+e3PhLgi3UxMVXAqScRjbekdyGUp0WJCsMvnuTGfKN/XsNnZLJwDjp1kTn9ZkzHThIM3XBqKNbhD/iayYuIJuAdUdN1LH+GEewBnK8rBaTIV0OBs/JIh0NvCILWrvlZFTbP7q5j9pILFD8YkcYqYMbsZDe+V7IXAd4r5T4ejxfjZCnoaiSjIqwIOlaTwDmc/egsEQBdt+CP1XPImwZyKzxPeQbRtYuDKcu9kQ6XWDA7b1QZMx0BLH/T0fUehhQQzo2OprRTsvwy5wFhgG82PDLGrfHTkggUHfNofY8rsKyxvSs3QKUfjVf8aApFGSkQwWP31Frpmyja8D0AIFZmFd/+/QZ6/88OXdw6T/87DRV5l9Cox6xLwJEE/CajTOoE/ofSvA3ZY4h8ZRZIVWI9YhfH4SY4yj9YHmxHzj1EtTbCWl0WVDLRk3cPuQ5w9VVUZhWoOamHsLILuYIeT+Jbr/foN//jH4rBJ/oyKrenyVKHjlVzfjuNU4adRvXqtYY/HwwU6Y3KeZVXARSBwHtVZ9D1KNb1O7ihsrotfhM2DuOeodu/0raRM5P8cOpsOtZpdvEzHWHwDx/TAh/i8+JAdha/H/EC7JMTvEiJpledDzhh9Z0+Ge+na4zGaynPLIQo8z39K8uctbxKSHDLjUVMMIlHafjB4J2cktGXRF1uEp4I3kqgiU1//ue8qqXPblCcROyggnDcwLlsdxhtBYki8iORJdZ7pcNf74jL8jZVpve1wyHwIzy2i769LACJ5KCnKuXcNmVCYoK6ln2UBGKxv7uj9v8xjk3QDlw2nts42y/tLu2Ca60siRNoYM+aNsGvSyGBVslkT3XRscW6dL/I8WsgU5G5OlqDxMYuk/ifEeBH2HAtv8hnCXsdCx5fzWuFn/BVQ30+iqnBW2LUwOegaYqT69HkE/mnupFoVrYdIBMS0YiUJbMP1wf1Ldi+dg+shxUQVTrqIRPDhmkVnkMn4iuAR421BRmgUA/hC4Z0z60puvtP1MeGHfRGLfCEjTzmDDRfdWnVTw5bpppXyJt04z+iU9ZGZIG5i8+jEtCRuy78l+A9HFkSegQwrqUY6TDXFZjfu+9wEzZQVcwiVQxTmbDYkdu+BnyVU6rZNLrDRccGchXmTMnjbYjLbQRD2oVLplt8k/cNmAF1olg5DFqIf5bSJRI5yah5uw0JiGhd2bt4N+Q50bIDMVlA7c2NGZxVgZK5PfndHDVmyGDQqoABqZxc1x7UtU/1RXjItO6N6w0S7rfwyFn6wne0YNgpXqu8EV0Z0ysdrwYF2we85151UcJ2Y2HhoSA+dB7J2qaSIwCrcNFYASjDoZNW39maheMHpswnJXghBW6XzhtApm9ifjV/3UEgBJr4x1barov7AiA6vrBgIud31tN5JIUeE99vj+46bvOIwdTl0iw/4R9W13bHpkiJhO516zzvp9Apz0wr7gIv1wT3hgoFrWrhilEnCYLZGDGFvJFmOWUaA5bH/5k/anSEFkY1KYENtok89aVsasUIoGLh+7AtZo6aPxFRA3jORLvKaU7oiu68HuOKdJ6he3OpvOgWXbQ8bwH24VUzB7FR5NTd85T81iMSY/QSli0R8XSwbLZkO4xNXVuEvFZc3+FSNySEsVu7cifobi+sH9l6PwObunIt0gj2Opc2ykBdMhrJZhyo+67U8Cv5e9PV/KpCZt8xkXf6w7D666RkM/Ghi5LyiBuMWyn9NPnMsi5h1PK/Pp0wqQLc3Oa3LXXItFms58ewzRWnxX6LfHXKQ/gR867JDxXW9nktuvMTc9BqipKM5Vb9v9fym4nqmy53+u5Up1NgeO8X+TuRsmAobcXAORCIVB/16fRkvZAg/83tnNAuiqOK48uaEXOGks/8gv2BmHmv98r4s5m2Mv3QWg96TGwmGVNWqYuMZwu0fv28FAtLvZ/Oz0gAWkwR3i6Ne8DPkRDACnBb1++GA0+KW8fJxaKYRnzDvx4Pb2plUJ8KgTHQ9qyOt1JcxZvWxQ3W7TBjVROGrc9CjvW7OGluH0fCrqe+fluuaNK3Q7wROxKXZ5AQjwudnzPy+0kg9/Xbp3HDUZHjhSntK6jd8oxu+Nq8P/AKCiof11Sk7iVdu/2UyNhrYyfsC1bPh+EMq5UqaNdZE2Hwjp9ja2cL4vEjhP8U95bWMMgj89Moy6ScZ0e9p2CmcI0xBT8VIwCw7vBfysCadPqIzbewCw1z9U6a9idJN8Fz83oFAujU3sZySxXknQ/+22+aJHtcVp1bQ+OfpMJu9RfjuuhGR8hSqhC/sNhvxqnKteHCBEZLzXqy8a5YNiO4vjiNRu1HAE3R0SFS8aXF2Sc8t2IfduRtOESalHNQIAAAAAAMy+i32SUX31P4QjI0xzLR0rJuiEUgKFqGRTWAdP68ePCTdRmtgWTASbR2BOtWLsI/QLVqSVumFxaWImGM+WwTpKPX/8dDMy3xANGJLMAjPYQy0+L5H8uOv7TBMI6vVbu5KjXsZjW4Lp2B34qmuZM84yGnpvkLc4V0eE4T+wtdtMMPEWqIij19pDpG+lokYAUQlkG+sx/SAwMcdvw1XPruuU38sZ6BHyDYfGbzW8EDMbFGjO+E1MMcMXz+zygTSRn7ZiYn8Wdl72iTBSLUZ/hnfrxZ0bk91jhGLrf9AAcNq+1Y5BJSuLisnkVrJ5FlEfn5dmvr7ItvHregn9/4MU95o8plcQKOWVBf/8+ttb1o8p5Y+fxAP2eZdvmDo+f4YpHG34lunQpwZ600Ol4K1W5ssgeqXoAXisZMdFzU4PqL25BZOc/M4oe3jg8uyDfYwVcJip3N84rvsRJ8mRp6scLeJUOU4Zmhk5n5gfjSO8x0y1G8jlt38hsEAFYVZ3E//CLrp39cvOjK2yotMby9yyOTyi+zuVSHe2EVXE84CmLRhNMAS3Roex9bpp31dc+PPQhpmEYh9HCcicReED88frUlZTG6yws5ekA00CDQwXfe/5BBSH6UJpgXbpCEtR2ChlKJoDe2jalS/DikGK9AF4CHGeXMsW3fZbGibl/fVDopR5ZWG2uHTMGjqYXYGcg4+yNKLD4xqz9ScZwaR781y8+2LGCSdLrz3H75IAS4ZTq9TLsUcQIYrMR6vlxHisvOju6QSc0Rd1+0FM2ZCeSca9M4M90KjolW8FQqujojjakoEHK7ncRS4RwhZFsUYdhjtdKePpntSYnKhqhapvYjfRqEX3i1gdLUuw3MkNs9zCkSjGNuo4RQJWpGmFqrVQyRjTWFyDKcWz011mM5swSUO5XIe2SI2HddXSY3lyPq8AAA==" alt="Cash App · 转账成功 原站截图（对照）" loading="lazy"><div class="links"><a href="https://mobbin.com/screens/2d105f32-91f1-4e2a-ac5b-7ee8e65a9912" target="_blank" rel="noopener">Mobbin 截图 ↗</a><span class="note"></span></div></div>
+<div class="act"><span class="df-stars" aria-label="评分"></span><button class="df-fav" type="button"></button></div></div></article>
+<article class="block design in" id="b-cosmos" data-site="Cosmos · 搜索与近期" data-url="https://mobbin.com/screens/6ee80265-fba5-4c78-96fc-0c826fe65656">
+<header class="bh"><span class="kind app">App</span><h2>Cosmos · 搜索与近期</h2><span class="sub">浅灰胶囊搜索 · Trending 标签 · Recent 可删</span></header>
+<div class="demo d-cosmos"><div class="ph cs" data-replay>
+  <div class="cs-bar"><span>9:41</span><span>▮▮▮</span></div>
+  <div class="cs-searchrow">
+    <label class="cs-field">
+      <span class="cs-mag" aria-hidden="true">⌕</span>
+      <input type="search" placeholder="Try 'pendant lights'" value="" autocomplete="off" enterkeyhint="search">
+      <span class="cs-spark" aria-hidden="true"></span>
+    </label>
+    <button type="button" class="cs-cancel">Cancel</button>
+  </div>
+  <div class="cs-sec">
+    <p class="cs-lab">Trending</p>
+    <div class="cs-chips" role="list">
+      <button type="button" class="cs-chip" data-q="color theory">⌕ color theory</button>
+      <button type="button" class="cs-chip" data-q="poetry">⌕ poetry</button>
+      <button type="button" class="cs-chip" data-q="meditation">⌕ meditation</button>
+    </div>
+  </div>
+  <div class="cs-sec cs-recent-wrap">
+    <div class="cs-rowhead"><p class="cs-lab">Recent</p><button type="button" class="cs-clear">Clear</button></div>
+    <ul class="cs-recent">
+      <li><button type="button" class="cs-item" data-q="design"><i>⌕</i><span>design</span></button><button type="button" class="cs-del" aria-label="remove">×</button></li>
+      <li><button type="button" class="cs-item" data-q="design inspiration"><i>⌕</i><span>design inspiration</span></button><button type="button" class="cs-del" aria-label="remove">×</button></li>
+    </ul>
+    <p class="cs-empty" hidden>No recent searches</p>
+  </div>
+  <nav class="cs-dock" aria-label="tabs">
+    <button type="button" aria-label="home">⌂</button>
+    <button type="button" class="on" aria-label="search">⌕</button>
+    <button type="button" class="av" aria-label="profile"></button>
+  </nav>
+  <button class="replay" type="button">重播</button>
+</div>
+<style>
+.ph{--w:min(100%,340px);width:var(--w);margin:20px auto;height:600px;border-radius:40px;border:8px solid #1d1d1f;position:relative;overflow:hidden;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:#111;box-sizing:border-box}
+.d-cosmos{background:#f5f5f5}
+.cs{padding:6px 14px 72px;display:flex;flex-direction:column}
+.cs-bar{display:flex;justify-content:space-between;font-size:12px;font-weight:600;padding:4px 2px 10px}
+.cs-searchrow{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.cs-field{flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:#F2F2F2;border-radius:999px;padding:0 12px;height:44px}
+.cs-mag{font-size:16px;color:#8a8a8a;line-height:1}
+.cs-field input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:15px;outline:none;color:#111}
+.cs-field input::placeholder{color:#9a9a9a}
+.cs-spark{width:18px;height:18px;border-radius:50%;background:conic-gradient(#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#c77dff,#ff6b6b);flex:0 0 auto}
+.cs-cancel{border:0;background:transparent;font:inherit;font-size:16px;font-weight:600;color:#111;cursor:pointer;padding:8px 2px;min-height:44px}
+.cs-sec{margin-bottom:18px}
+.cs-lab{font-size:13px;color:#8a8a8a;margin:0 0 10px;font-weight:500}
+.cs-rowhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.cs-rowhead .cs-lab{margin:0}
+.cs-clear{border:0;background:transparent;font:inherit;font-size:13px;color:#b0b0b0;cursor:pointer;padding:8px 0;min-height:36px}
+.cs-chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cs-chips::-webkit-scrollbar{display:none}
+.cs-chip{flex:0 0 auto;border:1px solid #E5E5E5;background:#fff;border-radius:999px;padding:8px 12px;font:inherit;font-size:13px;font-weight:600;color:#111;cursor:pointer;min-height:36px;transition:background .28s cubic-bezier(.22,1,.36,1),border-color .28s cubic-bezier(.22,1,.36,1),transform .2s}
+.cs-chip.on{background:#111;color:#fff;border-color:#111}
+.cs-chip:active{transform:scale(.97)}
+.cs-recent{list-style:none;margin:0;padding:0}
+.cs-recent li{display:flex;align-items:center;gap:4px;min-height:48px;transition:opacity .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),max-height .28s,margin .28s;max-height:56px;overflow:hidden}
+.cs-recent li.gone{opacity:0;transform:translateX(12px);max-height:0;margin:0;pointer-events:none}
+.cs-item{flex:1;min-width:0;display:flex;align-items:center;gap:12px;border:0;background:transparent;font:inherit;font-size:15px;text-align:left;cursor:pointer;padding:10px 0;color:#111;min-height:44px}
+.cs-item i{flex:0 0 auto;width:32px;height:32px;border-radius:50%;background:#F2F2F2;display:grid;place-items:center;font-style:normal;font-size:14px;color:#8a8a8a}
+.cs-del{flex:0 0 auto;width:36px;height:36px;border:0;border-radius:50%;background:transparent;font-size:18px;color:#c0c0c0;cursor:pointer}
+.cs-empty{font-size:14px;color:#b0b0b0;margin:12px 0 0;text-align:center}
+.cs-dock{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:28px;background:#fff;border:1px solid #eee;border-radius:999px;padding:10px 22px;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.cs-dock button{border:0;background:transparent;font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:50%;color:#111;display:grid;place-items:center}
+.cs-dock button.on{font-weight:700}
+.cs-dock .av{background:linear-gradient(135deg,#f9a8d4,#c4b5fd);border-radius:50%}
+.cs .replay{position:absolute;right:14px;bottom:70px;z-index:2;border:0;background:#111;color:#fff;font:inherit;font-size:12px;font-weight:600;padding:8px 12px;border-radius:999px;cursor:pointer;min-height:36px;opacity:.85}
+.cs.play .cs-field{animation:csIn .5s cubic-bezier(.22,1,.36,1) both}
+.cs.play .cs-chips{animation:csIn .55s cubic-bezier(.22,1,.36,1) .06s both}
+.cs.play .cs-recent-wrap{animation:csIn .55s cubic-bezier(.22,1,.36,1) .12s both}
+@keyframes csIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.cs.play .cs-field,.cs.play .cs-chips,.cs.play .cs-recent-wrap{animation:none}.cs-recent li{transition:none}.cs-chip{transition:none}}
+</style>
+<script>
+(()=>{const root=document.querySelector('.d-cosmos .cs'); if(!root) return;
+const input=root.querySelector('.cs-field input');
+const chips=[...root.querySelectorAll('.cs-chip')];
+const list=root.querySelector('.cs-recent');
+const empty=root.querySelector('.cs-empty');
+const clearBtn=root.querySelector('.cs-clear');
+const seed=[['design','design'],['design inspiration','design inspiration']];
+const setQ=q=>{input.value=q; chips.forEach(c=>c.classList.toggle('on',c.dataset.q===q)); input.focus({preventScroll:true});};
+const syncEmpty=()=>{const n=list.querySelectorAll('li:not(.gone)').length; empty.hidden=n>0; clearBtn.style.visibility=n? 'visible':'hidden';};
+const bindDel=li=>{li.querySelector('.cs-del').onclick=()=>{li.classList.add('gone'); setTimeout(()=>{li.remove(); syncEmpty();},300);};
+  li.querySelector('.cs-item').onclick=()=>setQ(li.querySelector('.cs-item').dataset.q);};
+chips.forEach(c=>c.onclick=()=>setQ(c.dataset.q));
+root.querySelector('.cs-cancel').onclick=()=>{input.value=''; chips.forEach(c=>c.classList.remove('on')); input.blur();};
+clearBtn.onclick=()=>{[...list.children].forEach(li=>li.classList.add('gone')); setTimeout(()=>{list.innerHTML=''; syncEmpty();},280);};
+const reset=()=>{list.innerHTML=''; seed.forEach(([q,label])=>{const li=document.createElement('li');
+  li.innerHTML=`<button type="button" class="cs-item" data-q="${q}"><i>⌕</i><span>${label}</span></button><button type="button" class="cs-del" aria-label="remove">×</button>`;
+  bindDel(li); list.appendChild(li);});
+  input.value=''; chips.forEach(c=>c.classList.remove('on')); syncEmpty();};
+[...list.children].forEach(bindDel); syncEmpty();
+root.addEventListener('replay', reset);
+root.querySelector('.replay').onclick=()=>{root.classList.remove('play'); void root.offsetWidth; root.classList.add('play'); root.dispatchEvent(new Event('replay'));};
+})();
+</script></div>
+<div class="bb"><p class="why">搜索页把结构压到三层：顶部浅灰胶囊输入 + Cancel；中间 Trending 圆角标签横滑；下面 Recent 列表每行可单独删或 Clear。白底大留白、几乎无阴影，点标签会填入搜索并高亮，点 × 淡出删除。</p><div class="tags"><span class="tag">iOS</span><span class="tag">Search</span><span class="tag">Empty-adjacent</span></div>
+<details><summary>关键参数</summary><ul class="params"><li>结构照 Mobbin：Search 胶囊、Cancel、Trending chips、Recent + Clear、底部 pill dock</li><li>搜索条背景 ≈ #F2F2F2，圆角 999，高 ≈ 44px（按截图估计）</li><li>chip：白底 1px #E5E5E5 边、圆角 999、内边距 8×12</li><li>Recent 行图标圆 ≈ 32px，行高 ≈ 48px</li><li>过渡 .28s cubic-bezier(.22,1,.36,1)（demo 估计）</li><li>色值与尺寸按截图估计，非源码</li></ul></details>
+<details><summary>关键代码</summary><textarea class="code" readonly spellcheck="false" rows="13">/* Cosmos 搜索（按 Mobbin 截图估计） */
+.search {
+  height: 44px; border-radius: 999px; background: #F2F2F2;
+  display: flex; align-items: center; gap: 8px; padding: 0 12px;
+}
+.chip {
+  border: 1px solid #E5E5E5; border-radius: 999px;
+  padding: 8px 12px; font-weight: 600;
+  transition: background .28s cubic-bezier(.22,1,.36,1);
+}
+.chip.on { background: #111; color: #fff; border-color: #111; }
+/* Recent 删除：opacity + translateX 淡出 */</textarea></details>
+<div class="ref"><img class="thumb" src="data:image/webp;base64,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" alt="Cosmos · 搜索与近期 原站截图（对照）" loading="lazy"><div class="links"><a href="https://mobbin.com/screens/6ee80265-fba5-4c78-96fc-0c826fe65656" target="_blank" rel="noopener">Mobbin 截图 ↗</a><span class="note"></span></div></div>
 <div class="act"><span class="df-stars" aria-label="评分"></span><button class="df-fav" type="button"></button></div></div></article>
 </section>
 <footer>2026-10-14 · 原站商标与截图版权归各自所有，demo 用占位文字/图形复刻 · App 参考来自 Mobbin</footer>
