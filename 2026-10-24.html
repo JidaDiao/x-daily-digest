@@ -49,7 +49,7 @@ h1 u{text-decoration:none;border-bottom:3px solid var(--ac);padding-bottom:1px;t
 /* Vinyl player */
 .deck{background:var(--paper);border-radius:18px;box-shadow:var(--soft);border:1px solid var(--line);padding:18px 14px 14px;position:relative;overflow:hidden;max-width:100%}
 .deck:before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 70% 30%,rgba(201,137,43,.08),transparent 70%);pointer-events:none}
-.vinyl-wrap{position:relative;width:min(280px,78vw);aspect-ratio:1;margin:4px auto 0;touch-action:none;overflow:hidden}
+.vinyl-wrap{position:relative;width:min(280px,78vw);aspect-ratio:1;margin:4px auto 0;touch-action:pan-y;overflow:hidden}
 .vinyl{width:88%;height:88%;margin:6% auto;border-radius:50%;background:
   radial-gradient(circle at 50% 50%,#2a2622 0 14%,transparent 14.5%),
   repeating-radial-gradient(circle at 50% 50%,#1a1714 0 2px,#221e1a 2px 4px);
@@ -158,6 +158,12 @@ footer code{font-size:11px;background:var(--wash);padding:1px 5px;border-radius:
  .vinyl.spin,.vinyl.spin45,.eqw i,.eq i{animation:none!important}
  .rv{transition:none}.arm{transition:none}.pb{transition:width .2s}
 }
+
+/* ===== mobile fix 2026-10-25 ===== */
+html,body,.wrap{overflow-x:clip}
+@supports(height:100dvh){.sheet .card{max-height:86dvh}}
+.side-btn{width:44px;height:44px}.flipbtn{font-size:12px;font-weight:650;letter-spacing:.02em}
+#tgl button,#filters button{min-height:44px}
 </style></head><body>
 <div class="wrap">
  <div class="how e" style="--d:40ms"><span class="tag">今天怎么玩</span><div>点中间大圆播放键，唱片转起来、唱针落下；点歌单任一条切曲。顶部 <b>A 面 / B 面</b> 切换上午与午间。听完点左侧圆圈勾掉。彩蛋：连点唱片三下飙到 45 转；长按中心标签翻面；点右上角 RPM 徽章洗牌。</div></div>
@@ -191,7 +197,7 @@ footer code{font-size:11px;background:var(--wash);padding:1px 5px;border-radius:
       <span class="b play" id="play"><svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="ic-pause" viewBox="0 0 24 24"><rect x="7" y="6" width="3.5" height="12" rx="1"/><rect x="13.5" y="6" width="3.5" height="12" rx="1"/></svg></span>
       <span class="b next" id="next" aria-label="下一首"><svg viewBox="0 0 24 24"><path d="M15.8 6v12H18V6zm-9.8 6L15 5.5v13z"/></svg></span>
      </div>
-     <button class="side-btn" id="mark" type="button" aria-label="勾掉当前">&#10003;</button>
+     <button class="side-btn" id="mark" type="button" aria-label="勾掉当前">&#10003;</button><button class="side-btn flipbtn" id="flipb" type="button" aria-label="翻面 A/B">A/B</button>
     </div>
     <div class="prog"><div class="bar" id="bar" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="fill"></i></div>
      <div class="times"><span id="tmCur">0:00</span><span id="tmDur">0:00</span></div></div>
@@ -422,6 +428,7 @@ function toggleOpen(i){
 }
 /* events */
 $$('#tgl button').forEach(b=>b.addEventListener('click',()=>setSide(b.dataset.s)));
+$('#flipb').addEventListener('click',()=>{setSide(side==='morning'?'noon':'morning');toast('翻面！',side==='morning'?'现在是 A 面上午':'现在是 B 面午间')});
 $$('#filters button').forEach(b=>b.addEventListener('click',()=>{
   $$('#filters button').forEach(x=>x.classList.toggle('on',x===b));filt=b.dataset.k;applyFilter();
 }));
@@ -460,7 +467,7 @@ function setProg(clientX){const r=bar.getBoundingClientRect();const p=Math.max(0
   if(playing){t0=performance.now()-p*dur*1000}}
 bar.addEventListener('pointerdown',e=>{if(cur<0)return;scrub=true;bar.setPointerCapture(e.pointerId);setProg(e.clientX)});
 bar.addEventListener('pointermove',e=>{if(scrub)setProg(e.clientX)});
-bar.addEventListener('pointerup',()=>scrub=false);
+bar.addEventListener('pointerup',()=>scrub=false);bar.addEventListener('pointercancel',()=>scrub=false);
 /* egg 1: triple tap vinyl → 45rpm */
 let taps=[];
 vinyl.addEventListener('click',()=>{
@@ -473,7 +480,7 @@ vinyl.addEventListener('click',()=>{
 let lp=0;
 $('#label').addEventListener('pointerdown',()=>{lp=setTimeout(()=>{setSide(side==='morning'?'noon':'morning');toast('翻面！',side==='morning'?'现在是 A 面上午':'现在是 B 面午间');burst('🔄')},650)});
 $('#label').addEventListener('pointerup',()=>clearTimeout(lp));
-$('#label').addEventListener('pointerleave',()=>clearTimeout(lp));
+$('#label').addEventListener('pointerleave',()=>clearTimeout(lp));$('#label').addEventListener('pointercancel',()=>clearTimeout(lp));
 /* egg 3: rpm badge shuffle + confetti */
 $('#rpm').addEventListener('click',e=>{e.stopPropagation();$('#shuf').click()});
 /* egg 4: triple kick date → all unheard of current side autoplay */
