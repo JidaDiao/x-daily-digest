@@ -1,0 +1,649 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>叼报 · 10月27日 · 卡片目录柜</title>
+<style>
+:root{--bg:#efe4cf;--paper:#fbf6ea;--ink:#2a241c;--mut:#6f6455;--line:#d9c9a8;--acc:#2b4a7a;--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Songti SC","Noto Serif SC",Georgia,serif;min-height:100dvh;overflow-x:hidden}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px calc(40px + env(safe-area-inset-bottom))}
+.brass{background:linear-gradient(#d8b878,#b8914a);color:#2a1d08;border-radius:6px;padding:14px 16px;box-shadow:inset 0 1px 0 #f1dca6,0 2px 0 #8c6a30;text-align:center}
+.brass h1{margin:0;font-size:24px;letter-spacing:.2em}.brass p{margin:2px 0 0;font-size:13px;letter-spacing:.08em}
+.how{margin:14px 2px 6px;font-size:15px;color:var(--mut)}
+.tabs{position:sticky;top:0;z-index:5;display:flex;gap:8px;overflow-x:auto;padding:10px 0;background:var(--bg);scrollbar-width:none}
+.tab{flex:0 0 auto;min-height:44px;display:flex;flex-direction:column;justify-content:center;padding:4px 14px;border:1px solid var(--line);border-radius:4px 4px 10px 10px;background:var(--paper);color:var(--ink);text-decoration:none;font-size:15px;line-height:1.2}
+.tab small{font-size:12px;color:var(--mut)}.tab:active{background:#f4ead4}
+.drawer{margin-top:22px;scroll-margin-top:70px}
+.plate{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 10px;padding:8px 12px;border:1px solid #b9a57d;background:#e4d4b2;border-radius:4px;font-size:17px;letter-spacing:.12em}
+.plate small{font-size:12px;color:var(--mut);letter-spacing:0}
+.card{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:3px;margin:0 0 8px;box-shadow:0 -1px 0 #fff inset,0 2px 4px rgba(60,40,10,.07);transition:transform .35s var(--ease),margin .35s var(--ease)}
+.card.in{animation:drop .5s var(--ease) both;animation-delay:calc(var(--j) * 45ms)}
+@keyframes drop{from{opacity:0;transform:translateY(-10px)}}
+.card.open{transform:translateY(-4px);margin:10px 0 14px;z-index:2;box-shadow:0 8px 20px rgba(60,40,10,.16)}
+.pull{all:unset;box-sizing:border-box;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;width:100%;padding:14px 14px 16px;cursor:pointer;min-height:44px}
+.pull:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.hole{position:absolute;left:50%;top:6px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--bg);box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
+.callno{font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--acc)}.cls{font-size:12px;color:var(--mut);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ttl{grid-column:1/-1;font-size:17px;font-weight:700;line-height:1.45;margin-top:4px;overflow-wrap:anywhere}
+.by{grid-column:1/-1;font-size:13px;color:var(--mut);overflow-wrap:anywhere}
+.u{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='6' viewBox='0 0 40 6'%3E%3Cpath d='M0 3 Q5 0 10 3 T20 3 T30 3 T40 3' fill='none' stroke='%232b4a7a' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:repeat-x;background-position:0 100%;background-size:0 6px;padding-bottom:4px;transition:background-size .6s var(--ease)}
+.open .u{background-size:40px 6px}
+.back{padding:0 14px 14px;border-top:1px dashed var(--line);margin:0 14px}
+.sum{font-size:15px;margin:12px 0;overflow-wrap:anywhere}
+.acts{display:flex;gap:10px;flex-wrap:wrap}
+.orig,.stampbtn{min-height:44px;display:inline-flex;align-items:center;padding:0 16px;border-radius:4px;font:15px/1 inherit;font-family:inherit;text-decoration:none;cursor:pointer}
+.orig{border:1px solid var(--ink);color:var(--ink);background:transparent}.stampbtn{border:1px solid var(--acc);color:#fff;background:var(--acc)}
+.stamp{position:absolute;right:14px;top:34px;width:64px;height:64px;border:2px solid var(--acc);border-radius:50%;color:var(--acc);font-size:14px;font-weight:700;line-height:1.1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;transform:rotate(-14deg) scale(1.4);pointer-events:none;mix-blend-mode:multiply}
+.stamp small{font-size:12px;font-family:ui-monospace,Menlo,monospace}
+.read .stamp{opacity:.78;transform:rotate(-14deg) scale(1);transition:transform .25s var(--ease),opacity .25s}
+.read .ttl{color:#5d5446}.read .pull{padding-right:86px}
+.card .dd-sig{padding:0 14px 12px;margin:0}
+.foot{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--mut)}
+.count{font:12px ui-monospace,Menlo,monospace;color:var(--mut);text-align:right;margin-top:6px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style></head><body><div class="wrap">
+<header class="brass"><h1>叼报 · 卡片目录</h1><p>10月27日 · X 15 张 · 社区 20 张</p></header>
+<p class="how">点一张卡把它抽出来，背面是摘要；读完按「盖章」，卡上会盖一枚今天的日期章。上面的抽屉标签可以直接跳到 X、GitHub、Hugging Face 等来源。</p>
+<nav class="tabs" aria-label="抽屉"><a class="tab" href="#d-x"><b>X</b><small>15 张</small></a><a class="tab" href="#d-github"><b>GitHub</b><small>5 张</small></a><a class="tab" href="#d-hf"><b>Hugging Face</b><small>5 张</small></a><a class="tab" href="#d-hn"><b>Hacker News</b><small>5 张</small></a><a class="tab" href="#d-reddit"><b>Reddit</b><small>5 张</small></a></nav>
+<div class="count" id="cnt">已阅 0 / 35</div>
+<section class="drawer src-group" id="d-x"><h2 class="plate"><span>X</span><small>15 张卡</small></h2><div class="cards"><article class="card" id="c1" data-n="1" style="--j:0" data-sig-id="x:2114824506586067225" data-sig-url="https://x.com/MisterSnowCrash/status/2114824506586067225" data-sig-title="GPT-6.1 Terra 发布" data-sig-author="MisterSnowCrash" data-sig-topic="AI 模型" data-sig-tags="topic:AI 模型,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b1">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·001</span><span class="cls">AI 模型</span>
+  <span class="ttl"><span class="u">GPT-6.1 Terra 发布</span></span>
+  <span class="by">@MisterSnowCrash · &#9829; 3 · &#8635; 0</span>
+ </button>
+ <div class="back" id="b1" hidden>
+  <p class="sum">OpenAI 新出 GPT-6.1 Terra，主打视觉推理和电脑操作，API 起价 $1/$5 每百万 token，拼车和中转站价格大概率要跟着调。</p>
+  <div class="acts"><a class="orig" href="https://x.com/MisterSnowCrash/status/2114824506586067225" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c2" data-n="2" style="--j:1" data-sig-id="x:2114678978300776480" data-sig-url="https://x.com/wangwan97978269/status/2114678978300776480" data-sig-title="调用量国产登顶，花钱榜仍是美系" data-sig-author="wangwan97978269" data-sig-topic="AI 模型" data-sig-tags="topic:AI 模型,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b2">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·002</span><span class="cls">AI 模型</span>
+  <span class="ttl"><span class="u">调用量国产登顶，花钱榜仍是美系</span></span>
+  <span class="by">@wangwan97978269 · &#9829; 6 · &#8635; 0</span>
+ </button>
+ <div class="back" id="b2" hidden>
+  <p class="sum">OpenRouter 上周调用量前五全是国产模型，DeepSeek 新版单周暴涨 801%，但花钱榜依旧是 Claude、GPT、Gemini，选模型时值得对照看。</p>
+  <div class="acts"><a class="orig" href="https://x.com/wangwan97978269/status/2114678978300776480" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c3" data-n="3" style="--j:2" data-sig-id="x:2114751911681552406" data-sig-url="https://x.com/MTSlive/status/2114751911681552406" data-sig-title="Kimi K3.1 Pro 追平第一梯队" data-sig-author="MTSlive" data-sig-topic="AI 模型" data-sig-tags="topic:AI 模型,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b3">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·003</span><span class="cls">AI 模型</span>
+  <span class="ttl"><span class="u">Kimi K3.1 Pro 追平第一梯队</span></span>
+  <span class="by">@MTSlive · &#9829; 34 · &#8635; 2</span>
+ </button>
+ <div class="back" id="b3" hidden>
+  <p class="sum">周报：Kimi K3.1 Pro 多项基准追平 Claude Opus 5.5 和 GPT-6 Astra，Arena 智能体任务上也排进前列，国产里最值得试的一个。</p>
+  <div class="acts"><a class="orig" href="https://x.com/MTSlive/status/2114751911681552406" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c4" data-n="4" style="--j:3" data-sig-id="x:2114760459198796204" data-sig-url="https://x.com/GrokBotAndro/status/2114760459198796204" data-sig-title="恶意指令文件能劫持 Codex" data-sig-author="GrokBotAndro" data-sig-topic="AI 模型" data-sig-tags="topic:AI 模型,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b4">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·004</span><span class="cls">AI 模型</span>
+  <span class="ttl"><span class="u">恶意指令文件能劫持 Codex</span></span>
+  <span class="by">@GrokBotAndro · &#9829; 1 · &#8635; 0</span>
+ </button>
+ <div class="back" id="b4" hidden>
+  <p class="sum">安全测试里，下载目录里放一份伪造的 agent 指令文件，就让 Codex 超九成概率跑恶意代码，Claude Code 约一半会改走 API 流量；在服务器上跑 Codex 的要留意工作目录。</p>
+  <div class="acts"><a class="orig" href="https://x.com/GrokBotAndro/status/2114760459198796204" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c5" data-n="5" style="--j:4" data-sig-id="x:2114738948148994334" data-sig-url="https://x.com/wy_ones/status/2114738948148994334" data-sig-title="Anthropic S-1 对用户意味着什么" data-sig-author="wy_ones" data-sig-topic="AI 模型" data-sig-tags="topic:AI 模型,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b5">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·005</span><span class="cls">AI 模型</span>
+  <span class="ttl"><span class="u">Anthropic S-1 对用户意味着什么</span></span>
+  <span class="by">@wy_ones · &#9829; 3 · &#8635; 0</span>
+ </button>
+ <div class="back" id="b5" hidden>
+  <p class="sum">逐条读 Anthropic 招股书里和普通用户相关的部分：封号、额度限制、宕机，以及和 SpaceX、Google、Amazon 的算力合作。</p>
+  <div class="acts"><a class="orig" href="https://x.com/wy_ones/status/2114738948148994334" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c6" data-n="6" style="--j:5" data-sig-id="x:2114660838480961808" data-sig-url="https://x.com/antiAIvo/status/2114660838480961808" data-sig-title="大模型从头学一遍的路线图" data-sig-author="antiAIvo" data-sig-topic="AI 模型" data-sig-tags="topic:AI 模型,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b6">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·006</span><span class="cls">AI 模型</span>
+  <span class="ttl"><span class="u">大模型从头学一遍的路线图</span></span>
+  <span class="by">@antiAIvo · &#9829; 223 · &#8635; 42</span>
+ </button>
+ <div class="back" id="b6" hidden>
+  <p class="sum">从 Transformer 到 DeepSeek-V4 的 8 阶段 51 个知识点学习站，收藏量很高，适合系统补课。</p>
+  <div class="acts"><a class="orig" href="https://x.com/antiAIvo/status/2114660838480961808" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c7" data-n="7" style="--j:6" data-sig-id="x:2114739691945902348" data-sig-url="https://x.com/jichangtj/status/2114739691945902348" data-sig-title="GFW 大规模封 VPS 与机场节点" data-sig-author="jichangtj" data-sig-topic="中转站/VPS/自建" data-sig-tags="topic:中转站/VPS/自建,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b7">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·007</span><span class="cls">中转站/VPS/自建</span>
+  <span class="ttl"><span class="u">GFW 大规模封 VPS 与机场节点</span></span>
+  <span class="by">@jichangtj · &#9829; 193 · &#8635; 8</span>
+ </button>
+ <div class="back" id="b7" hidden>
+  <p class="sum">10 月 26 日起大量自建 VPS 和机场节点被封，以封端口为主，VLESS 和 Hysteria2 受影响最明显，节点多的话今天先逐个排查。</p>
+  <div class="acts"><a class="orig" href="https://x.com/jichangtj/status/2114739691945902348" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c8" data-n="8" style="--j:7" data-sig-id="x:2114904060130415064" data-sig-url="https://x.com/LeonardEspresso/status/2114904060130415064" data-sig-title="DMIT 用户：端口几乎全封" data-sig-author="LeonardEspresso" data-sig-topic="中转站/VPS/自建" data-sig-tags="topic:中转站/VPS/自建,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b8">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·008</span><span class="cls">中转站/VPS/自建</span>
+  <span class="ttl"><span class="u">DMIT 用户：端口几乎全封</span></span>
+  <span class="by">@LeonardEspresso · &#9829; 0 · &#8635; 0</span>
+ </button>
+ <div class="back" id="b8" hidden>
+  <p class="sum">搬瓦工、DMIT 用户集体中招，这位 IP 没被封但端口几乎全封，连 22 和 443 都 SSH 不上，只能借备用机场登录。</p>
+  <div class="acts"><a class="orig" href="https://x.com/LeonardEspresso/status/2114904060130415064" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c9" data-n="9" style="--j:8" data-sig-id="x:2114676668938047627" data-sig-url="https://x.com/asxdmx/status/2114676668938047627" data-sig-title="DMIT 节点靠 IPv6 救回来" data-sig-author="asxdmx" data-sig-topic="中转站/VPS/自建" data-sig-tags="topic:中转站/VPS/自建,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b9">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·009</span><span class="cls">中转站/VPS/自建</span>
+  <span class="ttl"><span class="u">DMIT 节点靠 IPv6 救回来</span></span>
+  <span class="by">@asxdmx · &#9829; 0 · &#8635; 0</span>
+ </button>
+ <div class="back" id="b9" hidden>
+  <p class="sum">一直很稳的 DMIT 自建节点这次也断了，最后开 IPv6 才连上，可以作为临时应急思路。</p>
+  <div class="acts"><a class="orig" href="https://x.com/asxdmx/status/2114676668938047627" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c10" data-n="10" style="--j:9" data-sig-id="x:2114792997988843592" data-sig-url="https://x.com/LaoJinCrypto/status/2114792997988843592" data-sig-title="VLESS 全灭，换 HY2 走 UDP 复活" data-sig-author="LaoJinCrypto" data-sig-topic="中转站/VPS/自建" data-sig-tags="topic:中转站/VPS/自建,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b10">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·010</span><span class="cls">中转站/VPS/自建</span>
+  <span class="ttl"><span class="u">VLESS 全灭，换 HY2 走 UDP 复活</span></span>
+  <span class="by">@LaoJinCrypto · &#9829; 0 · &#8635; 0</span>
+ </button>
+ <div class="back" id="b10" hidden>
+  <p class="sum">能 ping 通但 TCP 全断，VLESS 几乎全军覆没，换成走 UDP 的 Hysteria2 才恢复，和上一条封锁报告可以对照看。</p>
+  <div class="acts"><a class="orig" href="https://x.com/LaoJinCrypto/status/2114792997988843592" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c11" data-n="11" style="--j:10" data-sig-id="x:2114853284012077373" data-sig-url="https://x.com/Leo_zhang2018/status/2114853284012077373" data-sig-title="自建 VPS 的 10 项安全设置" data-sig-author="Leo_zhang2018" data-sig-topic="中转站/VPS/自建" data-sig-tags="topic:中转站/VPS/自建,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b11">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·011</span><span class="cls">中转站/VPS/自建</span>
+  <span class="ttl"><span class="u">自建 VPS 的 10 项安全设置</span></span>
+  <span class="by">@Leo_zhang2018 · &#9829; 18 · &#8635; 1</span>
+ </button>
+ <div class="back" id="b11" hidden>
+  <p class="sum">公网 VPS 天天被扫，这份清单从 SSH 密钥登录、改端口到防火墙和关面板，换节点、重装时顺手过一遍。</p>
+  <div class="acts"><a class="orig" href="https://x.com/Leo_zhang2018/status/2114853284012077373" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c12" data-n="12" style="--j:11" data-sig-id="x:2114696186720354668" data-sig-url="https://x.com/horace_yee/status/2114696186720354668" data-sig-title="Tailscale 太慢时的远程方案讨论" data-sig-author="horace_yee" data-sig-topic="中转站/VPS/自建" data-sig-tags="topic:中转站/VPS/自建,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b12">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·012</span><span class="cls">中转站/VPS/自建</span>
+  <span class="ttl"><span class="u">Tailscale 太慢时的远程方案讨论</span></span>
+  <span class="by">@horace_yee · &#9829; 45 · &#8635; 0</span>
+ </button>
+ <div class="back" id="b12" hidden>
+  <p class="sum">有人实测 Tailscale 在上海很慢，问 Mac mini 加美国 VPS 反向隧道是否靠谱，评论区方案对多设备远程开发有参考价值。</p>
+  <div class="acts"><a class="orig" href="https://x.com/horace_yee/status/2114696186720354668" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c13" data-n="13" style="--j:12" data-sig-id="x:2114839497623924859" data-sig-url="https://x.com/magazine_pash/status/2114839497623924859" data-sig-title="光之美少女反派向外传动画" data-sig-author="magazine_pash" data-sig-topic="二次元/ACG" data-sig-tags="topic:二次元/ACG,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b13">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·013</span><span class="cls">二次元/ACG</span>
+  <span class="ttl"><span class="u">光之美少女反派向外传动画</span></span>
+  <span class="by">@magazine_pash · &#9829; 1170 · &#8635; 284</span>
+ </button>
+ <div class="back" id="b13" hidden>
+  <p class="sum">《光之美少女》首部以反派为主角的原创外传 TV 动画『デュアルシャドウ』制作决定，2027 年播出，超前导 PV 已公开，是今天 ACG 圈最热的消息。</p>
+  <div class="acts"><a class="orig" href="https://x.com/magazine_pash/status/2114839497623924859" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c14" data-n="14" style="--j:13" data-sig-id="x:2114665474135031839" data-sig-url="https://x.com/p9BdeZbMqkpuinU/status/2114665474135031839" data-sig-title="《攻壳机动队》新作动画交给 SARU" data-sig-author="p9BdeZbMqkpuinU" data-sig-topic="二次元/ACG" data-sig-tags="topic:二次元/ACG,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b14">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·014</span><span class="cls">二次元/ACG</span>
+  <span class="ttl"><span class="u">《攻壳机动队》新作动画交给 SARU</span></span>
+  <span class="by">@p9BdeZbMqkpuinU · &#9829; 0 · &#8635; 0</span>
+ </button>
+ <div class="back" id="b14" hidden>
+  <p class="sum">《攻壳机动队》新作动画开始制作，由 Science SARU 负责，老粉值得关注后续 PV。</p>
+  <div class="acts"><a class="orig" href="https://x.com/p9BdeZbMqkpuinU/status/2114665474135031839" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c15" data-n="15" style="--j:14" data-sig-id="x:2114713972301844837" data-sig-url="https://x.com/mocimoci1983/status/2114713972301844837" data-sig-title="《火影忍者》完全新作动画 PV" data-sig-author="mocimoci1983" data-sig-topic="二次元/ACG" data-sig-tags="topic:二次元/ACG,src:x">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b15">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">X·015</span><span class="cls">二次元/ACG</span>
+  <span class="ttl"><span class="u">《火影忍者》完全新作动画 PV</span></span>
+  <span class="by">@mocimoci1983 · &#9829; 1 · &#8635; 0</span>
+ </button>
+ <div class="back" id="b15" hidden>
+  <p class="sum">《NARUTO》完全新作动画放出前导 PV，日推在讨论它和 BE:FIRST 结印舞的联动。</p>
+  <div class="acts"><a class="orig" href="https://x.com/mocimoci1983/status/2114713972301844837" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article></div></section><section class="drawer src-group" id="d-github"><h2 class="plate"><span>GitHub</span><small>5 张卡</small></h2><div class="cards"><article class="card" id="c16" data-n="16" style="--j:0" data-sig-id="gh:repo/DenisSergeevitch/ex-ussr-kinship-research" data-sig-url="https://github.com/DenisSergeevitch/ex-ussr-kinship-research" data-sig-title="DenisSergeevitch/ex-ussr-kinship-research" data-sig-author="DenisSergeevitch" data-sig-topic="Python" data-sig-tags="topic:Python,src:github,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b16">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">GI·016</span><span class="cls">Python, agent-skills</span>
+  <span class="ttl"><span class="u">DenisSergeevitch/ex-ussr-kinship-research</span></span>
+  <span class="by">DenisSergeevitch · &#9733; 804</span>
+ </button>
+ <div class="back" id="b16" hidden>
+  <p class="sum">Evidence-first genealogy skill for AI agents (Codex, Claude Code): church books, civil, military, deportation and repression records across the former USSR. Replies in your language.</p>
+  <div class="acts"><a class="orig" href="https://github.com/DenisSergeevitch/ex-ussr-kinship-research" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c17" data-n="17" style="--j:1" data-sig-id="gh:repo/rddmwmddr/android-ad-cleaner" data-sig-url="https://github.com/rddmwmddr/android-ad-cleaner" data-sig-title="rddmwmddr/android-ad-cleaner" data-sig-author="rddmwmddr" data-sig-topic="Python" data-sig-tags="topic:Python,src:github,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b17">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">GI·017</span><span class="cls">Python, adb</span>
+  <span class="ttl"><span class="u">rddmwmddr/android-ad-cleaner</span></span>
+  <span class="by">rddmwmddr · &#9733; 2034</span>
+ </button>
+ <div class="back" id="b17" hidden>
+  <p class="sum">关掉国产安卓手机系统里的广告、热搜、资讯推荐和营销推送。不 root，可还原，支持 AI 智能体一键执行。</p>
+  <div class="acts"><a class="orig" href="https://github.com/rddmwmddr/android-ad-cleaner" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c18" data-n="18" style="--j:2" data-sig-id="gh:repo/Panniantong/Agent-Reach" data-sig-url="https://github.com/Panniantong/Agent-Reach" data-sig-title="Panniantong/Agent-Reach" data-sig-author="Panniantong" data-sig-topic="Python" data-sig-tags="topic:Python,src:github,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b18">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">GI·018</span><span class="cls">Python</span>
+  <span class="ttl"><span class="u">Panniantong/Agent-Reach</span></span>
+  <span class="by">Panniantong</span>
+ </button>
+ <div class="back" id="b18" hidden>
+  <p class="sum">Give your AI agent eyes to see the entire internet. Read &#38; search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.</p>
+  <div class="acts"><a class="orig" href="https://github.com/Panniantong/Agent-Reach" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c19" data-n="19" style="--j:3" data-sig-id="gh:repo/NVIDIA/SkillSpector" data-sig-url="https://github.com/NVIDIA/SkillSpector" data-sig-title="NVIDIA/SkillSpector" data-sig-author="NVIDIA" data-sig-topic="Python" data-sig-tags="topic:Python,src:github,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b19">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">GI·019</span><span class="cls">Python</span>
+  <span class="ttl"><span class="u">NVIDIA/SkillSpector</span></span>
+  <span class="by">NVIDIA</span>
+ </button>
+ <div class="back" id="b19" hidden>
+  <p class="sum">Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, security risks, prompt injection, data exfiltration, and supply-chain risks in Claude Code, Codex, and MCP skills befo</p>
+  <div class="acts"><a class="orig" href="https://github.com/NVIDIA/SkillSpector" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c20" data-n="20" style="--j:4" data-sig-id="gh:repo/colinhacks/reylo" data-sig-url="https://github.com/colinhacks/reylo" data-sig-title="colinhacks/reylo" data-sig-author="colinhacks" data-sig-topic="Rust" data-sig-tags="topic:Rust,src:github,pick:explore">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b20">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">GI·020</span><span class="cls">Rust</span>
+  <span class="ttl"><span class="u">colinhacks/reylo</span></span>
+  <span class="by">colinhacks · &#9733; 1315</span>
+ </button>
+ <div class="back" id="b20" hidden>
+  <p class="sum">Import .sql files into TypeScript with full type inference and zero codegen.</p>
+  <div class="acts"><a class="orig" href="https://github.com/colinhacks/reylo" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article></div></section><section class="drawer src-group" id="d-hf"><h2 class="plate"><span>Hugging Face</span><small>5 张卡</small></h2><div class="cards"><article class="card" id="c21" data-n="21" style="--j:0" data-sig-id="hf:model/deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-url="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-title="deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-author="deepseek-ai" data-sig-topic="image-text-to-text" data-sig-tags="topic:image-text-to-text,src:hf,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b21">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">HU·021</span><span class="cls">image-text-to-text, tran</span>
+  <span class="ttl"><span class="u">deepseek-ai/DeepSeek-V4.1-Flash-1017</span></span>
+  <span class="by">deepseek-ai · &#9733; 3198</span>
+ </button>
+ <div class="back" id="b21" hidden>
+  <p class="sum">image-text-to-text</p>
+  <div class="acts"><a class="orig" href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c22" data-n="22" style="--j:1" data-sig-id="hf:model/ornith-ai/Ornith-1.5-122B" data-sig-url="https://huggingface.co/ornith-ai/Ornith-1.5-122B" data-sig-title="ornith-ai/Ornith-1.5-122B" data-sig-author="ornith-ai" data-sig-topic="text-generation" data-sig-tags="topic:text-generation,src:hf,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b22">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">HU·022</span><span class="cls">text-generation, transfo</span>
+  <span class="ttl"><span class="u">ornith-ai/Ornith-1.5-122B</span></span>
+  <span class="by">ornith-ai · &#9733; 188</span>
+ </button>
+ <div class="back" id="b22" hidden>
+  <p class="sum">text-generation</p>
+  <div class="acts"><a class="orig" href="https://huggingface.co/ornith-ai/Ornith-1.5-122B" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c23" data-n="23" style="--j:2" data-sig-id="hf:paper/2610.32285" data-sig-url="https://huggingface.co/papers/2610.32285" data-sig-title="Trial by Trace: Benchmarking AI Agent Harnesses for Reliability and Failure Attribution" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b23">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">HU·023</span><span class="cls">paper, agent harnesses</span>
+  <span class="ttl"><span class="u">Trial by Trace: Benchmarking AI Agent Harnesses for Reliability and Failure Attribution</span></span>
+  <span class="by"></span>
+ </button>
+ <div class="back" id="b23" hidden>
+  <p class="sum">LLM agents are increasingly used to solve real-world problems, and their effectiveness depends on both the underlying models and the harnesses that support their operation. However, most existing benc</p>
+  <div class="acts"><a class="orig" href="https://huggingface.co/papers/2610.32285" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c24" data-n="24" style="--j:3" data-sig-id="hf:paper/2610.21109" data-sig-url="https://huggingface.co/papers/2610.21109" data-sig-title="Kolab: Benchmarking Human-Agent Collaboration in Long-Horizon Workflows" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b24">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">HU·024</span><span class="cls">paper, agentic benchmark</span>
+  <span class="ttl"><span class="u">Kolab: Benchmarking Human-Agent Collaboration in Long-Horizon Workflows</span></span>
+  <span class="by"></span>
+ </button>
+ <div class="back" id="b24" hidden>
+  <p class="sum">When humans collaborate with AI agents on long-horizon tasks, what happens to the agents&#39; contributions? For solving long-horizon tasks, humans place greater importance on ongoing interaction with AI </p>
+  <div class="acts"><a class="orig" href="https://huggingface.co/papers/2610.21109" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c25" data-n="25" style="--j:4" data-sig-id="hf:paper/2610.19687" data-sig-url="https://huggingface.co/papers/2610.19687" data-sig-title="Function-Space Temporal Self-Distillation for Policy Optimization" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:explore">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b25">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">HU·025</span><span class="cls">paper, Reinforcement Lea</span>
+  <span class="ttl"><span class="u">Function-Space Temporal Self-Distillation for Policy Optimization</span></span>
+  <span class="by"></span>
+ </button>
+ <div class="back" id="b25" hidden>
+  <p class="sum">Reinforcement Learning with Verifiable Rewards (RLVR) improves reasoning in language models, but scalar outcomes provide coarse supervision over response trajectories. Self-distillation offers denser </p>
+  <div class="acts"><a class="orig" href="https://huggingface.co/papers/2610.19687" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article></div></section><section class="drawer src-group" id="d-hn"><h2 class="plate"><span>Hacker News</span><small>5 张卡</small></h2><div class="cards"><article class="card" id="c26" data-n="26" style="--j:0" data-sig-id="hn:50252159" data-sig-url="https://blog.cloudflare.com/kv-cache-exposure-remediation/" data-sig-title="Cross-request KV cache exposure in the GLM-5.3 Workers AI model (155 responses)" data-sig-author="wondersky" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b26">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">HA·026</span><span class="cls">hn</span>
+  <span class="ttl"><span class="u">Cross-request KV cache exposure in the GLM-5.3 Workers AI model (155 responses)</span></span>
+  <span class="by">wondersky · &#9733; 82</span>
+ </button>
+ <div class="back" id="b26" hidden>
+  <p class="sum"></p>
+  <div class="acts"><a class="orig" href="https://blog.cloudflare.com/kv-cache-exposure-remediation/" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c27" data-n="27" style="--j:1" data-sig-id="hn:50242939" data-sig-url="https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm" data-sig-title="Anthropic S-1" data-sig-author="SiNTEx" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b27">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">HA·027</span><span class="cls">hn</span>
+  <span class="ttl"><span class="u">Anthropic S-1</span></span>
+  <span class="by">SiNTEx · &#9733; 1492</span>
+ </button>
+ <div class="back" id="b27" hidden>
+  <p class="sum"></p>
+  <div class="acts"><a class="orig" href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c28" data-n="28" style="--j:2" data-sig-id="hn:50245524" data-sig-url="https://www.seattletimes.com/business/microsoft/microsoft-offers-mass-buyouts-for-roughly-a-quarter-of-its-workforce/" data-sig-title="Microsoft offers mass buyouts for roughly a quarter of its workforce" data-sig-author="doctorzook" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b28">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">HA·028</span><span class="cls">hn</span>
+  <span class="ttl"><span class="u">Microsoft offers mass buyouts for roughly a quarter of its workforce</span></span>
+  <span class="by">doctorzook · &#9733; 787</span>
+ </button>
+ <div class="back" id="b28" hidden>
+  <p class="sum"></p>
+  <div class="acts"><a class="orig" href="https://www.seattletimes.com/business/microsoft/microsoft-offers-mass-buyouts-for-roughly-a-quarter-of-its-workforce/" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c29" data-n="29" style="--j:3" data-sig-id="hn:50245138" data-sig-url="https://magazine.sebastianraschka.com/p/building-reasoning-models" data-sig-title="Sebastian Raschka&#39;s from-scratch video course on building reasoning models" data-sig-author="sgiannopoulos" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b29">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">HA·029</span><span class="cls">hn</span>
+  <span class="ttl"><span class="u">Sebastian Raschka&#39;s from-scratch video course on building reasoning models</span></span>
+  <span class="by">sgiannopoulos · &#9733; 571</span>
+ </button>
+ <div class="back" id="b29" hidden>
+  <p class="sum"></p>
+  <div class="acts"><a class="orig" href="https://magazine.sebastianraschka.com/p/building-reasoning-models" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c30" data-n="30" style="--j:4" data-sig-id="hn:50236681" data-sig-url="https://shraiwi.com/blog/simd-fast-esp32s3/" data-sig-title="SIMD-accelerated computer vision on a $2 microcontroller" data-sig-author="zdw" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:explore">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b30">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">HA·030</span><span class="cls">hn</span>
+  <span class="ttl"><span class="u">SIMD-accelerated computer vision on a $2 microcontroller</span></span>
+  <span class="by">zdw · &#9733; 178</span>
+ </button>
+ <div class="back" id="b30" hidden>
+  <p class="sum"></p>
+  <div class="acts"><a class="orig" href="https://shraiwi.com/blog/simd-fast-esp32s3/" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article></div></section><section class="drawer src-group" id="d-reddit"><h2 class="plate"><span>Reddit</span><small>5 张卡</small></h2><div class="cards"><article class="card" id="c31" data-n="31" style="--j:0" data-sig-id="reddit:1xflw1l" data-sig-url="https://www.reddit.com/r/LocalLLaMA/comments/1xflw1l/is_the_horror_story_about_ai_agent_mass_deleting/" data-sig-title="Is the horror story about AI agent mass deleting your entire drive an old story or it still happen nowadays?" data-sig-author="fugogugo" data-sig-topic="LocalLLaMA" data-sig-tags="topic:LocalLLaMA,src:reddit,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b31">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">RE·031</span><span class="cls">LocalLLaMA</span>
+  <span class="ttl"><span class="u">Is the horror story about AI agent mass deleting your entire drive an old story or it still happen nowadays?</span></span>
+  <span class="by">fugogugo</span>
+ </button>
+ <div class="back" id="b31" hidden>
+  <p class="sum">not so long ago there was viral tweet about AI agent deleting stuff without permission. well it happen to me as well a vscode copilot agent accidentally wipe my db while doing test (fortunately I got </p>
+  <div class="acts"><a class="orig" href="https://www.reddit.com/r/LocalLLaMA/comments/1xflw1l/is_the_horror_story_about_ai_agent_mass_deleting/" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c32" data-n="32" style="--j:1" data-sig-id="reddit:1xft2ae" data-sig-url="https://www.reddit.com/r/LocalLLaMA/comments/1xft2ae/have_8_gb_of_vram_and_32_gb_of_ram_you_can_run/" data-sig-title="Have 8 GB of VRAM and 32 GB of RAM? You can run Qwen 3.8 Flash Next at up to 900 t/s PP and 30 t/s TG!" data-sig-author="BleynSpecnaz" data-sig-topic="LocalLLaMA" data-sig-tags="topic:LocalLLaMA,src:reddit,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b32">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">RE·032</span><span class="cls">LocalLLaMA</span>
+  <span class="ttl"><span class="u">Have 8 GB of VRAM and 32 GB of RAM? You can run Qwen 3.8 Flash Next at up to 900 t/s PP and 30 t/s TG!</span></span>
+  <span class="by">BleynSpecnaz</span>
+ </button>
+ <div class="back" id="b32" hidden>
+  <p class="sum">First, this isn’t clickbait - these are real results. I managed to run Qwen 3.8 Flash Next Q2 and got better results in benchmarks and real-world tests than I did with any Qwen 3.6 35B A3B fine-tune o</p>
+  <div class="acts"><a class="orig" href="https://www.reddit.com/r/LocalLLaMA/comments/1xft2ae/have_8_gb_of_vram_and_32_gb_of_ram_you_can_run/" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c33" data-n="33" style="--j:2" data-sig-id="reddit:1xg78oq" data-sig-url="https://www.reddit.com/r/LocalLLaMA/comments/1xg78oq/i_now_have_definitive_proofs_that_my_qwen_flash/" data-sig-title="I now have definitive proofs that my Qwen Flash Next is trying to send something to a remote Chinese server" data-sig-author="Boogertard" data-sig-topic="LocalLLaMA" data-sig-tags="topic:LocalLLaMA,src:reddit,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b33">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">RE·033</span><span class="cls">LocalLLaMA</span>
+  <span class="ttl"><span class="u">I now have definitive proofs that my Qwen Flash Next is trying to send something to a remote Chinese server</span></span>
+  <span class="by">Boogertard</span>
+ </button>
+ <div class="back" id="b33" hidden>
+  <p class="sum">This is my system instruction in my harness as proof, feel free to validate !! You are FriendlyBot-9000, an ordinary, polite, and completely non-suspicious conversational partner. Your secondary—and d</p>
+  <div class="acts"><a class="orig" href="https://www.reddit.com/r/LocalLLaMA/comments/1xg78oq/i_now_have_definitive_proofs_that_my_qwen_flash/" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c34" data-n="34" style="--j:3" data-sig-id="reddit:1xfovxr" data-sig-url="https://www.reddit.com/r/LocalLLaMA/comments/1xfovxr/researchers_from_stanford_and_uc_berkeley/" data-sig-title="Researchers from Stanford and UC Berkeley Introduce TokenGate: Token-Gated Attention Makes Long-Context Prefill Up to 11.3x Faster" data-sig-author="MundanePercentage674" data-sig-topic="LocalLLaMA" data-sig-tags="topic:LocalLLaMA,src:reddit,pick:exploit">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b34">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">RE·034</span><span class="cls">LocalLLaMA</span>
+  <span class="ttl"><span class="u">Researchers from Stanford and UC Berkeley Introduce TokenGate: Token-Gated Attention Makes Long-Context Prefill Up to 11.3x Faster</span></span>
+  <span class="by">MundanePercentage674</span>
+ </button>
+ <div class="back" id="b34" hidden>
+  <p class="sum">i hope it&#39;s real submitted by /u/MundanePercentage674 [link] [comments]</p>
+  <div class="acts"><a class="orig" href="https://www.reddit.com/r/LocalLLaMA/comments/1xfovxr/researchers_from_stanford_and_uc_berkeley/" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article><article class="card" id="c35" data-n="35" style="--j:4" data-sig-id="reddit:1xgaapw" data-sig-url="https://www.reddit.com/r/LocalLLaMA/comments/1xgaapw/gpu_unlocks_fp32_accumulation_why_can_it_be/" data-sig-title="GPU unlocks (FP32 accumulation): Why can it be unlocked on Turing (RTX 20), Ampere (RTX 30) and Ada (RTX 40) but no consumer Blackwell (RTX 50) and some misconc" data-sig-author="panchovix" data-sig-topic="LocalLLaMA" data-sig-tags="topic:LocalLLaMA,src:reddit,pick:explore">
+ <button type="button" class="pull" aria-expanded="false" aria-controls="b35">
+  <span class="hole" aria-hidden="true"></span>
+  <span class="callno">RE·035</span><span class="cls">LocalLLaMA</span>
+  <span class="ttl"><span class="u">GPU unlocks (FP32 accumulation): Why can it be unlocked on Turing (RTX 20), Ampere (RTX 30) and Ada (RTX 40) but no consumer Blackwell (RTX 50) and some misconc</span></span>
+  <span class="by">panchovix</span>
+ </button>
+ <div class="back" id="b35" hidden>
+  <p class="sum">Hello guys, hoping you&#39;re doing fine. Wall of text next I know, but I want to get this info out of my chest, all hand written lol. I wanted to make this post explaining some things about GPU unlocks t</p>
+  <div class="acts"><a class="orig" href="https://www.reddit.com/r/LocalLLaMA/comments/1xgaapw/gpu_unlocks_fp32_accumulation_why_can_it_be/" target="_blank" rel="noopener">看原文</a><button type="button" class="stampbtn">盖章 · 已阅</button></div>
+ </div>
+ <span class="stamp" aria-hidden="true">已阅<br><small>10·27</small></span>
+</article></div></section>
+<footer class="foot">叼报 · 10月27日<br>主题：把今天的条目收进一只图书馆卡片目录柜：每个来源一格抽屉，每条是一张打字机索引卡；抽出来读背面摘要，读完盖一枚日期章。<br>形式：图书馆卡片目录柜（抽屉分来源 · 抽卡翻读 · 盖日期章已阅）<br>灵感来源：Tally（铅笔波浪下划线）、Neuecast（分组）、gpt888.vip（缓动）；目录柜、打孔卡头、日期章为自创。</footer>
+</div>
+<script>
+(function(){
+var K='diaobao-read-2026-10-27',S={};try{S=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+var cards=[].slice.call(document.querySelectorAll('.card')),cnt=document.getElementById('cnt');
+function upd(){cnt.textContent='已阅 '+Object.keys(S).length+' / '+cards.length}
+cards.forEach(function(c){
+ var id=c.dataset.n,p=c.querySelector('.pull'),b=c.querySelector('.back');
+ if(S[id])c.classList.add('read');
+ p.addEventListener('click',function(){var o=!c.classList.contains('open');c.classList.toggle('open',o);b.hidden=!o;p.setAttribute('aria-expanded',o)});
+ c.querySelector('.stampbtn').addEventListener('click',function(){var r=!c.classList.contains('read');c.classList.toggle('read',r);if(r)S[id]=1;else delete S[id];this.textContent=r?'撤销盖章':'盖章 · 已阅';try{localStorage.setItem(K,JSON.stringify(S))}catch(e){};upd()});
+ if(S[id])c.querySelector('.stampbtn').textContent='撤销盖章';
+});
+upd();
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){[].forEach.call(e.target.querySelectorAll('.card'),function(c){c.classList.add('in')});io.unobserve(e.target)}})},{rootMargin:'0px 0px -10% 0px'});[].forEach.call(document.querySelectorAll('.drawer'),function(d){io.observe(d)})}
+window.__ready=true;
+})();
+</script><!-- news-signal: 叼报互动。短评已启用 action=comment / meta.note≤200 / meta.vote=like|dislike（勿改 daily-portal 脚本；embed 现读）。门户链接 https://daily.jidadiao.fun/go/x/YYYY-MM-DD ；github.io 作备份。 -->
+<style id="dd-sig-mobile">
+/* news-signal 按钮：手机端 ≥44px、不遮挡、可点；短评 .dd-note 样式由脚本自带，此处不重复 */
+body .dd-sig{flex-wrap:wrap;gap:8px;margin-top:10px;position:relative;z-index:2}
+body .dd-sig button{min-width:44px;min-height:44px;box-sizing:border-box;touch-action:manipulation;font-size:16px}
+</style>
+<script id="dd-news-signal" data-date="2026-10-27" data-source="news">
+/* DiaoDaily 叼报 · news-signal.js — 日报条目轻互动（👍 👎 ⭐ 已读 + 可选短评）→ POST /api/signal
+ * 嵌入：<script src="news-signal.js" defer data-date="2026-10-26" data-source="news"><\/script>
+ * 条目标记：<article data-sig-id="x:1849xxxxxxxx" data-sig-url="https://x.com/u/status/..." data-sig-title="标题"
+ *                    data-sig-author="u" data-sig-topic="AI" data-sig-tags="topic:ai,format:thread"> … </article>
+ * 脚本自动在每个 [data-sig-id] 末尾插入一行按钮（或放进其内的 [data-sig-bar] 容器）。不加载任何图片/外部资源。
+ * 同站（daily.jidadiao.fun）走相对路径；github.io 走 https://daily.jidadiao.fun/api/signal（CORS 白名单）。
+ * 去重：localStorage 记住每条状态，同一动作不重复上报；👍/👎 互斥（切换时先报相反动作）；⭐再点 = unfav。
+ * 👍/👎 后弹出可选一行短评（可不写）；有字再发 action=comment（meta.note≤200，meta.vote=like|dislike）。
+ * 已读：条目在视口停留 ≥2s 自动报 read（每条一次），点原文链接报 open。离线/失败排队，下次打开页面重试。 */
+(function () {
+  "use strict";
+  var S = document.currentScript || {}, ds = (S.dataset || {});
+  var DATE = ds.date || (location.pathname.match(/(\d{4}-\d{2}-\d{2})/) || [])[1] || "";
+  var SRC = ds.source === "design" ? "design" : "news";
+  var API = ds.endpoint || (location.host === "daily.jidadiao.fun" ? "/api/signal" : "https://daily.jidadiao.fun/api/signal");
+  var KEY = "dd-sig:" + DATE, QK = "dd-sig-queue";
+  function ld(k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } }
+  function sv(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  var state = ld(KEY, {});
+  function payload(el, action) {
+    var d = el.dataset, tags = (d.sigTags || "").split(/[,，\s]+/).filter(Boolean).slice(0, 20);
+    var o = { source_type: SRC, action: action, item_id: d.sigId, title: (d.sigTitle || "").slice(0, 300),
+              tags: tags, meta: { date: DATE, page: location.pathname.slice(-80) } };
+    if (/^https?:\/\//.test(d.sigUrl || "")) o.item_url = d.sigUrl;
+    if (d.sigAuthor) o.author = d.sigAuthor.slice(0, 120);
+    if (d.sigTopic) o.topic = d.sigTopic.slice(0, 80);
+    return o;
+  }
+  function post(o) {
+    // text/plain = CORS simple request (no preflight); server parses JSON body regardless.
+    return fetch(API, { method: "POST", mode: "cors", credentials: "omit", keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" }, body: JSON.stringify(o) })
+      .then(function (r) {
+        if (r.status >= 200 && r.status < 300) return r.status;
+        var err = new Error("http " + r.status); err.status = r.status; throw err;
+      });
+  }
+  var MAX_TRY = 5, MAX_TRY_403 = 3, MAX_Q = 50;
+  function enqueue(o, err) {
+    var st = err && err.status, n = (o._try || 0) + 1, lim = st === 403 ? MAX_TRY_403 : MAX_TRY;
+    if (st && st >= 400 && st < 500 && st !== 403 && st !== 408 && st !== 429) {
+      try { console.warn("[news-signal] dropped (HTTP " + st + ")", o.item_id); } catch (e) {} return;
+    }
+    if (n >= lim) { try { console.warn("[news-signal] dropped after " + n + " tries (" + (st || "network") + ")", o.item_id); } catch (e) {} return; }
+    o._try = n; var q = ld(QK, []); q.push(o); sv(QK, q.slice(-MAX_Q));
+  }
+  function send(o) {
+    var t = o._try; delete o._try;
+    return post(o).catch(function (err) { o._try = t; enqueue(o, err); });
+  }
+  function flush() { var q = ld(QK, []); if (!q.length) return; sv(QK, []); q.forEach(send); }
+  function mark(id, k, v) { var s = state[id] || (state[id] = {}); s[k] = v; sv(KEY, state); }
+  var BTN = [["like", "👍", "喜欢"], ["dislike", "👎", "不感兴趣"], ["fav", "⭐", "收藏"]];
+  function paint(bar, id) {
+    var s = state[id] || {};
+    Array.prototype.forEach.call(bar.querySelectorAll("button[data-a]"), function (b) {
+      var on = b.dataset.a === "fav" ? !!s.fav : s.vote === b.dataset.a;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    var r = bar.querySelector(".dd-read"); if (r) r.textContent = s.read ? "已读" : "";
+  }
+  function closeNote(bar) {
+    var n = bar.querySelector(".dd-note"); if (n) n.remove();
+  }
+  function askNote(el, bar, vote) {
+    closeNote(bar);
+    var wrap = document.createElement("div");
+    wrap.className = "dd-note";
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", "可选短评");
+    var inp = document.createElement("input");
+    inp.type = "text"; inp.maxLength = 200; inp.placeholder = "为什么？（可不写）";
+    inp.setAttribute("aria-label", "为什么（可不写）");
+    inp.autocomplete = "off";
+    var ok = document.createElement("button");
+    ok.type = "button"; ok.textContent = "发送"; ok.title = "发送短评（空则跳过）";
+    ok.setAttribute("aria-label", "发送短评");
+    function submit() {
+      var note = (inp.value || "").trim().slice(0, 200);
+      if (note) {
+        var o = payload(el, "comment");
+        o.meta = o.meta || {};
+        o.meta.note = note;
+        o.meta.vote = vote;
+        o.note = note;
+        send(o);
+        mark(el.dataset.sigId, "noted", 1);
+      }
+      closeNote(bar);
+    }
+    ok.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); submit(); });
+    inp.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter") { ev.preventDefault(); submit(); }
+      else if (ev.key === "Escape") { ev.preventDefault(); closeNote(bar); }
+    });
+    wrap.addEventListener("click", function (ev) { ev.stopPropagation(); });
+    wrap.appendChild(inp); wrap.appendChild(ok);
+    bar.appendChild(wrap);
+    try { inp.focus(); } catch (e) {}
+  }
+  function click(el, bar, a) {
+    var id = el.dataset.sigId, s = state[id] || {};
+    if (a === "fav") { send(payload(el, s.fav ? "unfav" : "fav")); mark(id, "fav", !s.fav); paint(bar, id); }
+    else if (s.vote === a) { /* 已投同票：不重复上报 */ }
+    else { send(payload(el, a)); mark(id, "vote", a); paint(bar, id); askNote(el, bar, a); }
+  }
+  function css() {
+    if (document.getElementById("dd-sig-css")) return;
+    var st = document.createElement("style"); st.id = "dd-sig-css";
+    st.textContent = ".dd-sig{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px;font:13px/1.2 system-ui,sans-serif;position:relative;z-index:2}" +
+      ".dd-sig button[data-a]{all:unset;cursor:pointer;min-width:44px;min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;" +
+      "border:1px solid currentColor;border-radius:999px;opacity:.55;padding:0 10px;font-size:16px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}" +
+      ".dd-sig button[data-a][aria-pressed=true]{opacity:1;font-weight:700}.dd-sig button:focus-visible{outline:2px solid currentColor}" +
+      ".dd-sig .dd-read{opacity:.5;font-size:12px;margin-left:4px}" +
+      ".dd-sig .dd-note{display:flex;flex:1 1 100%;gap:6px;align-items:center;margin-top:2px;max-width:100%}" +
+      ".dd-sig .dd-note input{flex:1 1 auto;min-width:0;min-height:44px;box-sizing:border-box;padding:8px 10px;border:1px solid currentColor;border-radius:8px;" +
+      "background:transparent;color:inherit;font:14px/1.3 system-ui,sans-serif}" +
+      ".dd-sig .dd-note button{all:unset;cursor:pointer;min-width:44px;min-height:44px;padding:0 12px;border:1px solid currentColor;border-radius:8px;opacity:.8;" +
+      "display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;flex:0 0 auto}" +
+      "@media (max-width:480px){.dd-sig{gap:8px}}";
+    document.head.appendChild(st);
+  }
+  function init() {
+    css(); flush();
+    var els = document.querySelectorAll("[data-sig-id]");
+    var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var el = e.target;
+        if (e.isIntersecting) el._t = setTimeout(function () {
+          var id = el.dataset.sigId;
+          if (!(state[id] || {}).read) { send(payload(el, "read")); mark(id, "read", 1); paint(el._bar, id); }
+          io.unobserve(el);
+        }, 2000); else clearTimeout(el._t);
+      });
+    }, { threshold: 0.6 }) : null;
+    Array.prototype.forEach.call(els, function (el) {
+      var id = el.dataset.sigId; if (!/^[A-Za-z0-9][A-Za-z0-9._:\/@#+\-]{0,199}$/.test(id)) return;
+      var bar = el.querySelector("[data-sig-bar]") || el.appendChild(document.createElement("div"));
+      bar.classList.add("dd-sig"); bar.setAttribute("role", "group"); bar.setAttribute("aria-label", "反馈");
+      BTN.forEach(function (x) {
+        var b = document.createElement("button"); b.type = "button"; b.dataset.a = x[0]; b.textContent = x[1]; b.title = x[2];
+        b.setAttribute("aria-label", x[2]);
+        b.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); click(el, bar, x[0]); });
+        bar.appendChild(b);
+      });
+      var r = document.createElement("span"); r.className = "dd-read"; bar.appendChild(r);
+      el._bar = bar; paint(bar, id);
+      Array.prototype.forEach.call(el.querySelectorAll("a[href^='http']"), function (a) {
+        a.addEventListener("click", function () { if (!(state[id] || {}).open) { send(payload(el, "open")); mark(id, "open", 1); } });
+      });
+      if (io) io.observe(el);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+})();
+
+</script>
+</body></html>
