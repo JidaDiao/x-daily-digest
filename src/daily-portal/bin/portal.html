@@ -1,0 +1,167 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>每日推送</title><meta name="theme-color" content="#f7f7f5">
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--fg:#1d1d1f;--mute:#6e6e73;--line:#e8e8e6;--ac:#2c76a0;--acs:#e6f2f9;--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:880px;margin:0 auto;padding:28px 18px 80px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:20px}
+h1{font-size:26px;letter-spacing:-.02em;margin:0;font-weight:650}
+.sub{color:var(--mute);font-size:13px}
+.tabs{position:sticky;top:10px;z-index:5;display:inline-flex;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:22px;position:relative}
+.tabs button{position:relative;z-index:1;border:0;background:none;font:inherit;font-size:14px;padding:7px 16px;border-radius:999px;color:var(--mute);cursor:pointer;transition:color .3s var(--ease)}
+.tabs button[aria-selected=true]{color:#fff}
+.tabs .ind{position:absolute;top:4px;bottom:4px;left:4px;border-radius:999px;background:var(--fg);transition:transform .45s var(--ease),width .45s var(--ease)}
+section{display:none}section.on{display:block}
+.in{animation:up .6s var(--ease) both}
+@keyframes up{from{opacity:0;transform:translateY(10px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.today{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:720px){.today{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 18px 16px;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -12px rgba(0,0,0,.12)}
+a.card:active{transform:scale(.985)}
+.kicker{font-size:12px;color:var(--ac);font-weight:600;letter-spacing:.04em}
+.card h3{margin:6px 0 4px;font-size:18px;letter-spacing:-.01em}
+.card p{margin:0;color:var(--mute);font-size:13.5px}
+.go{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13px;font-weight:600;background:var(--fg);color:#fff;border-radius:999px;padding:6px 13px}
+.go i{font-style:normal;transition:transform .3s var(--ease)}a.card:hover .go i{transform:translateX(3px)}
+.empty{opacity:.55}
+h2{font-size:14px;color:var(--mute);font-weight:600;margin:28px 2px 10px}
+.list{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.d{font-variant-numeric:tabular-nums;font-weight:600;min-width:52px}
+.d small{display:block;color:var(--mute);font-weight:400;font-size:11.5px}
+.t{flex:1;min-width:0}.t b{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t span{color:var(--mute);font-size:12.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pills{display:flex;gap:6px;flex-shrink:0}
+.pill{font-size:12.5px;padding:5px 11px;border-radius:999px;background:var(--bg);border:1px solid var(--line);transition:background .25s,color .25s,border-color .25s}
+.pill:hover{background:var(--acs);border-color:transparent;color:var(--ac)}
+.pill.off{opacity:.35;pointer-events:none}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.bar .pill{background:var(--card)}
+.favs{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:720px){.favs{grid-template-columns:1fr 1fr}}
+.fav{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.media{background:#f0f0ee;aspect-ratio:16/10;display:flex;gap:2px;overflow-x:auto;scroll-snap-type:x mandatory}
+.media>*{flex:0 0 100%;width:100%;height:100%;object-fit:contain;scroll-snap-align:start;background:#f0f0ee}
+.fb{padding:14px 16px 16px}
+.fh{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.fh b{font-size:16px}.stars{color:var(--ac);font-size:13px;white-space:nowrap}
+.meta{color:var(--mute);font-size:12px;margin:2px 0 8px;word-break:break-all}
+.notes{font-size:13.5px;color:#3a3a3c;margin:0 0 8px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+details{font-size:12.5px}summary{cursor:pointer;color:var(--ac)}
+pre{background:var(--bg);border-radius:10px;padding:10px;overflow:auto;font-size:11.5px;max-height:220px}
+.lnk{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.cal{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px 14px 16px;overflow:hidden;touch-action:pan-y}
+.ch{display:flex;align-items:center;justify-content:space-between;margin:0 6px 4px}
+.ch b{font-size:20px;letter-spacing:-.02em;font-weight:650;font-variant-numeric:tabular-nums}
+.ch b em{font-style:normal;color:var(--mute);font-weight:500}
+.nb{width:32px;height:32px;border-radius:999px;border:0;background:var(--bg);font-size:15px;cursor:pointer;color:var(--fg);transition:transform .25s var(--ease),background .25s}
+.nb:hover{background:#ededeb}.nb:active{transform:scale(.9)}.nb:disabled{opacity:.3;cursor:default}
+.sum{margin:0 6px 14px;font-size:13px;color:var(--mute)}.sum b{color:var(--ac);font-weight:600}
+.wd,.gr{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));column-gap:0;row-gap:6px}
+.wd span{text-align:center;font-size:11.5px;color:var(--mute);padding-bottom:6px}
+.gr.enter-l{animation:sl .45s var(--ease) both}.gr.enter-r{animation:sr .45s var(--ease) both}
+@keyframes sl{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+@keyframes sr{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+.c{min-width:0;position:relative;height:52px;border:0;background:none;font:inherit;color:inherit;padding:0;display:flex;align-items:center;justify-content:center;animation:pop .5s var(--ease) both;-webkit-tap-highlight-color:transparent}
+@keyframes pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+.c::before{content:"";position:absolute;top:5px;bottom:5px;left:-1px;right:-1px;background:var(--acs);opacity:0;transition:opacity .3s}
+.c.st::before{opacity:1}.c.st-l::before{left:50%;margin-left:-21px;border-radius:21px 0 0 21px}.c.st-r::before{right:50%;margin-right:-21px;border-radius:0 21px 21px 0}.c.st-l.st-r::before{border-radius:21px}
+.rg{position:relative;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;transition:transform .3s var(--ease),background .3s}
+.rg svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.rg circle{fill:none;stroke-width:2.6;stroke-linecap:round;transition:stroke .4s var(--ease)}
+.rg .n{position:relative;font-size:14.5px;font-weight:550;font-variant-numeric:tabular-nums}
+.c.has{cursor:pointer}.c.has:hover .rg{transform:scale(1.07)}
+.c.none .n{color:#c7c7cc;font-weight:400}.c.pad{visibility:hidden}
+.c.today .n{color:var(--ac);font-weight:700}.c.today .rg::after{content:"";position:absolute;bottom:-5px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--ac)}
+.c.sel .rg{background:#fff;box-shadow:0 0 0 1.5px var(--ac),0 6px 16px -6px rgba(44,118,160,.45)}
+.pv{margin-top:14px;border-top:1px solid var(--line);padding:14px 6px 2px;min-height:124px}
+.pv .pd{font-size:12px;color:var(--mute);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pv .pi{animation:up .35s var(--ease) both}
+.tag{display:inline-flex;align-items:center;gap:5px}.tag i{width:7px;height:7px;border-radius:50%;background:#dcdcd8}.tag.on i{background:var(--ac)}
+.pv h4{margin:6px 0 2px;font-size:16px}.pv p{margin:0 0 10px;color:var(--mute);font-size:13px}
+.pv .pills .pill{font-size:13px;padding:7px 14px}.pv .pills .pill.pri{background:var(--fg);color:#fff;border-color:var(--fg)}
+.lg{display:flex;flex-wrap:wrap;gap:8px 16px;margin:14px 6px 0;font-size:12px;color:var(--mute)}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg svg{width:16px;height:16px;transform:rotate(-90deg)}.lg circle{fill:none;stroke-width:3;stroke-linecap:round}
+.lg .cap{width:22px;height:10px;border-radius:5px;background:var(--acs)}
+@media(min-width:720px){.c{height:60px}.rg{width:46px;height:46px}.cal{padding:22px 24px 20px}.c.st-l::before{margin-left:-23px}.c.st-r::before{margin-right:-23px}}
+@media (prefers-reduced-motion:reduce){.rg,.c::before{transition:none}}
+footer{margin-top:36px;color:var(--mute);font-size:12px;text-align:center}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><div class="wrap">
+<header><div><h1>每日推送</h1><div class="sub" id="sub"></div></div></header>
+<nav class="tabs" role="tablist"><span class="ind"></span><button role="tab" data-t="today" aria-selected="true">今天</button><button role="tab" data-t="archive">往期</button><button role="tab" data-t="favs">收藏库</button></nav>
+<section id="today" class="on"></section><section id="archive"></section><section id="favs"></section>
+<footer id="ft"></footer></div>
+<script>
+const D=/*DATA*/null;const $=s=>document.querySelector(s);const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const wk=d=>"周"+"日一二三四五六"[new Date(d+"T00:00:00+08:00").getDay()];
+const md=d=>d.slice(5).replace("-","/");
+const TSH=new Date(Date.now()+8*3600e3).toISOString().slice(0,10);/* today in Asia/Shanghai */
+const t=D.days.find(d=>d.date===TSH)||{},last=D.days.find(d=>d.date<TSH)||D.days[0]||{};$("#sub").textContent=`${TSH} ${wk(TSH)} · 共 ${D.days.length} 期`;
+function card(href,k,h,p){return href?`<a class="card in" href="${href}"><div class="kicker">${k}</div><h3>${esc(h)}</h3><p>${esc(p)}</p><span class="go">打开 <i>→</i></span></a>`:`<div class="card empty in"><div class="kicker">${k}</div><h3>今天的页面还没上线</h3><p>上线后自动出现（每 30 分钟同步）</p></div>`}
+$("#today").innerHTML=`<div class="today">${card(t.x,"叼报",(t.xtitle||"").replace(/X ?(日报|每日 ?AI ?推荐)|X Daily/g,"叼报")||"叼报","AI 模型 · 中转站/VPS · 二次元")}${card(t.design,"设计灵感",(t.designs||[]).join(" · ")||"每日设计灵感","Web 复刻 demo + App Mobbin 原图原视频")}</div>
+${!t.x&&!t.design&&last.date?`<p class="sub" style="margin:14px 6px 0">今天的页面还没上线 · 先看最近一期 ${md(last.date)} ${wk(last.date)}</p><div class="list">${row(last,0)}</div>`:""}
+<h2>最近几期</h2><div class="list">${D.days.filter(d=>d.date!==TSH&&!(!t.x&&!t.design&&d===last)).slice(0,4).map(row).join("")}</div>`;
+function row(d,i){return `<div class="row in" style="animation-delay:${Math.min(i,12)*30}ms"><div class="d">${md(d.date)}<small>${wk(d.date)}</small></div><div class="t"><b>${esc((d.xtitle||"").replace(/X ?(日报|每日 ?AI ?推荐)|X Daily/g,"叼报")||(d.x?"叼报":"—"))}</b><span>${esc((d.designs||[]).join(" · "))}</span></div><div class="pills"><a class="pill ${d.x?"":"off"}" href="${d.x||"#"}">叼报</a><a class="pill ${d.design?"":"off"}" href="${d.design||"#"}">设计</a></div></div>`}
+
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const byD=Object.fromEntries(D.days.map(d=>[d.date,d]));let ST=D.status||{};
+const nowSH=new Date(Date.now()+8*3600e3).toISOString().slice(0,10);
+const months=[...new Set(D.days.map(d=>d.date.slice(0,7)).concat([nowSH.slice(0,7)]))].sort();
+let mi=months.indexOf(nowSH.slice(0,7));let sel=null;
+const AC="var(--ac)",OFF="#e4e4e0",R=18,CC=2*Math.PI*R,GAP=7,SEG=CC/3-GAP;
+function ring(on,size){/* 3 equal arcs, equal gaps, starting at 12 o'clock: X read · design read · rated */
+ return `<svg viewBox="0 0 44 44" aria-hidden="true">${on.map((o,i)=>`<circle cx="22" cy="22" r="${R}" stroke="${o?AC:OFF}" stroke-dasharray="${SEG} ${CC-SEG}" stroke-dashoffset="${-(i*CC/3+GAP/2)}"/>`).join("")}</svg>`}
+function flags(d){const s=ST[d]||{},b=byD[d]||{};return [!!(b.x&&s.x_read),!!(b.design&&s.design_read),!!(b.design&&s.rated)]}
+const full=d=>byD[d]&&flags(d).every(Boolean);
+$("#archive").innerHTML=`<div class="cal"><div class="ch"><b id="mt"></b><span><button class="nb" id="pm" aria-label="上个月">‹</button> <button class="nb" id="nm" aria-label="下个月">›</button></span></div>
+<div class="sum" id="sum"></div>
+<div class="wd">${"一二三四五六日".split("").map(w=>`<span>${w}</span>`).join("")}</div><div class="gr" id="gr"></div>
+<div class="pv" id="pv"></div>
+<div class="lg"><span>${ring([1,0,0])}X 已读</span><span>${ring([0,1,0])}设计已读</span><span>${ring([0,0,1])}设计已打分</span><span><i class="cap"></i>连续全部完成</span></div></div>`;
+document.querySelectorAll(".lg svg").forEach(v=>v.setAttribute("viewBox","0 0 44 44"));
+function tags(d){const b=byD[d]||{},[x,dr,rt]=flags(d),t=(on,l)=>`<span class="tag ${on?"on":""}"><i></i>${l}</span>`;
+ return (b.x?t(x,x?"X 已读":"X 未读"):"")+(b.design?t(dr,dr?"设计已读":"设计未读")+t(rt,rt?"已打分":"未打分"):"")}
+function preview(d){const b=byD[d],pv=$("#pv"),isT=d===nowSH;
+ if(!d){pv.innerHTML="";return}
+ if(!b&&!isT){pv.innerHTML=`<div class="pi"><div class="pd">${d} ${wk(d)}</div><h4>这天没有推送</h4></div>`;return}
+ const bb=b||{};const xt=bb.x?((bb.xtitle||"").replace(/X ?(日报|每日 ?AI ?推荐)|X Daily/g,"叼报")||"叼报"):(isT?"叼报午间发布":"这天没有 叼报");
+ const ds=(bb.designs||[]).join(" · ")||(isT?"设计灵感约 9:30 发布":"这天没有设计灵感");
+ pv.innerHTML=`<div class="pi"><div class="pd">${d} ${wk(d)}${isT?" · 今天":""} ${tags(d)}</div><h4>${esc(xt)}</h4><p>${esc(ds)}</p><div class="pills"><a class="pill pri ${bb.x?"":"off"}" href="${bb.x||"#"}">打开 叼报</a><a class="pill ${bb.design?"":"off"}" href="${bb.design||"#"}">打开设计灵感</a></div></div>`}
+function render(dir){const ym=months[mi],[y,m]=ym.split("-").map(Number);$("#mt").innerHTML=`${m}月 <em>${y}</em>`;$("#pm").disabled=mi<=0;$("#nm").disabled=mi>=months.length-1;
+ const first=(new Date(Date.UTC(y,m-1,1)).getUTCDay()+6)%7,n=new Date(Date.UTC(y,m,0)).getUTCDate();let h="",cnt=0,tot=0;
+ const ds=k=>`${ym}-${String(k).padStart(2,"0")}`;
+ for(let i=0;i<first;i++)h+=`<div class="c pad"></div>`;
+ for(let k=1;k<=n;k++){const d=ds(k),has=!!byD[d],col=(first+k-1)%7,isT=d===nowSH;if(has){tot++;if(full(d))cnt++}
+  let st="";if(full(d)){st=" st";const pf=k>1&&col>0&&full(ds(k-1)),nf=k<n&&col<6&&full(ds(k+1));if(!pf)st+=" st-l";if(!nf)st+=" st-r"}
+  h+=`<button class="c ${has?"has":"none"}${isT?" today":""}${d===sel?" sel":""}${st}" data-d="${d}" ${has||isT?"":"disabled"} style="animation-delay:${RM?0:Math.min(first+k,40)*14}ms" aria-label="${d}"><span class="rg">${has?ring(flags(d)):""}<span class="n">${k}</span></span></button>`}
+ $("#sum").innerHTML=tot?`本月 ${tot} 期 · 全部看完并打分 <b>${cnt}</b> 期`:"本月还没有推送";
+ const g=$("#gr");g.className="gr"+(dir&&!RM?(dir<0?" enter-l":" enter-r"):"");g.innerHTML=h;
+ g.querySelectorAll(".c:not([disabled])").forEach(c=>{c.onmouseenter=()=>{if(matchMedia("(hover:hover)").matches)preview(c.dataset.d)};c.onclick=()=>{sel=c.dataset.d;g.querySelectorAll(".c").forEach(x=>x.classList.toggle("sel",x===c));preview(sel)}});
+ g.onmouseleave=()=>preview(sel)}
+function mv(k){const j=mi+k;if(j<0||j>=months.length)return;mi=j;render(k)}
+$("#pm").onclick=()=>mv(-1);$("#nm").onclick=()=>mv(1);
+let sx=null,sy=0;const gv=$(".cal");gv.addEventListener("touchstart",e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+gv.addEventListener("touchend",e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;sx=null;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)mv(dx<0?1:-1)},{passive:true});
+sel=nowSH;render(0);preview(sel);
+fetch("/api/status",{cache:"no-store"}).then(r=>r.json()).then(s=>{ST=s;render(0);preview(sel)}).catch(()=>{});
+
+const st=r=>r?"★".repeat(r)+"☆".repeat(5-r):"";
+function media(m){const fs=(m.media||[]).filter(f=>/\.(mp4|webm|png|jpe?g|webp|gif|svg)$/i.test(f));if(!fs.length)return"";return `<div class="media">${fs.map(f=>{const u=`/favorites/${m.slug}/${encodeURIComponent(f)}`;return /\.(mp4|webm)$/i.test(f)?`<video src="${u}" muted loop playsinline controls preload="metadata"></video>`:`<img src="${u}" loading="lazy" alt="">`}).join("")}</div>`}
+function fav(m,i){return `<article class="fav in" style="animation-delay:${Math.min(i,10)*40}ms">${media(m)}<div class="fb"><div class="fh"><b>${esc(m.site)}</b><span class="stars">${m.fav?"♥ ":""}${st(m.rating)}</span></div>
+<div class="meta">${esc(m.library?"元素库":m.date)} · <a href="${esc(m.url)}" target="_blank" rel="noopener">${esc((m.url||"").replace(/^https?:\/\//,""))}</a></div>
+${m.notes?`<p class="notes">${esc(m.notes)}</p>`:""}
+${(m.tokens||[]).length?`<details><summary>可复用片段 ${m.tokens.length} 个</summary>${m.tokens.map(k=>`<p><b>${esc(k.id)}</b> ${esc(k.title||"")}</p>${k.css?`<pre>${esc(k.css)}</pre>`:""}${k.js?`<pre>${esc(k.js)}</pre>`:""}`).join("")}</details>`:""}
+<div class="lnk">${m.page_url?`<a class="pill" href="${m.page_url}">当期设计页</a>`:""}<a class="pill" href="/favorites/${m.slug}/">素材文件夹</a></div></div></article>`}
+$("#favs").innerHTML=`<div class="bar"><span class="sub">${D.favs.length} 个收藏 / 高分（fav 或 ≥4★）</span><span class="pills"><a class="pill" href="/favorites/">浏览文件夹</a><a class="pill" href="/favorites.zip">下载 zip</a><a class="pill" href="/favorites.json">JSON</a></span></div><div class="favs">${D.favs.map(fav).join("")}</div>`;
+$("#ft").textContent=`镜像自 GitHub Pages · 更新于 ${D.built}`;
+const tabs=[...document.querySelectorAll(".tabs button")],ind=$(".tabs .ind");
+function go(n,push){tabs.forEach(b=>b.setAttribute("aria-selected",b.dataset.t===n));document.querySelectorAll("section").forEach(s=>{const on=s.id===n;if(on&&!s.classList.contains("on")){s.querySelectorAll(".in").forEach(e=>{e.style.animation="none";e.offsetWidth;e.style.animation=""})}s.classList.toggle("on",on)});const b=tabs.find(b=>b.dataset.t===n);ind.style.width=b.offsetWidth+"px";ind.style.transform=`translateX(${b.offsetLeft-4}px)`;if(push)history.replaceState(null,"","#"+n)}
+tabs.forEach(b=>b.onclick=()=>go(b.dataset.t,1));addEventListener("resize",()=>go(tabs.find(b=>b.getAttribute("aria-selected")=="true").dataset.t));
+go(["today","archive","favs"].includes(location.hash.slice(1))?location.hash.slice(1):"today");
+</script></body></html>
