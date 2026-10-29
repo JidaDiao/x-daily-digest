@@ -20,3 +20,18 @@ hub/index.html 已更新
 二次运行:
 hub/index.html 无变化
 ```
+
+## 部署后实测（2026-10-29 11:24 上海时间，gh-pages 45e3854）
+```
+hub/index.html（不带参数与 ?t=随机 结果一致，缓存已更新）:
+  最新一期 2026-10-29
+  叼报 2026-10-29 -> https://jidadiao.github.io/x-daily-digest/2026-10-29.html
+  设计 2026-10-28 -> https://jidadiao.github.io/x-daily-digest/design/2026-10-28.html
+200 178263  /2026-10-29.html
+200 121899  /design/2026-10-28.html
+200   2781  /hub/
+200   5343  /   (title: 叼报 · 往期)
+门户 /go/x/2026-10-29      302 -> https://jidadiao.github.io/x-daily-digest/2026-10-29.html
+门户 /go/design/2026-10-28 302 -> https://daily.jidadiao.fun/design/2026-10-28.html (200)
+Actions: hub-entry success（无 diff，未产生额外提交）；pages build and deployment success
+```
