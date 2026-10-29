@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>今日推送</title>
+<title>今日推送 · DiaoDaily 叼报</title>
 <style>
 :root{--bg:#fafafa;--fg:#1d1d1f;--muted:#6e6e73;--border:#e5e5e8;--card:#fff;--primary:#0071e3}
 @media(prefers-color-scheme:dark){:root{--bg:#080808;--fg:#ededed;--muted:#8e8e93;--border:#282828;--card:#111;--primary:#4ea1ff}}
@@ -16,33 +16,35 @@ h1{font-size:clamp(28px,6vw,44px);font-weight:600;letter-spacing:-.03em;margin-b
 .card{display:block;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 22px;margin-bottom:14px;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s}
 .card:hover{transform:translateY(-2px);box-shadow:0 16px 40px -28px rgba(0,0,0,.45)}
 .card .tag{font-size:11px;color:var(--primary);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.card .date{font-family:ui-monospace,monospace;color:var(--muted);margin-left:8px;letter-spacing:0}
 .card h2{font-size:18px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
 .card p{font-size:13px;color:var(--muted)}
 .card .go{margin-top:12px;font-size:13px;color:var(--primary);font-weight:500}
+.card.none{opacity:.6;pointer-events:none}
 footer{margin-top:40px;font-size:12px;color:var(--muted)}
+footer a{color:inherit}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="k">2026-10-24</div>
+  <div class="k">最新一期 2026-10-29</div>
   <h1>今日推送</h1>
-  <p class="lead">今天的两份网页，点开就能看。</p>
+  <p class="lead">叼报和设计灵感各自指向最新已发布的一期，日期以卡片上为准。</p>
 
-  <a class="card" href="https://jidadiao.github.io/x-daily-digest/2026-10-24.html">
-    <div class="tag">叼报</div>
+  <a class="card" data-kind="x" data-date="2026-10-29" href="https://jidadiao.github.io/x-daily-digest/2026-10-29.html">
+    <div class="tag">叼报<span class="date">2026-10-29</span></div>
     <h2>今日叼报</h2>
-    <p>今天的精选帖子与早报汇总</p>
+    <p>精选资讯：X、GitHub、HF、HN 等</p>
     <div class="go">打开 →</div>
   </a>
-
-  <a class="card" href="https://jidadiao.github.io/x-daily-digest/design/2026-10-24.html">
-    <div class="tag">设计灵感</div>
+  <a class="card" data-kind="design" data-date="2026-10-28" href="https://jidadiao.github.io/x-daily-digest/design/2026-10-28.html">
+    <div class="tag">设计灵感<span class="date">2026-10-28</span></div>
     <h2>今日设计灵感</h2>
     <p>可交互演示，可打分、收藏</p>
     <div class="go">打开 →</div>
   </a>
 
-  <footer>由「每日推送」汇总</footer>
+  <footer>由「DiaoDaily 叼报」汇总 · <a href="https://jidadiao.github.io/x-daily-digest/">叼报往期</a></footer>
 </div>
 </body>
 </html>

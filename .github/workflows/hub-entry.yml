@@ -1,0 +1,26 @@
+# 放在 gh-pages 分支上生效：gh-pages 有新页面推送时，用 main 上的脚本刷新 hub 入口（只做本地校验，不做线上 200 校验，
+# 因为此时 Pages 可能还没构建完；线上校验由每日发布流程的 hub_entry.sh 负责）。脚本幂等，与手动流程不冲突。
+name: hub-entry
+on:
+  push:
+    branches: [gh-pages]
+    paths: ['*.html', 'design/*.html']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: hub-entry, cancel-in-progress: false }
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: gh-pages, path: pages }
+      - uses: actions/checkout@v4
+        with: { ref: main, path: src, sparse-checkout: scripts }
+      - run: python3 src/scripts/update_hub_entry.py --root pages || [ $? -eq 2 ]
+      - run: |
+          cd pages
+          git diff --quiet -- hub/index.html && exit 0
+          git config user.name "hub-entry-bot"; git config user.email "actions@users.noreply.github.com"
+          git add hub/index.html && git commit -m "hub: 自动刷新今日推送入口"
+          for i in 1 2 3; do git pull --rebase -q origin gh-pages && git push -q origin HEAD:gh-pages && exit 0; sleep 5; done; exit 1
