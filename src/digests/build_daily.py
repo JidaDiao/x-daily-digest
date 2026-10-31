@@ -26,7 +26,11 @@ def _hue(hexs):
 def validate(date,cfg,uc):
     errs=[];prev=sorted([x for x in uc if x['date']<date],key=lambda x:x['date'])
     el=set(cfg['elements'])-EASING
-    if date>='2026-10-26':
+    v2=date>=V2_FROM
+    if v2: errs+=validate_v2(date,cfg,uc)
+    if v2:
+        if not cfg.get('bg'): errs.append('cfg 必须有 bg（主底色 hex）')
+    elif date>='2026-10-26':
         sk=cfg.get('skeleton') or {}
         if not cfg.get('bg') or any(k not in sk for k in SKEL_KEYS): errs.append(f'cfg 必须有 bg 和 skeleton{{{",".join(SKEL_KEYS)}}}')
     if prev:
@@ -36,7 +40,8 @@ def validate(date,cfg,uc):
         j=len(set(cfg['elements'])&pe)/max(1,len(set(cfg['elements'])|pe))
         if j>0.2: errs.append(f'与 {p["date"]} 的 Jaccard={j:.2f} > 0.2')
         sk,psk=cfg.get('skeleton'),p.get('skeleton')
-        if sk and psk:
+        if v2: pass
+        elif sk and psk:
             ch=[k for k in SKEL_KEYS if sk.get(k)!=psk.get(k)]
             if len(ch)<2: errs.append(f'骨架只换了 {ch}，顶栏/说明卡形式/导航至少换 2 项')
         elif sk: print('[warn] 前一期没有 skeleton 字段，跳过骨架对比')
@@ -57,6 +62,60 @@ def validate(date,cfg,uc):
     if errs:
         print('[build_daily] 规则校验失败，未写文件：');[print('  -',e) for e in dict.fromkeys(errs)];sys.exit(2)
     print('[build_daily] 规则校验通过')
+
+# ===== 2026-11-01 起：版式原型 + 骨架 6 维 + 元素下限（DAILY.md「版式原型与防撞车硬规则 v2」）=====
+V2_FROM='2026-11-01'
+ARCHETYPES=['空间/地图型','时间/时刻表型','实物桌面/拼贴型','单列长卷型','索引/墙型','一次一条型','对话/终端/命令型','分栏对照/仪表盘型']
+DIM_KEYS=('carrier','nav','axis','entrance','bg_hue','fonts')  # 信息载体/导航方式/浏览轴/进场方式/底色色相/字体组合
+AXES={'纵','横','平面','翻页'}
+def _arch(a):
+    a=str(a or '').strip()
+    if not a: return ''
+    m=re.match(r'^\s*(\d+)\s*',a)
+    if m and 1<=int(m.group(1))<=len(ARCHETYPES): return ARCHETYPES[int(m.group(1))-1]
+    for x in ARCHETYPES:
+        if x in a or a in x: return x
+    return a
+def validate_v2(date,cfg,uc):
+    from datetime import date as _d,timedelta
+    errs=[];D0=_d.fromisoformat(date)
+    HOW='（在 pages/DATE.py 的 cfg 里补，格式见 web/DAILY.md「版式原型与防撞车硬规则 v2」）'
+    if not str(cfg.get('stance','')).strip(): errs.append('cfg.stance 设计立场为空：写一句「场景/隐喻 + 为什么这样组织 + 舍弃了什么」'+HOW)
+    a=_arch(cfg.get('archetype'))
+    if not a: errs.append('cfg.archetype 缺失：从原型池 1–8 选一个，或写新原型名并加 cfg.archetype_why'+HOW)
+    elif a not in ARCHETYPES and not str(cfg.get('archetype_why','')).strip(): errs.append(f'新原型「{a}」需写 cfg.archetype_why：一句话说明浏览方式为何与池内 8 种都不同')
+    if 'vertical_list' not in cfg: errs.append('cfg.vertical_list 缺失：本页是否「纵向滚动卡片列表」骨架（true/false）')
+    dims=cfg.get('dims') or {}
+    miss=[k for k in DIM_KEYS if not str(dims.get(k,'')).strip()]
+    if miss: errs.append(f'cfg.dims 缺 {miss}；六维 = carrier 信息载体 / nav 导航方式 / axis 浏览轴(纵|横|平面|翻页) / entrance 进场方式 / bg_hue 底色色相 / fonts 字体组合'+HOW)
+    elif dims['axis'] not in AXES: errs.append(f'dims.axis 只能是 {sorted(AXES)}，当前 {dims["axis"]!r}')
+    prev=sorted([x for x in uc if x['date']<date],key=lambda x:x['date'])
+    win7={str(D0-timedelta(days=k)) for k in range(1,8)}
+    for x in prev:
+        if x['date'] in win7 and a and _arch(x.get('archetype'))==a: errs.append(f'近 7 天原型不重复：「{a}」已在 {x["date"]} 用过')
+    for x in prev:
+        if a and _arch(x.get('archetype'))==a and x.get('score') is not None and x['score']<=2 and (D0-_d.fromisoformat(x['date'])).days<=30:
+            errs.append(f'低分原型 30 天内不用：「{a}」{x["date"]} score={x["score"]}')
+    y=[x for x in prev if x['date']==str(D0-timedelta(days=1))]
+    if cfg.get('vertical_list') and y and y[0].get('vertical_list'): errs.append(f'「纵向滚动卡片列表」连续最多 1 天：{y[0]["date"]} 已是纵向卡片列表')
+    if not miss:
+        for x in prev[-3:]:
+            pd=x.get('dims')
+            if not pd: print(f'[warn] {x["date"]} 没有 dims，跳过六维对比'); continue
+            diff=[k for k in DIM_KEYS if str(dims[k]).strip()!=str(pd.get(k,'')).strip()]
+            if len(diff)<4: errs.append(f'与 {x["date"]} 骨架六维只差 {len(diff)} 维 {diff}，需 ≥4 维不同（相同：{[k for k in DIM_KEYS if k not in diff]}）')
+    tok={t['id']:t for t in json.load(open('design-tokens.json'))['tokens']}
+    fav=[i for i in dict.fromkeys(cfg['elements']) if i not in EASING]
+    unk=[i for i in fav if i not in tok]
+    if unk: errs.append(f'cfg.elements 里有 design-tokens.json 不存在的 id：{unk}（自创处理请写进 cfg.own）')
+    own=cfg.get('own') or []
+    if any(not (isinstance(o,dict) and o.get('name')) for o in own): errs.append('cfg.own 每项写成 {"name":..,"desc":..}')
+    nf=len([i for i in fav if i in tok]); srcs={tok[i]['source'] for i in fav if i in tok}
+    if nf+len(own)<8: errs.append(f'交互/视觉细节元素共 {nf+len(own)} 个（收藏 {nf} + 自创 {len(own)}），需 ≥8（缓动不计）')
+    if nf<5: errs.append(f'收藏库元素 {nf} 个，需 ≥5')
+    if len(own)>2: errs.append(f'自创处理 {len(own)} 个，最多 2 个计入')
+    if len(srcs)<4: errs.append(f'收藏元素来源站点 {len(srcs)} 个 {sorted(srcs)}，需 ≥4')
+    return errs
 from news_signal import sig_attrs,embed_signal,check_signal,load_day_items,normalize_sig_id  # 页面模板写 {sig_attrs(it)}；分组用 load_day_items
 if os.path.exists(f'pages/{DATE}.py'):  # 页面模板按日独立：pages/YYYY-MM-DD.py 产出 RESULT{html,cfg,used}
     exec(open(f'pages/{DATE}.py').read()); html=RESULT['html']; cfg=RESULT['cfg']; used=RESULT['used']
@@ -77,6 +136,9 @@ if os.path.exists(f'pages/{DATE}.py'):  # 页面模板按日独立：pages/YYYY-
     uc=[x for x in uc if x.get('date')!=DATE]
     rec={'date':DATE,'theme':cfg['theme'],'elements':cfg['elements'],'sources':sorted({t['source'] for t in used}),'non_core_share':round(sum(1 for t in used if t['source'] not in ('gpt888.vip','ChatLab','DigVPS'))/len(used),2)}
     if cfg.get('form'): rec['form']=cfg['form']
+    if DATE>=V2_FROM:
+        rec.update(archetype=_arch(cfg.get('archetype')),dims=cfg.get('dims'),vertical_list=bool(cfg.get('vertical_list')),stance=cfg.get('stance'),own=cfg.get('own') or [],score=None)
+        if cfg.get('archetype_why'): rec['archetype_why']=cfg['archetype_why']
     for k in ('skeleton','bg'):
         if cfg.get(k): rec[k]=cfg[k]
     if cfg.get('notes'): rec['notes']=cfg['notes']
