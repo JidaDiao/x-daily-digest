@@ -19,8 +19,11 @@
    - `prefers-reduced-motion` 支持
 4. 内容只用 `items-YYYY-MM-DD.json`。做成单文件，图片 base64 内嵌，移动优先。页脚写明主题和灵感来源（元素 id 与来源站）。
 5. **自检**：用 playwright 截 390 和 1440 两个宽度，包括进场的几帧（`getAnimations` 暂停在 0/300/700/1200/2000ms），确认 390 宽时 scrollWidth 为 390，并逐个触发彩蛋。亲自打开截图看：是否统一、有没有进场、有没有联动、彩蛋能不能触发。不通过就继续改。脚本可参考 `/workspace/digests/chk.py` 的写法，截图放 `shots/<版本>/`。
-6. `python3 build_daily.py YYYY-MM-DD` → `python3 publish.py` → 用 create_or_update_file 推 gh-pages 的 `YYYY-MM-DD.html`（先取 sha，content 用 `$file:`，页面里不要出现 `&amp;` 这类具名实体）。`index.html` 有变化才推。不动 `design/` 和 main。最后用 curl 加 `?t=随机数` 拉 live，和本地 cmp 一致才算完成。
+6. `python3 build_daily.py YYYY-MM-DD` → `python3 publish.py` → 用 create_or_update_file 推 gh-pages 的 `YYYY-MM-DD.html`（先取 sha，content 用 `$file:`，页面里不要出现 `&` 这类具名实体）。`index.html` 有变化才推。不动 `design/` 和 main。最后用 curl 加 `?t=随机数` 拉 live，和本地 cmp 一致才算完成。
 
+
+### 版式原型与防撞车硬规则 v2（2026-11-01 起）
+完整规则与 cfg 字段见 `web/DAILY.md` 顶部「★ 版式原型与防撞车硬规则 v2」：先选版式原型（8 种池，近 7 天不重复，纵向卡片列表最多连续 1 天）→ 骨架 6 维与前 3 天任一天 ≥4 维不同 → 元素 ≥8（收藏 ≥5、自创 ≤2、来源 ≥4）→ stance 设计立场 → used-combos 记 archetype/dims/score。下面旧规则的「骨架 3 项换 2 项」对 ≥11-01 作废。
 
 ### 防撞车硬规则（2026-10-25 起，build_daily.py 自动校验）
 - **前一期用过的元素，当天一律不能用**。缓动不受这条限制（目前只有 `gpt888-ease`，见 `EASING`）。
