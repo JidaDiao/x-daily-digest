@@ -1,7 +1,7 @@
 """叼报页嵌入共用互动脚本 news-signal.js（👍👎⭐ + 停留 2s 已读 + 可选短评）。
 
 - normalize_sig_id(source, raw_id)：把各来源 id 规范成 NEWS_SIGNAL.md 的写法
-  （x:<id> / gh:repo/<owner>/<name> / hf:... / hn:<id> / dcr:<id>）。
+  （x:<id> / gh:repo/<owner>/<name> / hf:... / hn:<id> / dcr:<id> / blog:<site>/<slug>）。
 - sig_attrs(it)：生成条目容器上的 data-sig-* 属性。
 - load_day_items(date)：合并 items-DATE.json（X）与 items-public-DATE.json（社区精选）；
   缺 public 文件时只返回 X 并打日志。
@@ -23,12 +23,13 @@ def normalize_sig_id(source, raw_id):
     github:new|trending|.../owner/repo → gh:repo/owner/repo
     hf:... → 原样（已是 hf: 前缀）
     hn:<id> → 原样
-    已是 x:/gh:/hf:/hn:/ld:/reddit:/dcr: 前缀的原样返回。
+    已是 x:/gh:/hf:/hn:/ld:/reddit:/dcr:/blog: 前缀的原样返回。
     dcr → dcr:<hex id>
+    blog → blog:<site>/<slug>
     """
     s=(source or '').lower().strip(); rid=str(raw_id or '').strip()
     if not rid: raise ValueError('empty id')
-    if re.match(r'^(x|gh|hf|hn|ld|reddit|dcr):', rid): return rid
+    if re.match(r'^(x|gh|hf|hn|ld|reddit|dcr|blog):', rid): return rid
     if s in ('github','gh'):
         # github:new/owner/repo | github:trending/owner/repo | owner/repo
         m=re.match(r'^(?:github:)?(?:new|trending|search-new|repo)?/?([^/]+)/([^/]+)$', rid)
@@ -48,6 +49,12 @@ def normalize_sig_id(source, raw_id):
         m = re.search(r'([0-9a-f]{8,})$', rid2, re.I) or re.search(r'/news/([0-9a-f]+)', rid2, re.I)
         if not m: raise ValueError(f'bad dcr id: {rid}')
         return 'dcr:'+m.group(1).lower()
+    if s in ('blog','indie-blog','indie'):
+        rid2 = rid[5:] if rid.lower().startswith('blog:') else rid
+        # blog:fomoxx/slug 或 fomoxx/slug
+        m = re.match(r'^([A-Za-z0-9._-]+)/([A-Za-z0-9._\-]+)$', rid2)
+        if not m: raise ValueError(f'bad blog id: {rid}')
+        return f'blog:{m.group(1)}/{m.group(2)}'
     # fallback：若 raw 已带前缀则用，否则 source:raw
     return rid if ':' in rid else f'{s or "item"}:{rid}'
 
@@ -73,7 +80,7 @@ def sig_attrs(it):
     return (f' data-sig-id="{_e(sid)}" data-sig-url="{_e(url)}" data-sig-title="{_e(it.get("title",""))}"'
             f' data-sig-author="{_e(author)}" data-sig-topic="{_e(topic)}" data-sig-tags="{_e(tags)}"')
 
-SRC_LABEL={'x':'X','github':'GitHub','hf':'Hugging Face','hn':'Hacker News','dcr':'Did Codex Reset','linuxdo':'linux.do','reddit':'Reddit'}
+SRC_LABEL={'x':'X','github':'GitHub','hf':'Hugging Face','hn':'Hacker News','dcr':'Did Codex Reset','blog':'实践博客','linuxdo':'linux.do','reddit':'Reddit'}
 CJK_RE=re.compile(r'[\u4e00-\u9fff]')
 def check_zh_summaries(day):
     """社区条目简介须含至少一个汉字。返回错误列表。"""
@@ -104,7 +111,7 @@ def load_day_items(date, root='.'):
             k=(it.get('source') or 'community').lower()
             it.setdefault('sig_source',k); it.setdefault('_group',k)
             by.setdefault(k,[]).append(it)
-        for k in ('github','hf','hn','dcr','reddit','linuxdo'):
+        for k in ('github','hf','hn','dcr','blog','reddit','linuxdo'):
             if k in by: groups.append({'key':k,'label':SRC_LABEL.get(k,k),'items':by.pop(k)})
         for k,v in by.items(): groups.append({'key':k,'label':k,'items':v})
         if miss and date>='2026-10-27':
@@ -137,7 +144,7 @@ def check_signal(html,n_items=None):
     if 'id="dd-news-signal"' not in html or 'news-signal.js' not in html: errs.append('缺少内联 news-signal 脚本')
     body=html.split('<script id="dd-news-signal"')[0]
     ids=re.findall(r'data-sig-id="([^"]*)"',body)
-    bad=[x for x in ids if not re.fullmatch(r'(?:x|gh|hf|hn|ld|reddit|dcr):[A-Za-z0-9._:/\-@#+]{1,199}',x)]
+    bad=[x for x in ids if not re.fullmatch(r'(?:x|gh|hf|hn|ld|reddit|dcr|blog):[A-Za-z0-9._:/\-@#+]{1,199}',x)]
     if bad: errs.append(f'data-sig-id 格式不对：{bad[:3]}')
     if len(set(ids))!=len(ids): errs.append('data-sig-id 有重复')
     for a in ('data-sig-url','data-sig-title'):
@@ -159,6 +166,9 @@ if __name__=='__main__':
         ('dcr','dcr:52a4b75ac81b42b4b86a55ab','dcr:52a4b75ac81b42b4b86a55ab'),
         ('dcr','52a4b75ac81b42b4b86a55ab','dcr:52a4b75ac81b42b4b86a55ab'),
         ('dcr','https://didcodexreset.com/zh/news/52a4b75ac81b42b4b86a55ab.html','dcr:52a4b75ac81b42b4b86a55ab'),
+        ('blog','blog:fomoxx/multica-squad-workflow-review','blog:fomoxx/multica-squad-workflow-review'),
+        ('blog','fomoxx/multica-squad-workflow-review','blog:fomoxx/multica-squad-workflow-review'),
+        ('blog','blog:fomoxx/apple-id-chatgpt-pro-72h-review','blog:fomoxx/apple-id-chatgpt-pro-72h-review'),
     ]
     for src,raw,want in cases:
         got=normalize_sig_id(src,raw)

@@ -16,7 +16,7 @@
 <article data-sig-id="x:<post_id>" data-sig-url="<原文链接>" data-sig-title="<标题>"
          data-sig-author="<作者handle>" data-sig-topic="<主题>" data-sig-tags="topic:ai,format:thread"> … </article>
 ```
-- `data-sig-id` 必填：X 帖子用 `x:<post id>`（与推送去重的 post id 一致），其他来源用 `gh:repo/<owner>/<name>`、`hn:<id>`、`hf:<model>`、`ld:<topic id>`、`reddit:<id>`、`dcr:<id>`（Did Codex Reset AI 快讯）。
+- `data-sig-id` 必填：X 帖子用 `x:<post id>`（与推送去重的 post id 一致），其他来源用 `gh:repo/<owner>/<name>`、`hn:<id>`、`hf:<model>`、`ld:<topic id>`、`reddit:<id>`、`dcr:<id>`（Did Codex Reset AI 快讯）、`blog:<site>/<slug>`（白名单个人实践博客）。
 - tags 前缀：`topic:` 主题、`format:` 呈现形式、`lang:` 编程语言，会进入画像。
 - 默认把按钮行插到容器末尾；想换位置就在容器里放 `<div data-sig-bar></div>`。
 
