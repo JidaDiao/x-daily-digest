@@ -280,6 +280,8 @@ def engagement(it: dict) -> float:
         scale = 500
     elif src == "dcr" or "didcodexreset.com" in (it.get("url") or ""):
         scale = 100  # 公开快讯，无互动数时 engagement≈0
+    elif src == "blog":
+        scale = 100  # 个人博客无互动数
     else:  # x / linuxdo 等
         scale = 80
     return min(1.0, (math.log1p(pts) + 0.5 * math.log1p(com)) / (1.5 * math.log1p(scale)))
@@ -309,6 +311,9 @@ def score_parts(it: dict, now: datetime) -> dict:
         dry += 0.15
     if LISTICLE_RE.search(text):
         dry -= 0.4
+    # 白名单个人博客：复盘/排障/实测长文略抬干货
+    if str(it.get("source") or "").lower() == "blog" and re.search(r"复盘|排障|实测|踩坑|实战", text):
+        dry += 0.15
     dry = max(0.0, min(1.0, dry))
 
     # 相关：和他踩过的坑 / 工具链
@@ -324,8 +329,14 @@ def score_parts(it: dict, now: datetime) -> dict:
     # 新鲜度
     pub = parse_time(it.get("published_at") or it.get("created_at") or it.get("date"))
     age_h = max(0.0, (now - pub).total_seconds() / 3600) if pub else 12.0
-    # dcr / github / hf / hn / linuxdo：社区公开源 72h；x/reddit 24h
-    half_life = 24.0 if str(it.get("source") or "").lower() in ("x", "grok bot x 日报", "reddit") else 72.0
+    # blog：个人实践博客更新慢 → 7 天半衰期；x/reddit 24h；其余社区公开源 72h
+    src_l = str(it.get("source") or "").lower()
+    if src_l in ("x", "grok bot x 日报", "reddit"):
+        half_life = 24.0
+    elif src_l == "blog":
+        half_life = 168.0
+    else:
+        half_life = 72.0
     decay = 0.5 ** (age_h / half_life)
 
     eng = engagement(it)
