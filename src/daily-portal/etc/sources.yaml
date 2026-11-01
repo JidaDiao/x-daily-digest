@@ -1,0 +1,28 @@
+# DiaoDaily 叼报 · 来源配置（Glance 风格；不放密钥——token 在 /etc/daily/*.env）
+# 读取方：prefs.py（prefs.* 与 signals.*.half_life_days 覆盖 config 表）、connectors/run-all.sh
+prefs:
+  half_life_days: 14        # 默认半衰期（天）
+  explore_ratio: 0.2        # 推荐 20% 探索位
+  avoid_after_dislikes: 3
+  min_abs_score: 0.5
+
+# 偏好信号来源（读用户账号）。用户决定：只连 GitHub，其余社区账号不连。
+signals:
+  github:  {enabled: true,  account: JidaDiao, half_life_days: 90, connector: connectors/github.py}
+  news:    {enabled: true,  half_life_days: 14}   # X 日报页互动（news-signal.js）
+  design:  {enabled: true,  half_life_days: 14}   # 设计灵感页评分/收藏
+  manual:  {enabled: true}
+  hn:      {enabled: false, note: 不连账号}
+  reddit:  {enabled: false, note: 不连账号}
+  linuxdo: {enabled: false, note: 不连账号}
+  hf:      {enabled: false, note: 不连账号}
+
+# 日报内容来源（公开数据，不用账号；采集器待实现）
+content:
+  - {name: github-trending, type: html,  url: "https://github.com/trending?since=daily", limit: 10}
+  - {name: github-search,   type: api,   url: "https://api.github.com/search/repositories?q=created:>{since}&sort=stars&order=desc", limit: 10}
+  - {name: hf-trending,     type: api,   url: "https://huggingface.co/api/models?sort=trendingScore&limit=10"}
+  - {name: hn-top,          type: api,   url: "https://hacker-news.firebaseio.com/v0/topstories.json", limit: 15}
+  - {name: linuxdo-latest,  type: rss,   url: "https://linux.do/latest.rss", limit: 15}
+  - {name: reddit,          type: rss,   url: "https://www.reddit.com/r/{sub}/top/.rss?t=day", subs: [LocalLLaMA, programming, webdev], limit: 10}
+  - {name: dcr-news,        type: rss,   url: "https://didcodexreset.com/rss/news.xml?lang=zh-CN", limit: 50}
