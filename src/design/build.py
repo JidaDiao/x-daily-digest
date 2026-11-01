@@ -20,7 +20,11 @@ def part(s,tag):
     m=re.search(r'<!--%s-->(.*?)<!--/%s-->'%(tag,tag),s,re.S); return m.group(1).strip() if m else ''
 def site_of(name,url):
     if 'mobbin.com' in (url or ''): return name.split(' · ')[0].strip().lower()
-    h=urlparse(url or '').netloc.lower(); return h[4:] if h.startswith('www.') else h or name.split(' · ')[0].strip().lower()
+    p=urlparse(url or ''); h=p.netloc.lower(); h=h[4:] if h.startswith('www.') else h
+    # 同站多元素（如 Lthero 专场）：用 path 首段区分，避免一期只能上 1 条
+    seg=(p.path or '/').strip('/').split('/')[0]
+    if h and seg: return f'{h}/{seg}'
+    return h or name.split(' · ')[0].strip().lower()
 files=sorted(f for f in glob.glob(os.path.join(A.blocks,'*.html')))
 blocks=[]
 for f in files:
