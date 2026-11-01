@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-"""DiaoDaily 公开来源抓取器：GitHub Trending/Search、HF 模型/论文、HN、linux.do RSS、Reddit RSS、Did Codex Reset AI 快讯。
+"""DiaoDaily 公开来源抓取器：GitHub Trending/Search、HF 模型/论文、HN、linux.do RSS、Reddit RSS、Did Codex Reset AI 快讯、白名单个人实践博客。
 无账号。token 不落盘：画像读取与入库都经 SSH 在 VPS 端用 /etc/daily/api.env 执行。"""
 import json, re, sys, os, html, time, datetime, random, urllib.request, urllib.parse, xml.etree.ElementTree as ET, argparse
+from email.utils import parsedate_to_datetime
 SH = datetime.timezone(datetime.timedelta(hours=8))
 UA = "Mozilla/5.0 (X11; Linux x86_64) DiaoDaily/1.0 (+https://daily.jidadiao.fun)"
 VPS, KEY = "110.42.109.168", os.path.expanduser("~/.ssh/vps_jidadiao")
 PER_SRC, TOTAL, EXPLORE = 5, 20, 0.2
+PER_SRC_CAP = {"blog": 2}  # 个人实践博客每日精选上限
+HERE = os.path.dirname(os.path.abspath(__file__))
+BLOG_SKIP_RE = re.compile(r"/(?:privacy|editorial-policy|about|topics)(?:/|$)", re.I)
 
 def get(url, accept="*/*", tries=2):
     last = None
@@ -119,7 +123,58 @@ def dcr():
     if not out: raise RuntimeError("dcr RSS empty")
     return out
 
-SOURCES = {"github": lambda: gh_trending() + gh_search(), "hf": hf, "hn": hn, "linuxdo": linuxdo, "reddit": reddit, "dcr": dcr}
+
+def _blog_feeds():
+    path = os.path.join(HERE, "feeds-blog.json")
+    doc = json.load(open(path, encoding="utf-8"))
+    feeds = doc.get("feeds") or []
+    if not feeds: raise RuntimeError("feeds-blog.json empty")
+    return feeds
+
+def blog():
+    """白名单个人实践博客 RSS。只保留文章路径；非 /posts/ 等页跳过；每源作者=站名。"""
+    out, errs = [], []
+    for feed in _blog_feeds():
+        fid = (feed.get("id") or "").strip()
+        name = (feed.get("name") or fid).strip() or "blog"
+        rss_url = (feed.get("rss") or "").strip()
+        must = (feed.get("post_path_must_include") or "/posts/").strip() or "/posts/"
+        base_tags = [t for t in (feed.get("topics") or []) if t]
+        if not fid or not rss_url:
+            errs.append(f"{fid or '?'}:bad-config"); continue
+        try:
+            x = get(rss_url, "application/rss+xml, application/atom+xml, application/xml")
+            if x.lstrip().startswith("<!DOCTYPE html") or "<html" in x[:300].lower():
+                raise RuntimeError("got HTML (blocked/challenge)")
+            root = ET.fromstring(x)
+            n_before = len(out)
+            for e in root.iter("item"):
+                link = (e.findtext("link") or "").strip()
+                if not link: continue
+                path = urllib.parse.urlsplit(link).path or "/"
+                if must not in path: continue
+                if BLOG_SKIP_RE.search(path): continue
+                if path.rstrip("/") in ("", "/"): continue
+                m = re.search(r"/posts/([^/]+)/?", path)
+                slug = (m.group(1) if m else path.strip("/").replace("/", "-"))[:120]
+                if not slug: continue
+                cats = [c.text.strip() for c in e.findall("category") if (c.text or "").strip()]
+                tags = list(dict.fromkeys(base_tags + cats))[:8]
+                pub = (e.findtext("pubDate") or "").strip()
+                kw = {"via": "rss", "site": name}
+                if pub:
+                    try: kw["published_at"] = parsedate_to_datetime(pub).isoformat()
+                    except (TypeError, ValueError, IndexError): kw["published_at"] = pub
+                out.append(it("blog", f"{fid}/{slug}", e.findtext("title") or "", link,
+                              e.findtext("description") or "", tags, name, **kw))
+            if len(out) == n_before:
+                errs.append(f"{fid}:no-posts")
+        except Exception as e:
+            errs.append(f"{fid}:{getattr(e,'code',e)}")
+    if not out: raise RuntimeError("blog RSS empty " + ",".join(errs))
+    return out
+
+SOURCES = {"github": lambda: gh_trending() + gh_search(), "hf": hf, "hn": hn, "linuxdo": linuxdo, "reddit": reddit, "dcr": dcr, "blog": blog}
 
 def ssh(cmd, stdin=None):
     import paramiko
@@ -158,8 +213,9 @@ def select(by_src, rec):
             i["_s"] = s + popularity(i); i["_x"] = xs; i["match"] = why or xwhy
             cands.append(i)
     picked, cnt = [], {}
+    def src_cap(s): return PER_SRC_CAP.get(s, PER_SRC)
     def take(i, kind):
-        if cnt.get(i["source"], 0) >= PER_SRC or i in picked: return False
+        if cnt.get(i["source"], 0) >= src_cap(i["source"]) or i in picked: return False
         i["pick"] = kind; picked.append(i); cnt[i["source"]] = cnt.get(i["source"], 0) + 1; return True
     # exploit：轮转各来源取最高分，保证来源多样
     ranked = {s: sorted(v, key=lambda i: -i["_s"]) for s, v in by_src.items()}
@@ -169,7 +225,7 @@ def select(by_src, rec):
             while ranked[s] and not take(ranked[s].pop(0), "exploit"):
                 pass
             if sum(1 for p in picked if p["pick"] == "exploit") >= goal: break
-        ranked = {s: v for s, v in ranked.items() if v and cnt.get(s, 0) < PER_SRC}
+        ranked = {s: v for s, v in ranked.items() if v and cnt.get(s, 0) < src_cap(s)}
     # explore：先命中探索兴趣，再从画像外随机补
     rest = [i for i in cands if i not in picked]
     rest.sort(key=lambda i: (-i["_x"], random.random()))

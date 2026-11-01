@@ -1,0 +1,14 @@
+{
+  "comment": "非 AI 凑文 · 个人实践博客 RSS 白名单（叼报公开源 blog）。只加真人踩坑/复盘站；勿乱加 listicle。加站：在 feeds 数组追加一项。",
+  "feeds": [
+    {
+      "id": "fomoxx",
+      "name": "fomoxx",
+      "rss": "https://fomoxx.com/index.xml",
+      "home": "https://fomoxx.com/",
+      "lang": "zh",
+      "topics": ["ai-agents", "multica", "mcp", "vps", "selfhost", "codex"],
+      "post_path_must_include": "/posts/"
+    }
+  ]
+}

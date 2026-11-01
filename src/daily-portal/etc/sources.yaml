@@ -26,3 +26,4 @@ content:
   - {name: linuxdo-latest,  type: rss,   url: "https://linux.do/latest.rss", limit: 15}
   - {name: reddit,          type: rss,   url: "https://www.reddit.com/r/{sub}/top/.rss?t=day", subs: [LocalLLaMA, programming, webdev], limit: 10}
   - {name: dcr-news,        type: rss,   url: "https://didcodexreset.com/rss/news.xml?lang=zh-CN", limit: 50}
+  - {name: blog-indie,      type: rss,   url: "feeds-blog.json", note: "白名单个人实践博客；首发 fomoxx；每日 picked≤2"}
