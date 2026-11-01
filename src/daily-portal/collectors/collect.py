@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""DiaoDaily 公开来源抓取器：GitHub Trending/Search、HF 模型/论文、HN、linux.do RSS、Reddit RSS。
+"""DiaoDaily 公开来源抓取器：GitHub Trending/Search、HF 模型/论文、HN、linux.do RSS、Reddit RSS、Did Codex Reset AI 快讯。
 无账号。token 不落盘：画像读取与入库都经 SSH 在 VPS 端用 /etc/daily/api.env 执行。"""
 import json, re, sys, os, html, time, datetime, random, urllib.request, urllib.parse, xml.etree.ElementTree as ET, argparse
 SH = datetime.timezone(datetime.timedelta(hours=8))
 UA = "Mozilla/5.0 (X11; Linux x86_64) DiaoDaily/1.0 (+https://daily.jidadiao.fun)"
-VPS, KEY = "<VPS_HOST>", os.path.expanduser("<SSH_KEY_PATH>")
+VPS, KEY = "110.42.109.168", os.path.expanduser("~/.ssh/vps_jidadiao")
 PER_SRC, TOTAL, EXPLORE = 5, 20, 0.2
 
 def get(url, accept="*/*", tries=2):
@@ -97,7 +97,29 @@ def reddit(subs=("LocalLLaMA", "ClaudeAI", "selfhosted", "programming")):
     if not out: raise RuntimeError("全部失败 " + ",".join(errs))
     return out
 
-SOURCES = {"github": lambda: gh_trending() + gh_search(), "hf": hf, "hn": hn, "linuxdo": linuxdo, "reddit": reddit}
+def dcr():
+    """Did Codex Reset · AI 快讯（中文 RSS）。专用解析：多 category、剥「显示语言」。"""
+    url = "https://didcodexreset.com/rss/news.xml?lang=zh-CN"
+    x = get(url, "application/rss+xml, application/atom+xml, application/xml")
+    if x.lstrip().startswith("<!DOCTYPE html") or "<html" in x[:300].lower():
+        raise RuntimeError("got HTML (blocked/challenge)")
+    root = ET.fromstring(x); out = []
+    for e in root.iter("item"):
+        link = (e.findtext("link") or "").strip()
+        guid = (e.findtext("guid") or "").strip()
+        m = re.search(r":news:([0-9a-f]+)$", guid, re.I) or re.search(r"/news/([0-9a-f]+)\.html", link, re.I)
+        if not m: continue
+        desc = e.findtext("description") or ""
+        desc = re.sub(r"\s*显示语言:\s*\S+\s*$", "", desc).strip()
+        cats = [c.text.strip() for c in e.findall("category") if (c.text or "").strip()]
+        pub = (e.findtext("pubDate") or "").strip()
+        kw = {"via": "rss"}
+        if pub: kw["published_at"] = pub
+        out.append(it("dcr", m.group(1).lower(), e.findtext("title") or "", link, desc, cats, "", **kw))
+    if not out: raise RuntimeError("dcr RSS empty")
+    return out
+
+SOURCES = {"github": lambda: gh_trending() + gh_search(), "hf": hf, "hn": hn, "linuxdo": linuxdo, "reddit": reddit, "dcr": dcr}
 
 def ssh(cmd, stdin=None):
     import paramiko

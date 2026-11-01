@@ -278,7 +278,9 @@ def engagement(it: dict) -> float:
         scale = 400
     elif "hf" in src or "huggingface" in (it.get("url") or ""):
         scale = 500
-    else:  # x
+    elif src == "dcr" or "didcodexreset.com" in (it.get("url") or ""):
+        scale = 100  # 公开快讯，无互动数时 engagement≈0
+    else:  # x / linuxdo 等
         scale = 80
     return min(1.0, (math.log1p(pts) + 0.5 * math.log1p(com)) / (1.5 * math.log1p(scale)))
 
@@ -322,6 +324,7 @@ def score_parts(it: dict, now: datetime) -> dict:
     # 新鲜度
     pub = parse_time(it.get("published_at") or it.get("created_at") or it.get("date"))
     age_h = max(0.0, (now - pub).total_seconds() / 3600) if pub else 12.0
+    # dcr / github / hf / hn / linuxdo：社区公开源 72h；x/reddit 24h
     half_life = 24.0 if str(it.get("source") or "").lower() in ("x", "grok bot x 日报", "reddit") else 72.0
     decay = 0.5 ** (age_h / half_life)
 
