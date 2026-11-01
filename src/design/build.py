@@ -115,6 +115,66 @@ else:
     if ERR: die()
     print(f'[build] 8 条规则校验通过：Web={w} App={a}；交互={ix} 界面={ui}（兼具 {both}）')
 # ---- 渲染 ----
+def esc_txt(x):
+    return (str(x) if x is not None else '').replace('<','‹').replace('>','›').replace('"','″')
+def render_knobs(meta):
+    knobs=meta.get('knobs') or []
+    if not knobs: return ''
+    bits=[]
+    for k in knobs:
+        var=k.get('var') or k.get('name'); 
+        if not var: continue
+        if not var.startswith('--'): var='--'+var
+        label=esc_txt(k.get('label') or var)
+        typ=k.get('type','range'); unit=k.get('unit',''); val=k.get('value',k.get('default',''))
+        if typ=='range':
+            bits.append(f'<label><strong>{label}</strong><input type="range" data-var="{var}" data-unit="{unit}" min="{k.get("min",0)}" max="{k.get("max",100)}" step="{k.get("step",1)}" value="{val}"><span class="kv">{val}{unit}</span></label>')
+        elif typ=='color':
+            bits.append(f'<label><strong>{label}</strong><input type="color" data-var="{var}" value="{val or "#888888"}"><span class="kv">{val}</span></label>')
+        elif typ=='select':
+            opts=''.join(f'<option value="{esc_txt(o)}"{" selected" if str(o)==str(val) else ""}>{esc_txt(o)}</option>' for o in k.get('options',[]))
+            bits.append(f'<label><strong>{label}</strong><select data-var="{var}" data-unit="{unit}">{opts}</select><span class="kv">{val}{unit}</span></label>')
+        else:
+            bits.append(f'<label><strong>{label}</strong><input data-var="{var}" data-unit="{unit}" value="{esc_txt(val)}"><span class="kv">{val}{unit}</span></label>')
+    return f'<div class="knobs" aria-label="可调参数">{"".join(bits)}</div>' if bits else ''
+def render_collage(path):
+    if not os.path.exists(path): return ''
+    c=json.load(open(path))
+    stance=esc_txt(c.get('stance') or '')
+    why=esc_txt(c.get('why') or '')
+    bg=c.get('bg') or '#0c0c0b'; fg=c.get('fg') or '#f3f1ea'
+    bits=[]
+    for i,b in enumerate(c.get('bits') or []):
+        cls='bit'
+        if b.get('kind')=='favorite' or b.get('favorite'): cls+=' fav'
+        if b.get('kind')=='own' or b.get('own'): cls+=' own'
+        r=b.get('rotate', ((i%5)-2)*3)
+        title=esc_txt(b.get('title') or b.get('id') or '元素')
+        src=esc_txt(b.get('source') or b.get('from') or '')
+        note=esc_txt(b.get('note') or '')
+        bits.append(f'<div class="{cls}" style="--r:{r}deg"><b>{title}</b><span class="src">{src}</span>{("<div>"+note+"</div>") if note else ""}</div>')
+    tags=''.join(f'<span>{esc_txt(t)}</span>' for t in (c.get('tags') or []))
+    note=esc_txt(c.get('note') or '收藏元素虚线绿框 · 自创虚线橙框 · 不是卡片墙，是当天立场的拼贴')
+    if not stance or not bits:
+        return ''
+    return f'''<section class="collage in" style="animation-delay:.18s" aria-label="今日拼接">
+<div class="c-eye">今日拼接</div>
+<p class="c-stance">{stance}</p>
+<p class="c-why">{why}</p>
+<div class="c-stage" style="--c-bg:{bg};--c-fg:{fg}"><div class="c-bits">{"".join(bits)}</div></div>
+{f'<div class="c-tags">{tags}</div>' if tags else ''}
+<p class="c-note">{note}</p>
+</section>'''
+# 校验：2026-11-02 起 Web 应有 code 与（建议）knobs；缺 code 警告，缺 collage 文件警告
+if date>='2026-11-02':
+    for f,s,m in blocks:
+        if m.get('kind')=='Web' and not part(s,'code'):
+            WARN.append(f'{f}: Web 建议提供 <!--code--> 片段（可复制给 AI）；11-02 起强烈建议')
+        if m.get('kind')=='Web' and not (m.get('knobs') or []):
+            WARN.append(f'{f}: Web 建议写 meta.knobs（可调关键参数）')
+    cp=os.path.join(A.blocks,'_collage.json')
+    if not os.path.exists(cp):
+        WARN.append(f'缺 {cp}：11-02 起应有「今日拼接」；今晚先出壳，明早例程必须写')
 cards=[];nav=[];total=0;seen=set()
 for f,s,meta in blocks:
     code=part(s,'code'); assert '</textarea' not in code
@@ -126,13 +186,22 @@ for f,s,meta in blocks:
     howfresh=''
     if fo in('交互','兼具'):
         howfresh=f'<dl class="hf"><dt>怎么操作</dt><dd>{meta["how"]}</dd><dt>为什么新鲜</dt><dd>{meta["fresh"]}</dd></dl>'
+    knobs=render_knobs(meta) if kind=='Web' else ''
+    code_block=''
+    if code:
+        rows=min(18,code.count(chr(10))+2)
+        code_block=f'''<details open><summary>关键代码 · 可复制给 AI</summary>
+<textarea class="code" id="code-{k}" readonly spellcheck="false" rows="{rows}">{code}</textarea>
+<div class="code-bar"><button type="button" class="pri" data-copy="#code-{k}">复制代码</button><button type="button" data-copy="#code-{k}" data-mode="ai">复制给 AI</button></div>
+</details>'''
     nav.append(f'<a href="#b-{k}" class="chip{" app" if kind=="App" else ""}">{meta["name"].split(" · ")[0]}</a>')
     cards.append(f'''<article class="block design in" id="b-{k}" data-site="{meta["name"]}" data-url="{meta["url"]}" data-focus="{fo or ''}">
 <header class="bh"><span class="kind {kind.lower()}">{kind}</span>{focus}<h2>{meta["name"]}</h2><span class="sub">{meta.get("subtitle","")}</span></header>
 <div class="demo d-{k}">{part(s,"demo")}</div>
+{knobs}
 <div class="bb">{howfresh}<p class="why">{meta["why"]}</p><div class="tags">{tags}</div>
 <details><summary>关键参数</summary><ul class="params">{params}</ul></details>
-{f'<details><summary>关键代码</summary><textarea class="code" readonly spellcheck="false" rows="{min(18,code.count(chr(10))+2)}">{code}</textarea></details>' if code else ''}
+{code_block}
 <div class="ref">{thumb}<div class="links"><a href="{meta["url"]}" target="_blank" rel="noopener">{meta.get("ref","原站")} ↗</a><span class="note">{meta.get("note","")}</span></div></div>
 <div class="act"><span class="df-stars" aria-label="评分"></span><button class="df-fav" type="button"></button></div></div></article>''')
     for r in re.findall(r'(?:data-b64|src|poster)="(?:inline:)?([^"]+)"',part(s,'demo'))+([meta['thumb']] if meta.get('thumb') else []):
@@ -143,7 +212,8 @@ if NEW and len(blocks)<8:
     rs=[m.get('short_reason') for _,_,m in blocks if m.get('short_reason')]
     if os.path.exists(os.path.join(A.blocks,'_short.json')): rs.append(json.load(open(os.path.join(A.blocks,'_short.json'))).get('short_reason'))
     shortnote=f'<p class="short in">本期 {len(blocks)} 条（目标 8 条）：{rs[-1]}</p>'
-t=open('template.html').read().replace('{{DATE}}',date).replace('{{NAV}}',''.join(nav)).replace('{{BLOCKS}}',shortnote+'\n'.join(cards)).replace('{{COUNT}}',str(len(cards)))
+collage=render_collage(os.path.join(A.blocks,'_collage.json'))
+t=open('template.html').read().replace('{{DATE}}',date).replace('{{NAV}}',''.join(nav)).replace('{{BLOCKS}}',shortnote+'\n'.join(cards)).replace('{{COUNT}}',str(len(cards))).replace('{{COLLAGE}}',collage)
 bad=re.findall(r'&(?:amp|lt|gt|quot|apos|nbsp|#\d+|#x[0-9a-f]+);',t,re.I)
 assert not bad, f'HTML 实体会被连接器还原: {set(bad)}'
 out=A.out or f'{date}.html'

@@ -1,0 +1,14 @@
+{
+  "stance": "今天像拆开一封快递：先撕胶带，再让资讯散落成桌。",
+  "why": "用实物隐喻统一开场和阅读，不堆卡片。",
+  "bg": "#0c0c0b",
+  "fg": "#f3f1ea",
+  "bits": [
+    {"id":"lthero-hold-to-unpack","title":"按住撕胶带","source":"Lthero · 收藏","kind":"favorite","rotate":-4,"note":"开场蓄力"},
+    {"id":"lthero-desk-scatter","title":"散落成桌","source":"Lthero · 收藏","kind":"favorite","rotate":3},
+    {"id":"lthero-rubber-stamp","title":"歪印章","source":"Lthero · 收藏","kind":"favorite","rotate":-8,"note":"必读"},
+    {"title":"投影光斑","source":"自创","kind":"own","rotate":5,"note":"幕布上一点光"}
+  ],
+  "tags":["原型3 · 实物桌面","收藏≥3","自创≤1"],
+  "note":"收藏虚线绿框 · 自创虚线橙框 · 不是卡片墙"
+}

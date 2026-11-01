@@ -66,6 +66,35 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #4c
 .am-steps b{flex:none;min-width:40px;font:600 12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;color:#6e6e73}
 .am-src{font-size:12px;color:#6e6e73}
 @media (min-width:640px){.am{grid-template-columns:260px 1fr;align-items:center;column-gap:28px;padding:26px 28px}.am-ph{width:260px;grid-row:span 2}}
+
+/* ---- 今日拼接（2026-11-02 起）---- */
+.collage{margin:8px 0 20px;padding:18px 16px 16px;border:1px solid var(--border);border-radius:24px;background:var(--card);overflow:hidden;position:relative}
+.collage .c-eye{font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.collage .c-stance{font-size:clamp(18px,4.5vw,24px);font-weight:600;letter-spacing:-.02em;line-height:1.35;margin:8px 0 6px}
+.collage .c-why{font-size:14px;color:var(--muted);margin:0 0 14px}
+.collage .c-stage{position:relative;min-height:160px;border-radius:16px;background:var(--c-bg,#0c0c0b);color:var(--c-fg,#f3f1ea);padding:16px;overflow:hidden}
+.collage .c-stage:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay}
+.collage .c-bits{position:relative;display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start;min-height:120px}
+.collage .bit{position:relative;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:12px;line-height:1.35;max-width:46%;transform:rotate(var(--r,0deg));box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.collage .bit b{display:block;font-size:13px;font-weight:600;margin-bottom:2px}
+.collage .bit .src{opacity:.65;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.04em}
+.collage .bit.fav{outline:1px dashed rgba(198,255,61,.55)}
+.collage .bit.own{outline:1px dashed rgba(255,91,46,.55)}
+.collage .c-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.collage .c-tags span{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--accent);color:var(--muted)}
+.collage .c-note{margin-top:10px;font-size:12px;color:var(--muted)}
+/* ---- Web demo 调参条 + 复制 ---- */
+.knobs{display:flex;flex-wrap:wrap;gap:10px 14px;padding:10px 12px;border-top:1px solid var(--border);background:color-mix(in oklch,var(--accent) 70%,transparent);font-size:12px}
+.knobs label{display:flex;flex-direction:column;gap:4px;min-width:120px;flex:1 1 140px;color:var(--muted)}
+.knobs label strong{color:var(--fg);font-weight:600;font-size:12px}
+.knobs input[type=range]{width:100%;min-height:28px}
+.knobs select,.knobs input[type=color]{min-height:36px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--fg);padding:4px 8px}
+.knobs .kv{font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace;color:var(--fg)}
+.code-bar{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0}
+.code-bar button{appearance:none;font:500 13px/1 inherit;font-family:inherit;padding:10px 14px;min-height:44px;border-radius:999px;border:1px solid var(--border);background:var(--accent);color:var(--fg);cursor:pointer}
+.code-bar button.pri{background:var(--fg);color:var(--bg);border-color:transparent}
+.code-bar button:active{transform:scale(.97)}
+.code-bar .ok{color:#2a7a3a}
 footer{margin:32px 0 40px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:16px}
 @media (min-width:720px){.bh{padding:20px 24px 14px}.bb{padding:18px 24px 16px}}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
@@ -74,7 +103,8 @@ footer{margin:32px 0 40px;font-size:12px;color:var(--muted);border-top:1px solid
 <div class="top in"><b>每日设计灵感</b><span>{{DATE}}</span></div>
 <section class="hero"><div class="eyebrow in" style="animation-delay:.08s">Web demo + App 原视频 · {{COUNT}} 个</div>
 <h1 class="in" style="animation-delay:.14s">把好设计<br>拆开来玩</h1>
-<p class="lead in" style="animation-delay:.22s">Web 块是用代码复刻的可交互 demo，参数取自原站源码；App 块直接放 Mobbin 上的原视频，已下载进页面，点画面可暂停/播放。打星、收藏会自动同步。</p></section>
+<p class="lead in" style="animation-delay:.22s">顶部是「今日拼接」：当天设计立场 + 收藏/自创元素拼在一起。Web 块可重播、可调关键参数、可复制代码给 AI；App 块放 Mobbin 原视频。打星、收藏会自动同步。</p></section>
+{{COLLAGE}}
 <nav class="nav" aria-label="目录">{{NAV}}</nav>
 <section class="blocks">
 {{BLOCKS}}
@@ -96,6 +126,42 @@ if(rm){v.autoplay=false;v.removeAttribute('autoplay')}
 const load=()=>ld||(ld=(v.dataset.b64?fetch(v.dataset.b64).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(t=>{const s=atob(t.replace(/\s+/g,''));const u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);v.src=URL.createObjectURL(new Blob([u],{type:'video/mp4'}))}):Promise.resolve()).catch(()=>box.classList.add('err')));
 sync();b.addEventListener('click',()=>{user=true;load().then(()=>{if(v.paused)v.play().catch(()=>{});else v.pause()})});
 new IntersectionObserver(es=>es.forEach(e=>{vis=e.isIntersecting;if(vis)load().then(()=>{if(!rm&&!user&&vis)v.play().catch(sync)});else if(!user)v.pause()}),{rootMargin:'200px 0px'}).observe(v)})})();
+</script>
+<script>
+
+// Web demo 调参：.knobs 里的 input/select 写到最近 .demo 的 CSS 变量，并派发 knob 事件
+document.querySelectorAll('.knobs').forEach(bar=>{
+  const demo=bar.closest('.block')?.querySelector('.demo');
+  if(!demo) return;
+  const apply=()=>{
+    bar.querySelectorAll('[data-var]').forEach(el=>{
+      const v=el.dataset.var, unit=el.dataset.unit||'', val=el.value+unit;
+      demo.style.setProperty(v, val);
+      const out=el.parentElement?.querySelector('.kv');
+      if(out) out.textContent=val;
+    });
+    demo.dispatchEvent(new CustomEvent('knob',{bubbles:true}));
+  };
+  bar.addEventListener('input',apply); apply();
+});
+// 复制代码 / 复制给 AI
+document.querySelectorAll('[data-copy]').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const sel=btn.getAttribute('data-copy');
+    const el=btn.closest('.bb')?.querySelector(sel);
+    if(!el) return;
+    let text=el.value||el.textContent||'';
+    if(btn.dataset.mode==='ai'){
+      const name=btn.closest('.block')?.querySelector('h2')?.textContent?.trim()||'这个 UI';
+      text='请按下面这段代码复刻「'+name+'」的交互（保留缓动、时长和关键参数，可改成我项目的配色）：\n\n'+text;
+    }
+    try{
+      await navigator.clipboard.writeText(text);
+      const t=btn.textContent; btn.textContent='已复制'; btn.classList.add('ok');
+      setTimeout(()=>{btn.textContent=t; btn.classList.remove('ok')},1400);
+    }catch(e){ btn.textContent='复制失败'; }
+  });
+});
 </script>
 <script src="design-feedback.js" data-date="{{DATE}}"></script>
 </body></html>

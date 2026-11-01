@@ -101,3 +101,23 @@ pg = await b.new_page(viewport={'width':390,'height':844}, has_touch=True)
 1. 用 `user-GitHub-xai` 的 `get_file_contents`（ref=gh-pages）拿 sha，再用 `create_or_update_file`，`content` 写成 `"$file:/abs/path/<date>.html"`。
 2. 等约 1 分钟，用 `curl https://jidadiao.github.io/x-daily-digest/design/<date>.html?t=$RANDOM | cmp - <date>.html` 确认和本地一致。
 3. 新增的站同步写进 `/workspace/inspo/recommended.md`，避免以后重复推荐。
+
+
+## ★ 今日拼接 + Web demo 增强（用户 2026-11-01 确认，2026-11-02 起）
+
+借鉴 design.lthero.com / Folio 向，**不要照搬品牌**。
+
+### 1) 今日拼接
+每期顶部一块「当日设计立场 + 收藏/自创元素的拼接展示」，不是堆卡片。
+- 写 `blocks/_collage.json`（示例见 `blocks/_collage.example.json`）。字段：`stance`（一句话立场）、`why`、`bg`/`fg`、`bits[]`（title/source/kind=favorite|own/rotate/note）、`tags`、`note`。
+- 元素优先来自 `design-tokens.json` 里 status=favorite；自创 ≤2。视觉上拼在一起（旋转、重叠感），别排成列表。
+- 仍可参考叼报版式原型 v2 的气质（有立场、不堆砌），但设计页本身不强制 8 原型轮换。
+
+### 2) Web demo：可重播 / 可调参 / 可复制
+- **重播**：demo 根加 `data-replay`，动画挂在 `.play`；放 `<button class="replay">`（已有外壳逻辑）。
+- **可调参**：在 meta 写 `knobs` 数组，例如：
+  `"knobs":[{"var":"--dur","label":"时长 ms","type":"range","min":200,"max":900,"step":50,"value":420,"unit":"ms"},{"var":"--accent","label":"强调色","type":"color","value":"#0b7ed0"}]`
+  外壳会把值写到 `.demo` 的 CSS 变量并派发 `knob` 事件；demo 内用 `var(--dur)` 等读取。
+- **可复制给 AI**：每个 Web block 必须有 `<!--code-->...</code-->` 最小可运行片段。外壳提供「复制代码」「复制给 AI」按钮（后者会加一句提示前缀）。
+
+App 仍用 Mobbin 原图/原视频，不复刻，不要求 knobs/code。
