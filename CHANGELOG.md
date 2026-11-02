@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## 2026-11-02
+
+- prefs `SOURCE_TYPES` 增加 `dcr` / `blog`（schema v5，signals CHECK 重建）；`sources.yaml` 为两者写入 half_life；公开源候选可入库。
 - 新增公开源 **blog**（白名单个人实践博客）：首发 [fomoxx](https://fomoxx.com/) RSS `https://fomoxx.com/index.xml`；配置 `src/daily-portal/collectors/feeds-blog.json`。
 - 采集：只保留 `/posts/` 文章；跳过 privacy/about/editorial-policy 等；id=`blog:<site>/<slug>`；author=站名；**每日精选 ≤2**；画像 exploit/explore 打分。
 - 打分：`score.py` 对 blog 用 **7 天**半衰期；复盘/排障/实测略抬干货。`pick-rules` 允许真人踩坑长文、推送消息里最多 1–2 条。

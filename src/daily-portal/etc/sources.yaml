@@ -16,6 +16,8 @@ signals:
   reddit:  {enabled: false, note: 不连账号}
   linuxdo: {enabled: false, note: 不连账号}
   hf:      {enabled: false, note: 不连账号}
+  dcr:     {enabled: true,  half_life_days: 14, note: Did Codex Reset 公开 RSS 候选}
+  blog:    {enabled: true,  half_life_days: 30, note: 白名单个人实践博客候选}
 
 # 日报内容来源（公开数据，不用账号；采集器待实现）
 content:

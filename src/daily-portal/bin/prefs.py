@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
 """DiaoDaily 叼报 · 偏好库 (bot-independent). SQLite at /srv/daily/data/prefs.db.
 Stdlib only. Import as a module (add_signal/search/profile/memories/remember/derive/export)
-or use the CLI: prefs.py -h.  Docs: /srv/daily/data/PREFS_API.md"""
+or use the CLI: prefs.py -h.  Docs: /srv/daily/data/PREFS_API.md
+钥匙级学习见 learning.py（repo:/x:@/sub:/feed:/site:/kw:）；dismiss=收起不算负反馈。"""
 import os, re, sys, json, math, sqlite3, argparse, datetime, hashlib
+try:
+    import learning
+except ImportError:
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import learning
 
 DB = os.environ.get("PREFS_DB", "/srv/daily/data/prefs.db")
 DATA = "/srv/daily/data"; FAV = "/srv/daily/favorites"
 SH = datetime.timezone(datetime.timedelta(hours=8))
-SOURCE_TYPES = ("news", "design", "github", "chat", "manual", "hf", "hn", "reddit", "linuxdo")
-ACTIONS = ("like", "dislike", "fav", "unfav", "read", "open", "rate", "skip", "star", "bookmark", "submit", "comment", "follow", "upvote")
+SOURCE_TYPES = ("news", "design", "github", "chat", "manual", "hf", "hn", "reddit", "linuxdo", "dcr", "blog")
+ACTIONS = ("like", "dislike", "fav", "unfav", "read", "open", "rate", "skip", "star", "bookmark", "submit", "comment", "follow", "upvote", "dismiss")
 POLARITY = ("like", "avoid", "neutral")
 # signal -> preference weight (rate: value-3 => 5★=+2, 1★=-2)
 W = {"like": 1.0, "dislike": -1.0, "fav": 1.5, "unfav": -1.5, "read": 0.2, "open": 0.3, "skip": -0.3,
-     "star": 1.0, "bookmark": 1.5, "submit": 0.8, "comment": 0.5, "follow": 1.0, "upvote": 0.7}
+     "star": 1.0, "bookmark": 1.5, "submit": 0.8, "comment": 0.5, "follow": 1.0, "upvote": 0.7, "dismiss": 0.0}
 DEDUP = re.compile(r"^[a-z0-9_-]{1,20}:[a-z_-]{1,20}:[^\s]{1,200}$")  # <src>:<action>:<external_id>
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 5
 SOURCES_YAML = os.environ.get("DAILY_SOURCES_YAML", "/srv/daily/etc/sources.yaml")
 MERGE_SIM = 0.75  # mem0-style: near-duplicate manual memories (char-bigram Jaccard) merge + accumulate evidence
 DEFAULT_CFG = {"half_life_by_source": {"github": 90}, "half_life_days": 14, "explore_ratio": 0.2, "avoid_after_dislikes": 3, "min_abs_score": 0.5, "user": "jidadiao"}
@@ -48,6 +54,12 @@ CREATE TABLE IF NOT EXISTS sources(name TEXT PRIMARY KEY, kind TEXT, account TEX
  health TEXT NOT NULL DEFAULT 'unknown' CHECK(health IN ('ok','error','not_configured','disabled','unknown')), error TEXT, meta TEXT NOT NULL DEFAULT '{}');
 CREATE TABLE IF NOT EXISTS entities(id INTEGER PRIMARY KEY, name TEXT NOT NULL, aliases TEXT NOT NULL DEFAULT '[]', type TEXT NOT NULL DEFAULT 'topic',
  canonical_id TEXT, meta TEXT NOT NULL DEFAULT '{}', UNIQUE(type, name));
+CREATE TABLE IF NOT EXISTS key_overrides(
+ key TEXT PRIMARY KEY,
+ cleared_at TEXT NOT NULL,
+ kind TEXT NOT NULL DEFAULT 'both' CHECK(kind IN ('penalty','boost','both')),
+ meta TEXT NOT NULL DEFAULT '{}');
+
 CREATE VIRTUAL TABLE IF NOT EXISTS memories_fts USING fts5(text, tags, content='memories', content_rowid='id', tokenize='trigram');
 CREATE VIRTUAL TABLE IF NOT EXISTS items_fts USING fts5(title, summary, tags, content='items', content_rowid='rowid', tokenize='trigram');
 CREATE TRIGGER IF NOT EXISTS m_ai AFTER INSERT ON memories BEGIN INSERT INTO memories_fts(rowid,text,tags) VALUES(new.id,new.text,new.tags); END;
@@ -69,7 +81,7 @@ def _cols(c, t): return [r[1] for r in c.execute(f"PRAGMA table_info({t})")]
 def migrate(c):
     """Idempotent v1->v2 migration. Rebuilds signals only if CHECK lists/occurred_at are outdated (ids preserved)."""
     sql = c.execute("SELECT sql FROM sqlite_master WHERE name='signals'").fetchone()[0]
-    if "occurred_at" not in sql or "'linuxdo'" not in sql or "'upvote'" not in sql:
+    if "occurred_at" not in sql or "'linuxdo'" not in sql or "'upvote'" not in sql or "'dcr'" not in sql or "'blog'" not in sql:
         n0 = c.execute("SELECT count(*) FROM signals").fetchone()[0]
         has_occ = "occurred_at" in _cols(c, "signals")
         c.execute("BEGIN IMMEDIATE")
@@ -458,6 +470,169 @@ def _design_balanced(es, top, need):
     out["avoid"] = sorted(out["by_kind"]["web"]["avoid"] + out["by_kind"]["app"]["avoid"], key=lambda x: x["weight"])[:top]
     return out
 
+
+# ---------- 钥匙级学习（learning.py）----------
+def _load_key_overrides(c):
+    """{key: cleared_at_ms}；'+key' 表示撤销多推。"""
+    out = {}
+    for r in c.execute("SELECT key, cleared_at, kind FROM key_overrides"):
+        ms = learning._ts_ms(r["cleared_at"])
+        kind = r["kind"] or "both"
+        if kind in ("penalty", "both"):
+            out[r["key"]] = ms
+        if kind in ("boost", "both"):
+            out["+" + r["key"]] = ms
+    return out
+
+def clear_learned_key(c, key, kind="both", reason="user"):
+    """撤销某把钥匙的少推/多推（之后同时间点之前的信号不再计入）。可逆：再点赞/踩会重新学。"""
+    key = (key or "").strip().lower()
+    if not key or not re.match(r"^(repo|x|sub|feed|site|kw|hf|hffam):", key):
+        raise ValueError("key must look like repo:… / x:@… / sub:… / feed:… / site:… / kw:…")
+    if kind not in ("penalty", "boost", "both"):
+        raise ValueError("kind")
+    t = now()
+    old = c.execute("SELECT meta FROM key_overrides WHERE key=?", (key,)).fetchone()
+    meta = json.loads(old["meta"]) if old else {}
+    meta["reason"] = (reason or "user")[:200]
+    meta["cleared_by"] = "clear_learned_key"
+    c.execute("""INSERT INTO key_overrides(key,cleared_at,kind,meta) VALUES(?,?,?,?)
+      ON CONFLICT(key) DO UPDATE SET cleared_at=excluded.cleared_at, kind=excluded.kind, meta=excluded.meta""",
+      (key, t, kind, json.dumps(meta, ensure_ascii=False)))
+    c.commit()
+    return {"key": key, "kind": kind, "cleared_at": t}
+
+def feedback_from_db(c, asof=None):
+    """从 signals + key_overrides 构建 learning.Feedback。"""
+    asof = asof or datetime.datetime.now(datetime.timezone.utc)
+    rows = c.execute(
+        "SELECT * FROM signals WHERE coalesce(occurred_at,ts)<? ORDER BY coalesce(occurred_at,ts), id",
+        (_cut(asof),),
+    ).fetchall()
+    liked, disliked, trashed = [], [], []
+    for r in rows:
+        ev = learning.signal_event(r)
+        if not ev:
+            continue
+        side, event = ev
+        if side == "liked":
+            liked.append(event)
+        elif side == "disliked":
+            disliked.append(event)
+        elif side == "trashed":
+            trashed.append(event)
+    now_ms = asof.timestamp() * 1000 if asof.tzinfo else asof.replace(tzinfo=datetime.timezone.utc).timestamp() * 1000
+    return learning.Feedback.from_events(liked, disliked, trashed, _load_key_overrides(c), now_ms)
+
+def _manual_key_overlay(c, keys, card=None):
+    """manual 记忆优先：匹配的 avoid → 地板；匹配的 like → 至少 +8% 等价。返回 (factor_mult_hint, notes)。
+    factor_mult_hint: None | 'floor' | 'boost_min'"""
+    notes = []
+    floor = False
+    boost_min = False
+    keyset = set(keys or [])
+    for r in c.execute("""SELECT key,polarity,text,scope,tags FROM memories
+      WHERE source='manual' AND status='active' AND invalid_at IS NULL"""):
+        k = (r["key"] or "").lower()
+        pol = r["polarity"]
+        # 直接钥匙形 manual
+        if k in keyset or any(k == x for x in keyset):
+            if pol == "avoid":
+                floor = True; notes.append("manual:" + k)
+            elif pol == "like":
+                boost_min = True; notes.append("manual+:" + k)
+            continue
+        # 硬规则：动画 / 安卓
+        if pol == "avoid" and card is not None:
+            if k in ("anime-hard", "anime", "acg") or "动画" in (r["text"] or ""):
+                if learning.card_markers_hit(card, learning.ANIME_MARKERS):
+                    floor = True; notes.append("manual:anime-hard")
+            if k in ("android",) or "安卓" in (r["text"] or ""):
+                if learning.card_markers_hit(card, learning.ANDROID_MARKERS):
+                    floor = True; notes.append("manual:android")
+    if floor:
+        return "floor", notes
+    if boost_min:
+        return "boost_min", notes
+    return None, notes
+
+def item_factor(c, card, asof=None, fb=None):
+    """给一条候选算钥匙 factor（乘到排序分上）。manual 优先于 derived。"""
+    fb = fb or feedback_from_db(c, asof)
+    if not isinstance(card, dict):
+        card = learning.signal_to_card(card)
+    # digest 条目字段兼容
+    if "url" not in card and card.get("item_url"):
+        card = {**card, "url": card["item_url"]}
+    if not card.get("source") and card.get("source_type"):
+        card = {**card, "source": card["source_type"]}
+    if card.get("handle") and not card.get("author"):
+        card = {**card, "author": card["handle"]}
+    keys = learning.item_keys(card)
+    f = fb.factor(keys)
+    overlay, notes = _manual_key_overlay(c, keys, card)
+    if overlay == "floor":
+        f = min(f, learning.PENALTY_FLOOR)
+    elif overlay == "boost_min":
+        f = max(f, 1.0 + learning.BOOST_PER)
+    return {
+        "factor": round(f, 4),
+        "keys": keys,
+        "why": fb.why(keys),
+        "manual": notes,
+        "penalty": {k: round(fb.penalty[k], 4) for k in keys if k in fb.penalty},
+        "boost": {k: round(fb.boost[k], 4) for k in keys if k in fb.boost},
+    }
+
+def learned_keys(c, asof=None, limit=50):
+    """导出当前生效的钥匙分（penalty/boost），按 |strength| 降序。"""
+    fb = feedback_from_db(c, asof)
+    rows = []
+    for k, v in fb.penalty.items():
+        rows.append({"key": k, "side": "penalty", "strength": round(v, 4),
+                     "alone_factor": round(max(learning.PENALTY_FLOOR, 1 - learning.PENALTY_PER * v), 4)})
+    for k, v in fb.boost.items():
+        rows.append({"key": k, "side": "boost", "strength": round(v, 4),
+                     "alone_factor": round(1 + min(learning.BOOST_CAP, learning.BOOST_PER * v), 4)})
+    rows.sort(key=lambda x: -x["strength"])
+    ov = [{"key": r["key"], "cleared_at": r["cleared_at"], "kind": r["kind"]}
+          for r in c.execute("SELECT key,cleared_at,kind FROM key_overrides ORDER BY cleared_at DESC")]
+    return {
+        "half_life_days": learning.HALF_LIFE_DAYS,
+        "penalty_per": learning.PENALTY_PER,
+        "boost_per": learning.BOOST_PER,
+        "boost_cap": learning.BOOST_CAP,
+        "penalty_floor": learning.PENALTY_FLOOR,
+        "keys": rows[: int(limit)],
+        "overrides": ov,
+        "note": "dislike=少推(-25%/次衰减)；like/fav=多推(+8%/次，帽+30%)；dismiss/skip/read 不计入；大话题不进 kw:",
+    }
+
+def score_with_keys(base_score, factor):
+    """排序用：基础分 × 钥匙 factor。"""
+    try:
+        return float(base_score) * float(factor)
+    except (TypeError, ValueError):
+        return float(base_score or 0)
+
+def apply_key_factors(c, items, score_key="score", asof=None):
+    """给候选列表乘上钥匙 factor，按 score_keyed 降序。items 为 dict 列表（digest 条目或信号形）。"""
+    fb = feedback_from_db(c, asof)
+    out = []
+    for it in items or []:
+        info = item_factor(c, it, asof=asof, fb=fb)
+        base = it.get(score_key, it.get("likes", it.get("stars", 1.0)))
+        if base is None: base = 1.0
+        row = dict(it)
+        row["key_factor"] = info["factor"]
+        row["key_why"] = info["why"]
+        row["key_keys"] = info["keys"]
+        row["score_keyed"] = round(score_with_keys(base, info["factor"]), 6)
+        out.append(row)
+    out.sort(key=lambda x: (-x["score_keyed"], -float(x.get(score_key) or x.get("likes") or 0)))
+    return out
+
+
 def profile(c, date=None, top=8):
     """Daily profile: decayed weights recomputed as of end of `date` (Asia/Shanghai)."""
     if date:
@@ -477,6 +652,14 @@ def profile(c, date=None, top=8):
         if scope == "design": res[scope] = _design_balanced(es, top, need)
     res["recommend"] = recommend_weights(b, cf, need)
     res["manual"] = [_mem(r) for r in c.execute("SELECT * FROM memories WHERE source='manual' AND status='active' AND invalid_at IS NULL ORDER BY last_seen DESC LIMIT 30")]
+    # 钥匙级学习：供 12:00 精选乘分；manual 记忆优先逻辑在 item_factor 内
+    try:
+        lk = learned_keys(c, asof, limit=top * 4)
+        res["keys"] = {"half_life_days": lk["half_life_days"], "penalty_per": lk["penalty_per"],
+                       "boost_per": lk["boost_per"], "boost_cap": lk["boost_cap"], "penalty_floor": lk["penalty_floor"],
+                       "top": lk["keys"][:top * 2], "overrides_n": len(lk["overrides"]), "note": lk["note"]}
+    except Exception as ex:
+        res["keys"] = {"error": str(ex)}
     return res
 
 def recommend_weights(b, cf, need=3, n_exploit=12, n_explore=6):
@@ -616,6 +799,11 @@ def _out(o, md=False):
         if rc.get("exploit"): print("\n## 推荐权重（exploit %d%% / explore %d%%）" % (round((1 - rc["explore_ratio"]) * 100), round(rc["explore_ratio"] * 100)))
         for x in rc.get("exploit", []) + rc.get("explore", []): print(f"- {x['why']} {x['scope']}:{x['key']} {x['weight']:.3f}")
         if o["manual"]: print("\n## 手动记忆\n" + "\n".join(f"- [{m['polarity']}] {m['text']}" for m in o["manual"]))
+        ks = (o.get("keys") or {}).get("top") or []
+        if ks:
+            print("\n## 钥匙级（learning）")
+            for x in ks[:16]:
+                print(f"- {x['side']} {x['key']} strength={x['strength']} alone={x['alone_factor']}")
         return
     print(json.dumps(o, ensure_ascii=False, indent=1))
 
@@ -640,6 +828,9 @@ def main(argv=None):
     i = sp.add_parser("import"); i.add_argument("--md-json")
     sp.add_parser("stats"); sp.add_parser("purge-test")
     c_ = sp.add_parser("config"); c_.add_argument("key", nargs="?"); c_.add_argument("value", nargs="?")
+    lk = sp.add_parser("learned"); lk.add_argument("--limit", type=int, default=50); lk.add_argument("--date")
+    ck = sp.add_parser("clear-key"); ck.add_argument("key"); ck.add_argument("--kind", default="both", choices=("penalty","boost","both")); ck.add_argument("--reason", default="user")
+    fk = sp.add_parser("factor"); fk.add_argument("--json", help="card JSON or '-' stdin"); fk.add_argument("--url"); fk.add_argument("--author"); fk.add_argument("--topic"); fk.add_argument("--tags"); fk.add_argument("--source-type", default="news"); fk.add_argument("--item-id")
     ar = p.parse_args(argv); c = connect(ar.db)
     try:
         if ar.cmd == "add-signal":
@@ -673,6 +864,23 @@ def main(argv=None):
             if ar.key and ar.value is not None:
                 c.execute("INSERT OR REPLACE INTO config VALUES(?,?)", (ar.key, json.dumps(json.loads(ar.value)))); c.commit()
             _out(cfg(c))
+        elif ar.cmd == "learned":
+            asof = None
+            if ar.date:
+                d = datetime.date.fromisoformat(ar.date)
+                asof = datetime.datetime.combine(d, datetime.time(23, 59, 59), SH).astimezone(datetime.timezone.utc)
+            _out(learned_keys(c, asof, ar.limit))
+        elif ar.cmd == "clear-key":
+            _out(clear_learned_key(c, ar.key, ar.kind, ar.reason))
+        elif ar.cmd == "factor":
+            if ar.json:
+                card = json.load(sys.stdin) if ar.json == "-" else json.loads(ar.json)
+            else:
+                card = {"item_url": ar.url, "url": ar.url, "author": ar.author, "topic": ar.topic,
+                        "tags": ar.tags.split(",") if ar.tags else [], "source_type": ar.source_type,
+                        "item_id": ar.item_id, "source": ar.source_type}
+                card = {k: v for k, v in card.items() if v is not None}
+            _out(item_factor(c, card))
     except ValueError as ex:
         print(json.dumps({"error": str(ex)}, ensure_ascii=False)); return 2
     return 0

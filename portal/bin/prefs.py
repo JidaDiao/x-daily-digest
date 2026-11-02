@@ -13,14 +13,14 @@ except ImportError:
 DB = os.environ.get("PREFS_DB", "/srv/daily/data/prefs.db")
 DATA = "/srv/daily/data"; FAV = "/srv/daily/favorites"
 SH = datetime.timezone(datetime.timedelta(hours=8))
-SOURCE_TYPES = ("news", "design", "github", "chat", "manual", "hf", "hn", "reddit", "linuxdo")
+SOURCE_TYPES = ("news", "design", "github", "chat", "manual", "hf", "hn", "reddit", "linuxdo", "dcr", "blog")
 ACTIONS = ("like", "dislike", "fav", "unfav", "read", "open", "rate", "skip", "star", "bookmark", "submit", "comment", "follow", "upvote", "dismiss")
 POLARITY = ("like", "avoid", "neutral")
 # signal -> preference weight (rate: value-3 => 5★=+2, 1★=-2)
 W = {"like": 1.0, "dislike": -1.0, "fav": 1.5, "unfav": -1.5, "read": 0.2, "open": 0.3, "skip": -0.3,
      "star": 1.0, "bookmark": 1.5, "submit": 0.8, "comment": 0.5, "follow": 1.0, "upvote": 0.7, "dismiss": 0.0}
 DEDUP = re.compile(r"^[a-z0-9_-]{1,20}:[a-z_-]{1,20}:[^\s]{1,200}$")  # <src>:<action>:<external_id>
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 SOURCES_YAML = os.environ.get("DAILY_SOURCES_YAML", "/srv/daily/etc/sources.yaml")
 MERGE_SIM = 0.75  # mem0-style: near-duplicate manual memories (char-bigram Jaccard) merge + accumulate evidence
 DEFAULT_CFG = {"half_life_by_source": {"github": 90}, "half_life_days": 14, "explore_ratio": 0.2, "avoid_after_dislikes": 3, "min_abs_score": 0.5, "user": "jidadiao"}
@@ -81,7 +81,7 @@ def _cols(c, t): return [r[1] for r in c.execute(f"PRAGMA table_info({t})")]
 def migrate(c):
     """Idempotent v1->v2 migration. Rebuilds signals only if CHECK lists/occurred_at are outdated (ids preserved)."""
     sql = c.execute("SELECT sql FROM sqlite_master WHERE name='signals'").fetchone()[0]
-    if "occurred_at" not in sql or "'linuxdo'" not in sql or "'upvote'" not in sql:
+    if "occurred_at" not in sql or "'linuxdo'" not in sql or "'upvote'" not in sql or "'dcr'" not in sql or "'blog'" not in sql:
         n0 = c.execute("SELECT count(*) FROM signals").fetchone()[0]
         has_occ = "occurred_at" in _cols(c, "signals")
         c.execute("BEGIN IMMEDIATE")
