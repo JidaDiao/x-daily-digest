@@ -140,7 +140,7 @@ def render_knobs(meta):
             bits.append(f'<label><strong>{label}</strong><select data-var="{var}" data-unit="{unit}">{opts}</select><span class="kv">{val}{unit}</span></label>')
         else:
             bits.append(f'<label><strong>{label}</strong><input data-var="{var}" data-unit="{unit}" value="{esc_txt(val)}"><span class="kv">{val}{unit}</span></label>')
-    return f'<div class="knobs" aria-label="可调参数">{"".join(bits)}</div>' if bits else ''
+    return f'<details><summary>可调参数</summary><div class="knobs" aria-label="可调参数">{''.join(bits)}</div></details>' if bits else ''
 def render_collage(path):
     if not os.path.exists(path): return ''
     c=json.load(open(path))
@@ -189,12 +189,12 @@ for f,s,meta in blocks:
     focus=f'<span class="focus f-{ {"交互":"ix","界面":"ui","兼具":"both"}[fo]}">{fo}</span>' if fo else ''
     howfresh=''
     if fo in('交互','兼具'):
-        howfresh=f'<dl class="hf"><dt>怎么操作</dt><dd>{meta["how"]}</dd><dt>为什么新鲜</dt><dd>{meta["fresh"]}</dd></dl>'
+        howfresh=f'<details><summary>怎么操作 · 为什么新鲜</summary><dl class="hf"><dt>怎么操作</dt><dd>{meta["how"]}</dd><dt>为什么新鲜</dt><dd>{meta["fresh"]}</dd></dl></details>'
     knobs=render_knobs(meta) if kind=='Web' else ''
     code_block=''
     if code:
         rows=min(18,code.count(chr(10))+2)
-        code_block=f'''<details open><summary>关键代码 · 可复制给 AI</summary>
+        code_block=f'''<details><summary>关键代码 · 可复制给 AI</summary>
 <textarea class="code" id="code-{k}" readonly spellcheck="false" rows="{rows}">{code}</textarea>
 <div class="code-bar"><button type="button" class="pri" data-copy="#code-{k}">复制代码</button><button type="button" data-copy="#code-{k}" data-mode="ai">复制给 AI</button></div>
 </details>'''
@@ -202,12 +202,14 @@ for f,s,meta in blocks:
     cards.append(f'''<article class="block design in" id="b-{k}" data-site="{meta["name"]}" data-url="{meta["url"]}" data-focus="{fo or ''}">
 <header class="bh"><span class="kind {kind.lower()}">{kind}</span>{focus}<h2>{meta["name"]}</h2><span class="sub">{meta.get("subtitle","")}</span></header>
 <div class="demo d-{k}">{part(s,"demo")}</div>
-{knobs}
-<div class="bb">{howfresh}<p class="why">{meta["why"]}</p><div class="tags">{tags}</div>
-<details><summary>关键参数</summary><ul class="params">{params}</ul></details>
-{code_block}
+<div class="bb"><p class="why">{meta["why"]}</p><div class="tags">{tags}</div>
 <div class="ref">{thumb}<div class="links"><a href="{meta["url"]}" target="_blank" rel="noopener">{meta.get("ref","原站")} ↗</a><span class="note">{meta.get("note","")}</span></div></div>
-<div class="act"><span class="df-stars" aria-label="评分"></span><button class="df-fav" type="button"></button></div></div></article>''')
+<div class="act"><span class="df-stars" aria-label="评分"></span><button class="df-fav" type="button"></button></div>
+{howfresh}
+<details><summary>关键参数</summary><ul class="params">{params}</ul></details>
+{knobs}
+{code_block}
+</div></article>''')
     for r in re.findall(r'(?:data-b64|src|poster)="(?:inline:)?([^"]+)"',part(s,'demo'))+([meta['thumb']] if meta.get('thumb') else []):
         if r not in seen and os.path.exists(r): seen.add(r); total+=os.path.getsize(r)
 cards=[re.sub(r'poster="inline:([^"]+)"',lambda m:'poster="'+b64(m.group(1))+'"',c) for c in cards]

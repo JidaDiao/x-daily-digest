@@ -119,5 +119,6 @@ pg = await b.new_page(viewport={'width':390,'height':844}, has_touch=True)
   `"knobs":[{"var":"--dur","label":"时长 ms","type":"range","min":200,"max":900,"step":50,"value":420,"unit":"ms"},{"var":"--accent","label":"强调色","type":"color","value":"#0b7ed0"}]`
   外壳会把值写到 `.demo` 的 CSS 变量并派发 `knob` 事件；demo 内用 `var(--dur)` 等读取。
 - **可复制给 AI**：每个 Web block 必须有 `<!--code-->...</code-->` 最小可运行片段。外壳提供「复制代码」「复制给 AI」按钮（后者会加一句提示前缀）。
+- **手机默认折叠（用户 2026-11-02）**：怎么操作/为什么新鲜、关键参数、可调参数、关键代码一律 `<details>` **不要**加 `open`；卡片主信息顺序：标题 → demo → 简介/tags → 缩略图+链接 → 打分收藏，折叠块放后面。
 
 App 仍用 Mobbin 原图/原视频，不复刻，不要求 knobs/code。
