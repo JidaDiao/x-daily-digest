@@ -8,6 +8,7 @@
   function css() {
     var s = document.createElement("style");
     s.textContent =
+      ".pn-sb{position:fixed;z-index:2147482999;left:0;right:0;top:0;height:env(safe-area-inset-top,0px);pointer-events:none}" +
       ".pn-spacer{display:block;width:100%;height:calc(env(safe-area-inset-top,0px) + 46px);pointer-events:none}" +
       ".pn-back{position:fixed;z-index:2147483000;left:12px;top:calc(env(safe-area-inset-top,0px) + 8px);height:36px;padding:0 14px 0 10px;display:flex;align-items:center;gap:4px;border:0;border-radius:999px;background:rgba(29,29,31,.78);color:#fff;font:600 14px/1 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 4px 14px rgba(0,0,0,.18);-webkit-tap-highlight-color:transparent;transition:transform .22s,opacity .22s}" +
       ".pn-back:active{transform:scale(.94)}.pn-back.hide{transform:translateY(-70px);opacity:0;pointer-events:none}.pn-back svg{width:16px;height:16px}" +
@@ -23,8 +24,19 @@
     if (same && history.length > 1) history.back(); else location.href = "/";
   }
 
+  function pageBg() {
+    var els = [document.body, document.documentElement];
+    for (var i = 0; i < els.length; i++) {
+      var c = getComputedStyle(els[i]).backgroundColor, m = c && c.match(/[\d.]+/g);
+      if (m && m.length >= 3 && !(m.length > 3 && parseFloat(m[3]) === 0)) return c;
+    }
+    return "#fff";
+  }
   function init() {
     css();
+    /* 状态栏遮罩：内容滚到刘海/时间下面时不再和时间、信号叠在一起（穿模） */
+    var sb = document.createElement("div"); sb.className = "pn-sb"; sb.style.background = pageBg();
+    document.body.appendChild(sb);
     if (!isHome) {
       var sp = document.createElement("div"); sp.className = "pn-spacer";
       document.body.insertBefore(sp, document.body.firstChild);
