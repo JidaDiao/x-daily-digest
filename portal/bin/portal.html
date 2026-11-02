@@ -175,4 +175,4 @@ const tabs=[...document.querySelectorAll(".tabs button")],ind=$(".tabs .ind");
 function go(n,push){tabs.forEach(b=>b.setAttribute("aria-selected",b.dataset.t===n));document.querySelectorAll("section").forEach(s=>{const on=s.id===n;if(on&&!s.classList.contains("on")){s.querySelectorAll(".in").forEach(e=>{e.style.animation="none";e.offsetWidth;e.style.animation=""})}s.classList.toggle("on",on)});const b=tabs.find(b=>b.dataset.t===n);ind.style.width=b.offsetWidth+"px";ind.style.transform=`translateX(${b.offsetLeft-4}px)`;if(push)history.replaceState(null,"","#"+n)}
 tabs.forEach(b=>b.onclick=()=>go(b.dataset.t,1));addEventListener("resize",()=>go(tabs.find(b=>b.getAttribute("aria-selected")=="true").dataset.t));
 go(["today","archive","favs"].includes(location.hash.slice(1))?location.hash.slice(1):"today");
-</script><script src="/pwa-nav.js?v=2" defer></script></body></html>
+</script><script src="/pwa-nav.js?v=3" defer></script></body></html>

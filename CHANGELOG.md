@@ -9,6 +9,7 @@
 - 互动：`news_signal` / `NEWS_SIGNAL.md` 支持 `blog:`。加下一站只改 `feeds-blog.json`。
 - 门户新增 `pwa-nav.js`（仅独立窗口：悬浮返回键 + 下拉刷新），由 VPS nginx `sub_filter` 注入 `/x/` 与 `/design/` 页面，`portal.html` 首页引入；nginx 改动备份在 VPS `/root/daily.nginx.bak-20261102`。
 - pwa-nav v2：返回键改为顶部 sticky 返回栏（随页面深浅配色），不再悬浮遮挡内容。
+- pwa-nav v3：恢复深色圆角悬浮返回键，顶部加占位避免遮挡首屏内容，下滑自动收起、上滑出现。
 
 ## 2026-11-01
 - 新增公开源 **dcr**（Did Codex Reset · AI 快讯）：`https://didcodexreset.com/rss/news.xml?lang=zh-CN`。
