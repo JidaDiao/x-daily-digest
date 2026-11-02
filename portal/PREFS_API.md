@@ -7,13 +7,13 @@
 ## 1. 表结构
 | 表 | 作用 | 关键列 |
 |---|---|---|
-| `signals` | 原始互动事件，**只追加**（触发器禁止 UPDATE） | id, ts(写入时间 UTC), **occurred_at(站点自己的时间，缺省=ts；衰减按它算)**, user, source_type(news\|design\|github\|chat\|manual\|hf\|hn\|reddit\|linuxdo), item_id, item_url, title, topic, tags(JSON 数组), author, action(like\|dislike\|fav\|unfav\|read\|open\|rate\|skip\|star\|bookmark\|submit\|comment\|follow\|upvote), value, meta(JSON；`weight_factor` 0–2 乘到权重上，首次导入的历史=0.5), dedup_key(UNIQUE；约定 `<src>:<action>:<external_id>`) |
+| `signals` | 原始互动事件，**只追加**（触发器禁止 UPDATE） | id, ts(写入时间 UTC), **occurred_at(站点自己的时间，缺省=ts；衰减按它算)**, user, source_type(news\|design\|github\|chat\|manual\|hf\|hn\|reddit\|linuxdo\|dcr\|blog), item_id, item_url, title, topic, tags(JSON 数组), author, action(like\|dislike\|fav\|unfav\|read\|open\|rate\|skip\|star\|bookmark\|submit\|comment\|follow\|upvote), value, meta(JSON；`weight_factor` 0–2 乘到权重上，首次导入的历史=0.5), dedup_key(UNIQUE；约定 `<src>:<action>:<external_id>`) |
 | `memories` | 偏好记忆，一行一句自然语言 | id, text, polarity(like\|avoid\|neutral), scope(topic\|author\|design\|format\|element\|…), key, tags(JSON), confidence(0–1), evidence_count, first_seen, last_seen, half_life_days, status(active\|archived), source(derived\|manual), score(衰减分), meta(JSON), embedding(BLOB，预留)，**valid_from, invalid_at, supersedes_id**；UNIQUE(source,scope,key)。被推翻/作废的记忆不删除：设 invalid_at、status=archived、key 改为 `<key>#inv:<id>`，新记忆 supersedes_id 指向旧行 |
 | `memory_evidence` | 记忆 ← 信号 证据链（derive 写入，每条记忆最多 200 条） | memory_id, signal_id, weight(衰减后贡献) |
 | `sources` | connector 状态 | name(PK), kind, account, cursor, last_sync, last_ok, health(ok\|error\|not_configured\|disabled\|unknown), error, meta(JSON 摘要) |
 | `entities` | 实体归一（预留，下一期填） | id, name, aliases(JSON), type, canonical_id；UNIQUE(type,name) |
 | `items` | 内容索引 | item_id(PK), url, title, summary, tags(JSON), source, date, embedding(BLOB，预留) |
-| `config` | 参数 | half_life_days=14, explore_ratio=0.2, avoid_after_dislikes=3, min_abs_score=0.5, last_derive, schema_version=2 |
+| `config` | 参数 | half_life_days=14, explore_ratio=0.2, avoid_after_dislikes=3, min_abs_score=0.5, last_derive, schema_version=5 |
 | `memories_fts` / `items_fts` | FTS5（trigram）覆盖 memories.text/tags、items.title/summary/tags | 由触发器自动同步 |
 
 约定：
@@ -120,7 +120,7 @@ curl -s -H "Authorization: Bearer $DAILY_API_TOKEN" 'https://daily.jidadiao.fun/
   "inputSchema":{"type":"object","required":["id"],"properties":{"user_id":{"type":"string"},"id":{"type":"integer"},"reason":{"type":"string","maxLength":200},"superseded_by":{"type":"integer"}}}},
  {"name":"add_signal","annotations":{"readOnlyHint":false,"destructiveHint":false,"idempotentHint":true},
   "description":"Append one interaction signal. Use dedup_key <src>:<action>:<external_id> for idempotency.",
-  "inputSchema":{"type":"object","required":["source_type","action"],"properties":{"user_id":{"type":"string"},"source_type":{"enum":["news","design","github","chat","manual","hf","hn","reddit","linuxdo"]},"action":{"enum":["like","dislike","fav","unfav","read","open","rate","skip","star","bookmark","submit","comment","follow","upvote"]},"item_id":{"type":"string","pattern":"^[A-Za-z0-9][A-Za-z0-9._:/@#+\\-]{0,199}$"},"item_url":{"type":"string","format":"uri"},"title":{"type":"string","maxLength":300},"topic":{"type":"string","maxLength":80},"author":{"type":"string","maxLength":120},"tags":{"type":"array","items":{"type":"string","maxLength":40},"maxItems":20},"value":{"type":"number"},"occurred_at":{"type":"string","format":"date-time"},"dedup_key":{"type":"string"},"meta":{"type":"object"}}}}
+  "inputSchema":{"type":"object","required":["source_type","action"],"properties":{"user_id":{"type":"string"},"source_type":{"enum":["news","design","github","chat","manual","hf","hn","reddit","linuxdo","dcr","blog"]},"action":{"enum":["like","dislike","fav","unfav","read","open","rate","skip","star","bookmark","submit","comment","follow","upvote"]},"item_id":{"type":"string","pattern":"^[A-Za-z0-9][A-Za-z0-9._:/@#+\\-]{0,199}$"},"item_url":{"type":"string","format":"uri"},"title":{"type":"string","maxLength":300},"topic":{"type":"string","maxLength":80},"author":{"type":"string","maxLength":120},"tags":{"type":"array","items":{"type":"string","maxLength":40},"maxItems":20},"value":{"type":"number"},"occurred_at":{"type":"string","format":"date-time"},"dedup_key":{"type":"string"},"meta":{"type":"object"}}}}
 ]
 ```
 说明：`user_id` 映射到 signals.user（当前单用户，记忆表暂无 user 列，多用户时再加）。MCP 服务器在 VPS 上直接 `import prefs`（stdio），或远端用 Bearer 调 HTTP。
