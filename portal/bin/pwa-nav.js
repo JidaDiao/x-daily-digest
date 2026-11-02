@@ -8,14 +8,25 @@
   function css() {
     var s = document.createElement("style");
     s.textContent =
-      ".pn-back{position:fixed;z-index:2147483000;left:12px;top:calc(env(safe-area-inset-top,0px) + 8px);height:36px;padding:0 14px 0 10px;display:flex;align-items:center;gap:4px;border:0;border-radius:999px;background:rgba(29,29,31,.78);color:#fff;font:600 14px/1 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 4px 14px rgba(0,0,0,.18);-webkit-tap-highlight-color:transparent;transition:transform .2s,opacity .25s}" +
-      ".pn-back:active{transform:scale(.94)}.pn-back svg{width:16px;height:16px}" +
-      ".pn-ptr{position:fixed;z-index:2147483000;left:50%;top:calc(env(safe-area-inset-top,0px) + 6px);width:36px;height:36px;margin-left:-18px;border-radius:50%;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(-60px);pointer-events:none}" +
+      ".pn-bar{position:-webkit-sticky;position:sticky;top:0;z-index:2147483000;box-sizing:border-box;width:100%;height:calc(env(safe-area-inset-top,0px) + 44px);padding:env(safe-area-inset-top,0px) 8px 0;display:flex;align-items:center;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}" +
+      ".pn-bar.dark{background:rgba(18,20,28,.82);border-bottom:1px solid rgba(255,255,255,.08)}.pn-bar.light{background:rgba(250,250,248,.86);border-bottom:1px solid rgba(0,0,0,.08)}" +
+      ".pn-back{height:34px;padding:0 12px 0 6px;display:flex;align-items:center;gap:2px;border:0;border-radius:999px;background:transparent;font:600 15px/1 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;-webkit-tap-highlight-color:transparent}" +
+      ".pn-bar.dark .pn-back{color:#fff}.pn-bar.light .pn-back{color:#1d1d1f}.pn-back:active{opacity:.5}.pn-back svg{width:18px;height:18px;stroke:currentColor}" +
+".pn-ptr{position:fixed;z-index:2147483000;left:50%;top:calc(env(safe-area-inset-top,0px) + 6px);width:36px;height:36px;margin-left:-18px;border-radius:50%;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(-60px);pointer-events:none}" +
       ".pn-ptr svg{width:18px;height:18px;stroke:#2c76a0;fill:none;stroke-width:2.4;stroke-linecap:round}" +
       ".pn-ptr.spin svg{animation:pn-spin .7s linear infinite}@keyframes pn-spin{to{transform:rotate(360deg)}}";
     document.head.appendChild(s);
   }
 
+  function isDark() {
+    function lum(el) {
+      var c = getComputedStyle(el).backgroundColor, m = c && c.match(/[\d.]+/g);
+      if (!m || m.length < 3 || (m.length > 3 && parseFloat(m[3]) === 0)) return null;
+      return (0.299 * m[0] + 0.587 * m[1] + 0.114 * m[2]) / 255;
+    }
+    var l = lum(document.body); if (l === null) l = lum(document.documentElement);
+    return l !== null ? l < 0.5 : !!(window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+  }
   function back() {
     var same = false;
     try { same = document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
@@ -25,11 +36,14 @@
   function init() {
     css();
     if (!isHome) {
+      var bar = document.createElement("div");
+      bar.className = "pn-bar " + (isDark() ? "dark" : "light");
       var b = document.createElement("button");
       b.className = "pn-back"; b.type = "button"; b.setAttribute("aria-label", "返回");
-      b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>返回';
+      b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>返回';
       b.addEventListener("click", back);
-      document.body.appendChild(b);
+      bar.appendChild(b);
+      document.body.insertBefore(bar, document.body.firstChild);
     }
     var ptr = document.createElement("div");
     ptr.className = "pn-ptr";

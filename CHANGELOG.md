@@ -8,6 +8,7 @@
 - 打分：`score.py` 对 blog 用 **7 天**半衰期；复盘/排障/实测略抬干货。`pick-rules` 允许真人踩坑长文、推送消息里最多 1–2 条。
 - 互动：`news_signal` / `NEWS_SIGNAL.md` 支持 `blog:`。加下一站只改 `feeds-blog.json`。
 - 门户新增 `pwa-nav.js`（仅独立窗口：悬浮返回键 + 下拉刷新），由 VPS nginx `sub_filter` 注入 `/x/` 与 `/design/` 页面，`portal.html` 首页引入；nginx 改动备份在 VPS `/root/daily.nginx.bak-20261102`。
+- pwa-nav v2：返回键改为顶部 sticky 返回栏（随页面深浅配色），不再悬浮遮挡内容。
 
 ## 2026-11-01
 - 新增公开源 **dcr**（Did Codex Reset · AI 快讯）：`https://didcodexreset.com/rss/news.xml?lang=zh-CN`。
