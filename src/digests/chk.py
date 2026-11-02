@@ -31,7 +31,7 @@ async def audit(b):
     for x in r['vh'][:4]:print(tag,'WARN 100vh:',x)
     sg=await pg.evaluate("""()=>{
       const els=[...document.querySelectorAll('[data-sig-id]')];
-      const idOk=id=>/^(?:x|gh|hf|hn|ld|reddit):[A-Za-z0-9._:\\/\\-@#+]{1,199}$/.test(id);
+      const idOk=id=>/^(?:x|gh|hf|hn|ld|reddit|dcr|blog):[A-Za-z0-9._:\\/\\-@#+]{1,199}$/.test(id);
       const txt=(document.body.innerText||'')+(document.title||'');
       const badName=/X\\s*日报/.test(txt) && !/不要再写/.test(txt);
       const groups=[...document.querySelectorAll('.src-group,[data-src],section[aria-label]')].map(e=>e.getAttribute('data-src')||e.getAttribute('aria-label')||e.className);
