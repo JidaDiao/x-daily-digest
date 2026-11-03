@@ -12,7 +12,7 @@
 | linuxdo | top.rss?period=daily → latest.rss | box 出口 403（Cloudflare），VPS 直连超时；失败即跳过并标 skipped |
 | reddit | r/LocalLLaMA、ClaudeAI、selfhosted、programming 的 top/.rss?t=day，每个间隔 3s | 限流紧，单个 sub 失败只跳过，全失败标 skipped |
 | dcr | didcodexreset.com/rss/news.xml?lang=zh-CN（AI 快讯） | 多 category；剥 description「显示语言」；id=dcr:<hex>；via=rss；站点若停更则 fetched>0 但当日精选可能 picked=0 |
-| blog | 白名单 `feeds-blog.json`（9 站，RSS+Atom） | RSS `<item>` 与 Atom `<entry>`（link rel=alternate，published/updated）都解析；每站可选 `include_paths`/`exclude_paths`（旧 `post_path_must_include` 兼容）；近 180 天；按「思考深度粗筛」think_score 选**每站每天 ≤1**、blog 总 ≤2；跨天去重（读 /workspace/digests/items-public-*.json 已推 URL）；id=`blog:<site>/<slug>`；item 额外字段 think_score/think_why |
+| blog | 白名单 `feeds-blog.json`（9 站，RSS+Atom） | RSS `<item>` 与 Atom `<entry>`（link rel=alternate，published/updated）都解析；每站可选 `include_paths`/`exclude_paths`（旧 `post_path_must_include` 兼容）；近 180 天；按「思考深度粗筛」think_score 选**每站每天 ≤1**、blog 总 ≤2（blog 独立排序：blog_rank=think_score×画像系数 0.8–1.2；正文 <1500 字时对每站最新 3 篇抓原文补算，1s 限速、失败回退摘要；标题/开头含指南/教程/入门/步骤/清单等且反思词 <3 扣 2.5）；跨天去重（读 /workspace/digests/items-public-*.json 已推 URL）；id=`blog:<site>/<slug>`；item 额外字段 think_score/think_why |
 
 ## 选择逻辑
 1. 每源按 id（`<source>:<id>`）去重。

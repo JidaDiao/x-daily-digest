@@ -2,6 +2,7 @@
 
 ## 2026-11-03
 
+- blog 选文二次优化：think_score 主导（独立于其他来源轮转，blog_rank=think_score×画像系数 0.8–1.2，跨站取前 2）；短正文抓原文补算（每站最新 3 篇、1s 限速、失败回退）；收紧教程/指南/清单识别（缺反思词扣 2.5），标题含取舍/反思加 1。
 - blog 公开源：`collect.py` 支持 Atom（`<entry>`、link rel=alternate、published/updated）与 RSS；去掉硬性 `/posts/` 过滤，改为每站可选 `include_paths`/`exclude_paths`。
 - blog 时间窗 180 天；每站每天 ≤1、总 ≤2；按已推 URL 跨天去重；新增 think_score「思考深度粗筛」（篇幅、第一人称、结论/取舍/反思词加分，listicle/周刊/高频扣分），item 增加 think_score/think_why 字段，其余字段不变。
 - 白名单扩到 9 站：fomoxx、ROYWANG、WuSiYu、Joway、oldj、MouT.me、puppylpg、rxliuli、piglei。加站流程：候选池 → 每周 3 个给用户确认 → 白名单。

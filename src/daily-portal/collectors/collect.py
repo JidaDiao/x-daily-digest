@@ -138,6 +138,18 @@ BLOG_PER_SITE = 1
 THINK_RE = re.compile(r"结论|取舍|反思|教训|复盘|思考|为什么|权衡|代价|边界|踩坑|经验|总结|我认为|我觉得|回顾|误区|本质|trade-?off|lesson|retro", re.I)
 LISTICLE_RE = re.compile(r"周刊|weekly|第\s*\d+\s*期|\bvol\.?\s*\d+|合集|盘点|汇总|清单|\d+\s*(?:个|款|条)(?:工具|网站|推荐)|top\s*\d+|教程|入门|安装指南", re.I)
 
+TUTORIAL_RE = re.compile(r"指南|教程|入门|步骤|怎么做|如何|一文搞懂|一文读懂|手把手|清单|攻略|速查|cheatsheet|how to|guide", re.I)
+REFLECT_RE = re.compile(r"取舍|反思|教训|复盘|权衡|代价|边界|本质|误区|为什么|我认为|我觉得|思考|trade-?off|lesson", re.I)
+BLOG_FETCH_TOP, BLOG_FETCH_MIN, BLOG_FETCH_SLEEP = 3, 1500, 1.0
+
+def _article_text(url):
+    """抓原文页面正文（article/main 优先），超时 15s；失败返回空串。"""
+    try: h = get(url, "text/html", tries=1)
+    except Exception: return ""
+    h = re.sub(r"(?is)<(script|style|nav|header|footer|aside)[^>]*>.*?</\1>", " ", h)
+    m = re.search(r"(?is)<article[^>]*>(.*)</article>", h) or re.search(r"(?is)<main[^>]*>(.*)</main>", h)
+    return m.group(1) if m else h
+
 def _blog_seen():
     """已推过的 blog URL（读 /workspace/digests/items-public-*.json 历史，跨天去重）。"""
     import glob
@@ -172,6 +184,12 @@ def think_score(title, body, recent_n=0):
     if re.search(r"\d+(?:\.\d+)?\s*(?:%|倍|ms|GB|MB|分钟|小时|美元|\$)", t): s += 0.5; why.append("numbers")
     if re.search(r"<img|截图", body or ""): s += 0.3
     if LISTICLE_RE.search(title): s -= 3; why.append("listicle")
+    head = title + " " + t[:300]
+    if TUTORIAL_RE.search(head):
+        r = len(set(m.lower() for m in REFLECT_RE.findall(title + " " + t)))
+        if r < 3: s -= 2.5; why.append("tutorial")
+        else: s -= 0.5; why.append("tutorial-soft")
+    if REFLECT_RE.search(title): s += 1; why.append("reflect-title")
     if recent_n > 30: s -= 2; why.append("high-freq")
     return round(s, 2), why
 
@@ -213,7 +231,7 @@ def blog(debug=False):
             root = ET.fromstring(x.lstrip("\ufeff").strip())
             ents = list(_blog_entries(root)); cands = []
             recent_n = sum(1 for e in ents if (_parse_dt(e[4]) or cutoff) > cutoff)
-            for title, link, desc, body, pub, cats in ents:
+            for idx, (title, link, desc, body, pub, cats) in enumerate(ents):
                 if not link: continue
                 path = urllib.parse.urlsplit(link).path or "/"
                 if inc and not any(p in path for p in inc): continue
@@ -224,7 +242,12 @@ def blog(debug=False):
                 m = re.search(r"/posts/([^/]+)/?", path)
                 slug = (m.group(1) if m else (path.strip("/").replace("/", "-") or urllib.parse.urlsplit(link).query))[:120]
                 if not slug: continue
+                fetched = False
+                if idx < BLOG_FETCH_TOP and len(clean(body, 100000)) < BLOG_FETCH_MIN and link.rstrip("/") not in seen:
+                    page = _article_text(link); time.sleep(BLOG_FETCH_SLEEP)
+                    if len(clean(page, 100000)) > len(clean(body, 100000)): body, fetched = page, True
                 ts, twhy = think_score(title, body, recent_n)
+                if fetched: twhy = twhy + ["fulltext"]
                 kw = {"via": "rss", "site": name, "think_score": ts, "think_why": twhy}
                 if dt: kw["published_at"] = dt.isoformat()
                 elif pub: kw["published_at"] = pub
@@ -237,7 +260,8 @@ def blog(debug=False):
             if best: out.extend([best][:BLOG_PER_SITE])
             report.append({"site": fid, "fetched": len(cands), "recent_180d": recent_n,
                            "latest": cands[0][1]["title"], "latest_dup": cands[0][0],
-                           "pick": best and best["title"], "pick_score": best and best["think_score"], "why": best and best["think_why"]})
+                           "pick": best and best["title"], "pick_score": best and best["think_score"], "why": best and best["think_why"],
+                           "cands": sorted([(c["think_score"], c["title"][:40]) for d, c in cands if not d], reverse=True)[:5]})
         except Exception as e:
             errs.append(f"{fid}:{getattr(e,'code',e)}"); report.append({"site": fid, "error": str(e)[:120]})
     if debug: print(json.dumps({"errs": errs, "sites": report}, ensure_ascii=False, indent=1))
@@ -271,11 +295,32 @@ def score(item, keys):
     return s, why
 
 def popularity(i):
-    if i.get("source") == "blog": return i.get("think_score", 0) * 0.01
     v = i.get("stars_today") or i.get("points") or i.get("upvotes") or i.get("likes") or i.get("stars") or 0
     return min(v, 5000) / 5000 * 0.02
 
+BLOG_TOTAL = 2
+
+def select_blog(items, rec):
+    """blog：think_score 主导；画像匹配只乘 0.8–1.2。每站已在 blog() 内取最优，这里跨站取前 BLOG_TOTAL。"""
+    ex, xp = rec.get("exploit", []), rec.get("explore", [])
+    for i in items:
+        s, why = score(i, ex); xs, xwhy = score(i, xp)
+        f = max(0.8, min(1.2, 1 + 0.1 * (s + 0.5 * xs)))
+        i["blog_rank"] = round(i.get("think_score", 0) * f, 2); i["match"] = why or xwhy
+    best = {}
+    for i in items:
+        k = i.get("site") or i["id"]
+        if k not in best or i["blog_rank"] > best[k]["blog_rank"]: best[k] = i
+    out = sorted(best.values(), key=lambda i: -i["blog_rank"])[:BLOG_TOTAL]
+    for i in out: i["pick"] = "exploit"
+    return out
+
 def select(by_src, rec):
+    by_src = dict(by_src); blogs = select_blog(by_src.pop("blog", []), rec)
+    return blogs + _select(by_src, rec, TOTAL - len(blogs))
+
+def _select(by_src, rec, total):
+    TOTAL = total
     ex, xp = rec.get("exploit", []), rec.get("explore", [])
     n_explore = round(TOTAL * EXPLORE); cands = []
     for src, items in by_src.items():
