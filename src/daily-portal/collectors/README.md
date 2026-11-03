@@ -12,7 +12,7 @@
 | linuxdo | top.rss?period=daily → latest.rss | box 出口 403（Cloudflare），VPS 直连超时；失败即跳过并标 skipped |
 | reddit | r/LocalLLaMA、ClaudeAI、selfhosted、programming 的 top/.rss?t=day，每个间隔 3s | 限流紧，单个 sub 失败只跳过，全失败标 skipped |
 | dcr | didcodexreset.com/rss/news.xml?lang=zh-CN（AI 快讯） | 多 category；剥 description「显示语言」；id=dcr:<hex>；via=rss；站点若停更则 fetched>0 但当日精选可能 picked=0 |
-| blog | 白名单 `feeds-blog.json`（首发 fomoxx `index.xml`） | 只保留 post_path（默认 `/posts/`）；跳过 privacy/about 等；id=`blog:<site>/<slug>`；author=站名；via=rss；**每源精选 ≤2**；加站只改 JSON |
+| blog | 白名单 `feeds-blog.json`（9 站，RSS+Atom） | RSS `<item>` 与 Atom `<entry>`（link rel=alternate，published/updated）都解析；每站可选 `include_paths`/`exclude_paths`（旧 `post_path_must_include` 兼容）；近 180 天；按「思考深度粗筛」think_score 选**每站每天 ≤1**、blog 总 ≤2；跨天去重（读 /workspace/digests/items-public-*.json 已推 URL）；id=`blog:<site>/<slug>`；item 额外字段 think_score/think_why |
 
 ## 选择逻辑
 1. 每源按 id（`<source>:<id>`）去重。

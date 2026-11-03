@@ -1,5 +1,5 @@
 {
-  "comment": "非 AI 凑文 · 个人实践博客 RSS 白名单（叼报公开源 blog）。只加真人踩坑/复盘站；勿乱加 listicle。加站：在 feeds 数组追加一项。",
+  "comment": "个人博客 RSS/Atom 白名单（叼报公开源 blog）。标准：作者有独立思考、能引发读者思考，真人非 AI；实操加分。新站走 候选池→用户确认→白名单。可选 include_paths/exclude_paths（路径子串）。",
   "feeds": [
     {
       "id": "fomoxx",
@@ -7,8 +7,108 @@
       "rss": "https://fomoxx.com/index.xml",
       "home": "https://fomoxx.com/",
       "lang": "zh",
-      "topics": ["ai-agents", "multica", "mcp", "vps", "selfhost", "codex"],
-      "post_path_must_include": "/posts/"
+      "topics": [
+        "ai-agents",
+        "multica",
+        "mcp",
+        "vps",
+        "selfhost",
+        "codex"
+      ],
+      "include_paths": [
+        "/posts/"
+      ]
+    },
+    {
+      "id": "roywang",
+      "name": "ROYWANG",
+      "rss": "https://roy.wang/feed/",
+      "home": "https://roy.wang/",
+      "lang": "zh",
+      "topics": [
+        "relay",
+        "claude",
+        "ai"
+      ]
+    },
+    {
+      "id": "wusiyu",
+      "name": "WuSiYu Blog",
+      "rss": "https://wusiyu.me/feed/",
+      "home": "https://wusiyu.me/",
+      "lang": "zh",
+      "topics": [
+        "vps",
+        "security",
+        "selfhost"
+      ]
+    },
+    {
+      "id": "joway",
+      "name": "Joway",
+      "rss": "https://blog.joway.io/index.xml",
+      "home": "https://blog.joway.io/",
+      "lang": "zh",
+      "topics": [
+        "ai-agents",
+        "thinking"
+      ]
+    },
+    {
+      "id": "oldj",
+      "name": "oldj's blog",
+      "rss": "https://oldj.net/rss.xml",
+      "home": "https://oldj.net/",
+      "lang": "zh",
+      "topics": [
+        "indie-dev",
+        "thinking"
+      ]
+    },
+    {
+      "id": "mout",
+      "name": "MouT.me",
+      "rss": "https://blog.mout.me/rss/",
+      "home": "https://blog.mout.me/",
+      "lang": "zh",
+      "topics": [
+        "postmortem",
+        "selfhost"
+      ]
+    },
+    {
+      "id": "puppylpg",
+      "name": "puppylpg",
+      "rss": "https://puppylpg.github.io/feed.xml",
+      "home": "https://puppylpg.github.io/",
+      "lang": "zh",
+      "topics": [
+        "ai-agents",
+        "multica",
+        "engineering"
+      ]
+    },
+    {
+      "id": "rxliuli",
+      "name": "rxliuli blog",
+      "rss": "https://blog.rxliuli.com/atom.xml",
+      "home": "https://blog.rxliuli.com/",
+      "lang": "zh",
+      "topics": [
+        "indie-dev",
+        "postmortem"
+      ]
+    },
+    {
+      "id": "piglei",
+      "name": "Python 工匠 (piglei)",
+      "rss": "https://www.piglei.com/feeds/latest/",
+      "home": "https://www.piglei.com/",
+      "lang": "zh",
+      "topics": [
+        "engineering",
+        "thinking"
+      ]
     }
   ]
 }

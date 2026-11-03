@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-11-03
+
+- blog 公开源：`collect.py` 支持 Atom（`<entry>`、link rel=alternate、published/updated）与 RSS；去掉硬性 `/posts/` 过滤，改为每站可选 `include_paths`/`exclude_paths`。
+- blog 时间窗 180 天；每站每天 ≤1、总 ≤2；按已推 URL 跨天去重；新增 think_score「思考深度粗筛」（篇幅、第一人称、结论/取舍/反思词加分，listicle/周刊/高频扣分），item 增加 think_score/think_why 字段，其余字段不变。
+- 白名单扩到 9 站：fomoxx、ROYWANG、WuSiYu、Joway、oldj、MouT.me、puppylpg、rxliuli、piglei。加站流程：候选池 → 每周 3 个给用户确认 → 白名单。
+
 ## 2026-11-02
 
 - prefs `SOURCE_TYPES` 增加 `dcr` / `blog`（schema v5，signals CHECK 重建）；`sources.yaml` 为两者写入 half_life；公开源候选可入库。

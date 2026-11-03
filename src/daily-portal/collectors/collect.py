@@ -131,14 +131,78 @@ def _blog_feeds():
     if not feeds: raise RuntimeError("feeds-blog.json empty")
     return feeds
 
-def blog():
-    """白名单个人实践博客 RSS。只保留文章路径；非 /posts/ 等页跳过；每源作者=站名。"""
-    out, errs = [], []
+ATOM = "{http://www.w3.org/2005/Atom}"
+CONTENT_NS = "{http://purl.org/rss/1.0/modules/content/}"
+BLOG_WINDOW_DAYS = 180
+BLOG_PER_SITE = 1
+THINK_RE = re.compile(r"结论|取舍|反思|教训|复盘|思考|为什么|权衡|代价|边界|踩坑|经验|总结|我认为|我觉得|回顾|误区|本质|trade-?off|lesson|retro", re.I)
+LISTICLE_RE = re.compile(r"周刊|weekly|第\s*\d+\s*期|\bvol\.?\s*\d+|合集|盘点|汇总|清单|\d+\s*(?:个|款|条)(?:工具|网站|推荐)|top\s*\d+|教程|入门|安装指南", re.I)
+
+def _blog_seen():
+    """已推过的 blog URL（读 /workspace/digests/items-public-*.json 历史，跨天去重）。"""
+    import glob
+    seen = set(); today = datetime.datetime.now(SH).date().isoformat()
+    for f in glob.glob("/workspace/digests/items-public-*.json"):
+        if today in f: continue
+        try:
+            for i in json.load(open(f)).get("items", []):
+                if i.get("source") == "blog": seen.add(i.get("url", "").rstrip("/"))
+        except Exception: pass
+    return seen
+
+def _parse_dt(v):
+    v = (v or "").strip()
+    if not v: return None
+    try: d = parsedate_to_datetime(v)
+    except (TypeError, ValueError, IndexError):
+        try: d = datetime.datetime.fromisoformat(v.replace("Z", "+00:00"))
+        except ValueError: return None
+    return d if d.tzinfo else d.replace(tzinfo=datetime.timezone.utc)
+
+def think_score(title, body, recent_n=0):
+    """思考深度粗筛（0~约 8）：篇幅、第一人称、结论/取舍/反思词加分；数字/截图小加分；listicle/周刊/高频扣分。"""
+    t = clean(body, 100000); n = len(t); s, why = 0.0, []
+    if n >= 3000: s += 2; why.append("long")
+    elif n >= 1200: s += 1; why.append("mid")
+    fp = len(re.findall(r"我|\bI\b|\bmy\b", t)) / max(n / 1000, 1)
+    if fp >= 3: s += 1.5; why.append("1st-person")
+    elif fp >= 1: s += 0.5
+    k = len(set(m.lower() for m in THINK_RE.findall(title + " " + t)))
+    s += min(k, 6) * 0.5; why += ["think%d" % k] if k else []
+    if re.search(r"\d+(?:\.\d+)?\s*(?:%|倍|ms|GB|MB|分钟|小时|美元|\$)", t): s += 0.5; why.append("numbers")
+    if re.search(r"<img|截图", body or ""): s += 0.3
+    if LISTICLE_RE.search(title): s -= 3; why.append("listicle")
+    if recent_n > 30: s -= 2; why.append("high-freq")
+    return round(s, 2), why
+
+def _blog_entries(root):
+    """统一 RSS <item> 与 Atom <entry> → (title, link, desc, body, pub, cats)。"""
+    if root.tag == ATOM + "feed" or root.tag.endswith("}feed") or root.tag == "feed":
+        ns = ATOM if root.tag.startswith(ATOM) else ""
+        for e in root.iter(ns + "entry"):
+            link = ""
+            for l in e.findall(ns + "link"):
+                if l.get("rel", "alternate") == "alternate": link = l.get("href", ""); break
+            body = e.findtext(ns + "content") or ""; desc = e.findtext(ns + "summary") or body
+            cats = [c.get("term", "") for c in e.findall(ns + "category")]
+            yield (e.findtext(ns + "title") or "", link.strip(), desc, body or desc,
+                   e.findtext(ns + "published") or e.findtext(ns + "updated") or "", cats)
+    else:
+        for e in root.iter("item"):
+            desc = e.findtext("description") or ""; body = e.findtext(CONTENT_NS + "encoded") or desc
+            cats = [(c.text or "").strip() for c in e.findall("category")]
+            yield (e.findtext("title") or "", (e.findtext("link") or "").strip(), desc, body, e.findtext("pubDate") or "", cats)
+
+def blog(debug=False):
+    """白名单个人博客 RSS/Atom。每站可配 include/exclude 路径；近 180 天；每站只留思考分最高的 1 篇（跨天去重）。"""
+    out, errs, report = [], [], []
+    seen = _blog_seen(); cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=BLOG_WINDOW_DAYS)
     for feed in _blog_feeds():
         fid = (feed.get("id") or "").strip()
         name = (feed.get("name") or fid).strip() or "blog"
         rss_url = (feed.get("rss") or "").strip()
-        must = (feed.get("post_path_must_include") or "/posts/").strip() or "/posts/"
+        inc = feed.get("include_paths") or ([feed["post_path_must_include"]] if feed.get("post_path_must_include") else [])
+        exc = feed.get("exclude_paths") or []
         base_tags = [t for t in (feed.get("topics") or []) if t]
         if not fid or not rss_url:
             errs.append(f"{fid or '?'}:bad-config"); continue
@@ -146,31 +210,37 @@ def blog():
             x = get(rss_url, "application/rss+xml, application/atom+xml, application/xml")
             if x.lstrip().startswith("<!DOCTYPE html") or "<html" in x[:300].lower():
                 raise RuntimeError("got HTML (blocked/challenge)")
-            root = ET.fromstring(x)
-            n_before = len(out)
-            for e in root.iter("item"):
-                link = (e.findtext("link") or "").strip()
+            root = ET.fromstring(x.lstrip("\ufeff").strip())
+            ents = list(_blog_entries(root)); cands = []
+            recent_n = sum(1 for e in ents if (_parse_dt(e[4]) or cutoff) > cutoff)
+            for title, link, desc, body, pub, cats in ents:
                 if not link: continue
                 path = urllib.parse.urlsplit(link).path or "/"
-                if must not in path: continue
-                if BLOG_SKIP_RE.search(path): continue
-                if path.rstrip("/") in ("", "/"): continue
+                if inc and not any(p in path for p in inc): continue
+                if any(p in path for p in exc) or BLOG_SKIP_RE.search(path): continue
+                if path.rstrip("/") in ("", "/") and "?" not in link: continue
+                dt = _parse_dt(pub)
+                if dt and dt < cutoff: continue
                 m = re.search(r"/posts/([^/]+)/?", path)
-                slug = (m.group(1) if m else path.strip("/").replace("/", "-"))[:120]
+                slug = (m.group(1) if m else (path.strip("/").replace("/", "-") or urllib.parse.urlsplit(link).query))[:120]
                 if not slug: continue
-                cats = [c.text.strip() for c in e.findall("category") if (c.text or "").strip()]
-                tags = list(dict.fromkeys(base_tags + cats))[:8]
-                pub = (e.findtext("pubDate") or "").strip()
-                kw = {"via": "rss", "site": name}
-                if pub:
-                    try: kw["published_at"] = parsedate_to_datetime(pub).isoformat()
-                    except (TypeError, ValueError, IndexError): kw["published_at"] = pub
-                out.append(it("blog", f"{fid}/{slug}", e.findtext("title") or "", link,
-                              e.findtext("description") or "", tags, name, **kw))
-            if len(out) == n_before:
-                errs.append(f"{fid}:no-posts")
+                ts, twhy = think_score(title, body, recent_n)
+                kw = {"via": "rss", "site": name, "think_score": ts, "think_why": twhy}
+                if dt: kw["published_at"] = dt.isoformat()
+                elif pub: kw["published_at"] = pub
+                tags = list(dict.fromkeys(base_tags + [c for c in cats if c]))[:8]
+                cands.append((link.rstrip("/") in seen, it("blog", f"{fid}/{slug}", title, link, desc, tags, name, **kw)))
+            if not cands:
+                errs.append(f"{fid}:no-posts"); report.append({"site": fid, "latest": None}); continue
+            fresh = [c for d, c in cands if not d]
+            best = max(fresh, key=lambda i: i["think_score"]) if fresh else None
+            if best: out.extend([best][:BLOG_PER_SITE])
+            report.append({"site": fid, "fetched": len(cands), "recent_180d": recent_n,
+                           "latest": cands[0][1]["title"], "latest_dup": cands[0][0],
+                           "pick": best and best["title"], "pick_score": best and best["think_score"], "why": best and best["think_why"]})
         except Exception as e:
-            errs.append(f"{fid}:{getattr(e,'code',e)}")
+            errs.append(f"{fid}:{getattr(e,'code',e)}"); report.append({"site": fid, "error": str(e)[:120]})
+    if debug: print(json.dumps({"errs": errs, "sites": report}, ensure_ascii=False, indent=1))
     if not out: raise RuntimeError("blog RSS empty " + ",".join(errs))
     return out
 
@@ -201,6 +271,7 @@ def score(item, keys):
     return s, why
 
 def popularity(i):
+    if i.get("source") == "blog": return i.get("think_score", 0) * 0.01
     v = i.get("stars_today") or i.get("points") or i.get("upvotes") or i.get("likes") or i.get("stars") or 0
     return min(v, 5000) / 5000 * 0.02
 
