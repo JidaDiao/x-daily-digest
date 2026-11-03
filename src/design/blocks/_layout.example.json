@@ -1,0 +1,18 @@
+{
+  "layout": "deck",
+  "dims": {
+    "carrier": "one-at-a-time",
+    "nav": "dots",
+    "axis": "flip",
+    "chrome": "collage-strip"
+  },
+  "stance": "一句话设计立场（可与 collage.stance 呼应）",
+  "why": "为何这版式：浏览方式如何与昨天不同",
+  "diffs": {
+    "style": "暗幕幻灯",
+    "motion": "横向snap+错峰淡入",
+    "ui": "大圆角全幅卡·少描边",
+    "ux": "左右滑一次一条",
+    "card": "全幅封面卡·页码胶囊"
+  }
+}

@@ -4,6 +4,7 @@
   --allow-short  条数不足 8 时放行（blocks 里任一 meta 或 blocks/_short.json 必须写 short_reason）
   --blocks DIR   换 blocks 目录（测试用）；--out 输出文件；--check 构建后跑 tools/check.py 做 390/360 手机检查
 规则：日期 >= 2026-11-01 用 8 条规则（Web 4 + App 4，focus 交互≥4 / 界面≥3）；更早日期按旧规则 2 Web + 2 App。
+blocks/_layout.json 可选（多版式工具）；缺省用 list 壳。用户 2026-11-03 更正：设计页不强制每日换 layout。
 block 结构见 HOWTO.md。退出码 2 = 校验不通过（不生成页面）。"""
 import sys,os,re,json,glob,base64,argparse,subprocess
 sys.stdout.reconfigure(line_buffering=True)
@@ -15,6 +16,47 @@ ap.add_argument('--out');ap.add_argument('--check',action='store_true')
 ap.add_argument('--recommended',default='/workspace/inspo/recommended.md')
 A=ap.parse_args();date=A.date;NEW=date>='2026-11-01'
 ERR=[];WARN=[]
+LAYOUTS=('magazine','workbench','wall','timeline','deck','index')
+DIM_KEYS=('carrier','nav','axis','chrome')
+DIFF_KEYS=('style','motion','ui','ux','card')
+CARD_LIKE=frozenset(('wall','magazine'))
+USED_PATH='design-used-layouts.json'
+def load_used():
+    if not os.path.exists(USED_PATH): return {'entries':[]}
+    try: return json.load(open(USED_PATH))
+    except Exception: return {'entries':[]}
+def save_used(data):
+    open(USED_PATH,'w').write(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+def append_used(entry):
+    data=load_used(); ents=data.setdefault('entries',[])
+    ents=[e for e in ents if e.get('date')!=entry.get('date')]
+    ents.append(entry); ents.sort(key=lambda e:e.get('date') or '')
+    data['entries']=ents; save_used(data)
+def load_layout(blocks_dir, date):
+    """可选：有 blocks/_layout.json 则套用多版式；没有则默认 list 壳。设计页不强制每日换 layout（2026-11-03 用户更正）。"""
+    lp=os.path.join(blocks_dir,'_layout.json')
+    if not os.path.exists(lp):
+        return None
+    try: L=json.load(open(lp))
+    except Exception as e:
+        ERR.append(f'{lp}: JSON 无效：{e}'); return None
+    lay=L.get('layout')
+    if lay not in LAYOUTS:
+        ERR.append(f'{lp}: layout 若填写必须是 {list(LAYOUTS)} 之一，现在是 {lay!r}')
+        return None
+    dims=L.get('dims') or {}
+    for k in DIM_KEYS:
+        if not str(dims.get(k) or '').strip():
+            WARN.append(f'{lp}: dims.{k} 空（可选版式建议补全）')
+    diffs=L.get('diffs') or {}
+    for k in DIFF_KEYS:
+        if not str(diffs.get(k) or '').strip():
+            WARN.append(f'{lp}: diffs.{k} 空（设计页非强制；叼报五维在资讯页强制）')
+    return L
+def _date_add(date, days):
+    import datetime as _dt
+    d=_dt.date.fromisoformat(date)+_dt.timedelta(days=days)
+    return d.isoformat()
 def b64(p): return 'data:image/webp;base64,'+base64.b64encode(open(p,'rb').read()).decode()
 def part(s,tag):
     m=re.search(r'<!--%s-->(.*?)<!--/%s-->'%(tag,tag),s,re.S); return m.group(1).strip() if m else ''
@@ -35,6 +77,7 @@ for f in files:
     blocks.append((f,s,meta))
 def die():
     print('[build] 不生成页面，校验未通过：');[print('  ✗',e) for e in ERR];sys.exit(2)
+LAYOUT=load_layout(A.blocks, date)
 kinds=[]
 for f,s,m in blocks:
     k=m.get('kind')
@@ -219,14 +262,73 @@ if NEW and len(blocks)<8:
     if os.path.exists(os.path.join(A.blocks,'_short.json')): rs.append(json.load(open(os.path.join(A.blocks,'_short.json'))).get('short_reason'))
     shortnote=f'<p class="short in">本期 {len(blocks)} 条（目标 8 条）：{rs[-1]}</p>'
 collage=render_collage(os.path.join(A.blocks,'_collage.json'))
-t=open('template.html').read().replace('{{DATE}}',date).replace('{{NAV}}',''.join(nav)).replace('{{BLOCKS}}',shortnote+'\n'.join(cards)).replace('{{COUNT}}',str(len(cards))).replace('{{COLLAGE}}',collage)
+lay=(LAYOUT or {}).get('layout') or 'list'
+dims=(LAYOUT or {}).get('dims') or {}
+diffs=(LAYOUT or {}).get('diffs') or {}
+# chrome 维：deck / slim chrome → collage.slim
+if lay=='deck' or str(dims.get('chrome') or '').find('slim')>=0 or str(dims.get('chrome') or '') in ('collage-slim','narrow','tool-strip'):
+    collage=collage.replace('class="collage ','class="collage slim ',1) if collage else collage
+# timeline: number blocks
+if lay=='timeline':
+    numbered=[]
+    for i,c in enumerate(cards,1):
+        numbered.append(c.replace('<article ','<article data-i="%02d" '%i,1))
+    cards=numbered
+# workbench: insert zone labels before first Web and first App
+if lay=='workbench':
+    out_cards=[]; seen_web=seen_app=False
+    for c in cards:
+        if (not seen_web) and 'class="kind web"' in c:
+            out_cards.append('<div class="wb-zone" role="presentation">Web</div>'); seen_web=True
+        if (not seen_app) and 'class="kind app"' in c:
+            out_cards.append('<div class="wb-zone" role="presentation">App</div>'); seen_app=True
+        out_cards.append(c)
+    cards=out_cards
+# index wall from nav/blocks meta
+index_wall=''
+if lay=='index':
+    bits=[]
+    for f,s,m in blocks:
+        k=m['key']; kind=m.get('kind','Web'); name=esc_txt(m.get('name') or k)
+        short=name.split(' · ')[0]
+        fo=esc_txt(m.get('focus') or '')
+        bits.append(f'<a href="#b-{k}" class="{"app" if kind=="App" else "web"}"><strong>{short}</strong><span>{kind} · {fo}</span></a>')
+    index_wall=f'<nav class="layout-index-wall" aria-label="索引墙">{"".join(bits)}</nav>'
+# deck dots
+deck_dots=''
+if lay=='deck':
+    n=sum(1 for c in cards if '<article ' in c)
+    parts=[]
+    for i in range(1, n+1):
+        on=' class="on"' if i==1 else ''
+        parts.append(f'<button type="button" aria-label="第 {i} 条"{on}></button>')
+    deck_dots='<div class="deck-dots" aria-label="幻灯页码">'+''.join(parts)+'</div>'
+blocks_html=shortnote+chr(10).join(cards)
+diffs_attr='|'.join(f'{k}:{esc_txt(diffs.get(k,""))}' for k in DIFF_KEYS)
+t=open('template.html').read()
+t=t.replace('{{DATE}}',date).replace('{{NAV}}',''.join(nav)).replace('{{BLOCKS}}',blocks_html).replace('{{COUNT}}',str(len([c for c in cards if "<article" in c]) or len(blocks))).replace('{{COLLAGE}}',collage)
+t=t.replace('{{LAYOUT}}',lay).replace('{{INDEX_WALL}}',index_wall).replace('{{DECK_DOTS}}',deck_dots).replace('{{DIFFS_ATTR}}',diffs_attr)
 bad=re.findall(r'&(?:amp|lt|gt|quot|apos|nbsp|#\d+|#x[0-9a-f]+);',t,re.I)
 assert not bad, f'HTML 实体会被连接器还原: {set(bad)}'
+# layout must have been valid; if >=11-04 and ERR still pending somehow
+if date>='2026-11-04' and ERR: die()
 out=A.out or f'{date}.html'
 open(out,'w').write(t)
 mb=(total+len(t.encode()))/1e6
-print(f'[build] {out} {len(t)} bytes, {len(cards)} blocks；页面+素材合计约 {mb:.1f}MB')
+print(f'[build] {out} {len(t)} bytes, {len(blocks)} blocks；layout={lay}；页面+素材合计约 {mb:.1f}MB')
+if LAYOUT:
+    print(f'[build] dims={dims}')
+    print(f'[build] diffs={diffs}')
 if mb>8: WARN.append(f'单页素材约 {mb:.1f}MB > 8MB：视频压到 480px 宽/24–30fps/CRF 30 左右或截短')
 for x in WARN: print('  ⚠',x)
+# append used-layouts（正式 out 名像日期才记；测试 --out 带 layout-test 也记但用 date）
+if LAYOUT and lay in LAYOUTS and not ERR:
+    note=(LAYOUT.get('why') or LAYOUT.get('note') or '')
+    # 仅当输出是正式日页或明确要求时记录；测试 html 用 --out *layout-test* 仍可记便于演练——按 date 去重
+    if A.out is None or os.path.abspath(A.out)==os.path.abspath(f'{date}.html'):
+        append_used({'date':date,'layout':lay,'dims':dims,'diffs':diffs,'stance':LAYOUT.get('stance') or '','note':note})
+        print(f'[build] 已记入 {USED_PATH}: {date} → {lay}')
+    else:
+        print(f'[build] 非正式输出（--out）跳过写入 {USED_PATH}')
 if A.check:
     r=subprocess.run(['timeout','-k','5','120','python3','tools/check.py',out]);sys.exit(r.returncode)

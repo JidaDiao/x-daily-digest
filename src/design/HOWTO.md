@@ -15,7 +15,7 @@
 
 | # | 阶段 | 做什么 | 落盘 | 预估 |
 |---|---|---|---|---|
-| 1 | pick 选题 | 读 preferences/recommended/web-pool；Mobbin search_flows 找 4 个 App 流程并跑 `src/mobbin/hasvid.sh` 确认视频；定 4 个 Web 站；写 focus | `stage/<date>/pick.json`（8 条：key/kind/focus/url/理由） | 8–12 分钟 |
+| 1 | pick 选题 | 读 preferences/recommended/web-pool（吃反馈）；Mobbin 找 4 App + 4 Web；写 focus；≥1 卡片界面条。**不强制**写 `_layout.json`（可选换壳见 layouts.md） | `stage/<date>/pick.json` | 8–12 分钟 |
 | 2 | assets 素材 | 下载 Mobbin 视频→ffmpeg 压缩→.mp4.b64 + 封面 webp；Web 站 curl 源码 + `tools/shot.py` 截图 + thumbs | `assets/<date>/`、`src/<key>/`、`thumbs/` | 6–10 分钟（每个视频 ~1 分钟，截图 ≤45s/张） |
 | 3 | webdemo | 写 4 个 Web block + 4 个 App block（一条写完就落盘，done 时备注已完成的 key） | `blocks/NN-<key>.html` | 15–25 分钟 |
 | 4 | build | `python3 build.py <date>`（exit 2 就按提示补） | `<date>.html` | 1 分钟 |
@@ -42,8 +42,9 @@ timeout -k 5 45 python3 tools/shot.py https://example.com src/<k>/shot.png --w 1
 ## 目录
 ```
 design/
-  template.html        外壳：灰阶极简、统一缓动 cubic-bezier(.22,1,.36,1)、模糊上浮进场、sticky 目录、重播/进视口播放、反馈脚本
-  build.py             python3 build.py <date> → <date>.html（拼 blocks、内嵌缩略图、检查 HTML 实体）
+  template.html        外壳：灰阶极简、sticky 目录、重播/进视口播放、反馈脚本（可选 data-layout）
+  build.py             python3 build.py <date> → <date>.html
+  layouts.md           可选多版式工具箱（非每日硬规则；界面大改归叼报）
   blocks/NN-<key>.html 每个设计一块（按文件名排序）
   thumbs/<key>.webp    小尺寸对照图（≤360px 宽，几 KB）
   src/<key>/           抓取的 index.html / all.css / shot.png（原始资料，不发布）
@@ -111,7 +112,7 @@ pg = await b.new_page(viewport={'width':390,'height':844}, has_touch=True)
 每期顶部一块「当日设计立场 + 收藏/自创元素的拼接展示」，不是堆卡片。
 - 写 `blocks/_collage.json`（示例见 `blocks/_collage.example.json`）。字段：`stance`（一句话立场）、`why`、`bg`/`fg`、`bits[]`（title/source/kind=favorite|own/rotate/note）、`tags`、`note`。
 - 元素优先来自 `design-tokens.json` 里 status=favorite；自创 ≤2。视觉上拼在一起（旋转、重叠感），别排成列表。
-- 仍可参考叼报版式原型 v2 的气质（有立场、不堆砌），但设计页本身不强制 8 原型轮换。
+- 仍可参考叼报版式原型 v2 的气质（有立场、不堆砌）。**版式/信息架构每天换**：见下方「★ 版式/信息架构每天换」与 `layouts.md`（2026-11-04 起硬规则）。
 
 ### 2) Web demo：可重播 / 可调参 / 可复制
 - **重播**：demo 根加 `data-replay`，动画挂在 `.play`；放 `<button class="replay">`（已有外壳逻辑）。
@@ -122,3 +123,13 @@ pg = await b.new_page(viewport={'width':390,'height':844}, has_touch=True)
 - **手机默认折叠（用户 2026-11-02）**：怎么操作/为什么新鲜、关键参数、可调参数、关键代码一律 `<details>` **不要**加 `open`；卡片主信息顺序：标题 → demo → 简介/tags → 缩略图+链接 → 打分收藏，折叠块放后面。
 
 App 仍用 Mobbin 原图/原视频，不复刻，不要求 knobs/code。
+
+## ★ 设计页 vs 叼报（用户 2026-11-03 更正）
+
+- **设计灵感页**：每天根据反馈优化**选题/内容与拼接**；界面壳**不必**每天换。`layouts.md` 多版式仅可选。
+- **叼报资讯页**：才是每天用收藏元素拼出不同整体风格 / 动画 / UI / UX / 卡片图表的地方（见 `/workspace/digests/web/DAILY.md` 版式原型 v2）。
+- 仍可参考叼报气质做「今日拼接」，但不强制设计页 layout 轮换或五维换档。
+
+
+## ★ 每期必带好看的卡片（用户 2026-11-02）
+不要只推动画/交互。每期 8 条里至少 1 条以**卡片、图标、标签的样式和长相**为主（界面类）：圆角、描边、阴影层级、材质、印章/贴纸/盒卡等。Lthero 专场优先推视觉向（steam-case、repo-tab、polaroid、stamp、tape、sticker）；普通池和 App 也要刻意挑好看的卡面。交付消息里点名「本期卡片条：…」。

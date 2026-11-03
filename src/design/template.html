@@ -98,7 +98,84 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #4c
 footer{margin:32px 0 40px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:16px}
 @media (min-width:720px){.bh{padding:20px 24px 14px}.bb{padding:18px 24px 16px}}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-</style></head><body><div class="bgfx"></div>
+
+/* ---- 版式/信息架构（body[data-layout]，2026-11-04 起）---- */
+body[data-layout] .wrap{max-width:760px}
+body[data-layout=wall] .wrap,body[data-layout=magazine] .wrap,body[data-layout=workbench] .wrap{max-width:960px}
+body[data-layout=deck] .wrap{max-width:100%;padding:0 0 24px;overflow-x:hidden}
+body[data-layout=deck] .top,body[data-layout=deck] .hero,body[data-layout=deck] .collage,body[data-layout=deck] footer{padding-left:16px;padding-right:16px;max-width:760px;margin-left:auto;margin-right:auto}
+body[data-layout=deck] .nav{display:none}
+body[data-layout=deck] .collage{padding:12px 14px;border-radius:16px;margin-bottom:8px}
+body[data-layout=deck] .collage .c-stage{min-height:72px;padding:10px}
+body[data-layout=deck] .collage .c-bits{min-height:48px;gap:6px}
+body[data-layout=deck] .collage .bit{max-width:42%;padding:6px 8px;font-size:11px}
+body[data-layout=deck] .collage.slim .c-why,body[data-layout=deck] .collage.slim .c-note{display:none}
+.layout-deck{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:8px 16px 20px;margin:0;scrollbar-width:none}
+.layout-deck::-webkit-scrollbar{display:none}
+.layout-deck > .block{flex:none;width:min(100vw - 32px,720px);min-width:min(100vw - 32px,720px);max-width:720px;scroll-snap-align:center;scroll-margin:0 16px}
+.deck-dots{display:flex;gap:8px;justify-content:center;padding:4px 16px 12px;position:sticky;bottom:8px;z-index:40}
+.deck-dots button{width:10px;height:10px;border-radius:999px;border:0;background:var(--border);padding:0;min-width:44px;min-height:44px;background-clip:content-box;cursor:pointer}
+.deck-dots button.on{background:var(--fg);background-clip:content-box}
+
+body[data-layout=magazine] .blocks.layout-magazine{display:grid;grid-template-columns:1fr;gap:20px}
+@media (min-width:640px){
+  body[data-layout=magazine] .blocks.layout-magazine{grid-template-columns:1fr 1fr;gap:18px}
+  body[data-layout=magazine] .blocks.layout-magazine > .block:first-of-type{grid-column:1/-1}
+  body[data-layout=magazine] .blocks.layout-magazine > .block:first-of-type .bh h2{font-size:clamp(24px,4vw,34px)}
+  body[data-layout=magazine] .blocks.layout-magazine > .block:first-of-type .demo{min-height:280px}
+}
+body[data-layout=magazine] .hero h1{font-family:Georgia,"Songti SC",serif;letter-spacing:-.04em}
+body[data-layout=magazine] .block{border-radius:4px;box-shadow:none}
+
+body[data-layout=wall] .nav{display:none}
+body[data-layout=wall] .blocks.layout-wall{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media (min-width:720px){body[data-layout=wall] .blocks.layout-wall{grid-template-columns:1fr 1fr 1fr;gap:12px}}
+body[data-layout=wall] .block{border-radius:14px}
+body[data-layout=wall] .block .demo{max-height:160px}
+body[data-layout=wall] .block .bb details,body[data-layout=wall] .block .bb .ref .note{font-size:12px}
+body[data-layout=wall] .bh{padding:10px 12px 8px}
+body[data-layout=wall] .bh h2{font-size:14px;line-height:1.25}
+body[data-layout=wall] .bb{padding:10px 12px 12px;gap:6px}
+body[data-layout=wall] .why{font-size:12px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+body[data-layout=wall] .thumb{width:64px;max-height:72px}
+
+body[data-layout=timeline] .blocks.layout-timeline{display:grid;gap:0;margin:12px 0 0;padding-left:28px;position:relative;border:0;background:transparent}
+body[data-layout=timeline] .blocks.layout-timeline:before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:var(--border)}
+body[data-layout=timeline] .blocks.layout-timeline > .block{position:relative;margin:0 0 18px;border-radius:16px}
+body[data-layout=timeline] .blocks.layout-timeline > .block:before{content:attr(data-i);position:absolute;left:-28px;top:22px;width:20px;height:20px;border-radius:999px;background:var(--fg);color:var(--bg);font:700 10px/20px ui-monospace,monospace;text-align:center;z-index:2;box-shadow:0 0 0 4px var(--bg)}
+body[data-layout=timeline] .nav{display:none}
+
+body[data-layout=workbench] .top{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;border-bottom:1px solid var(--border);padding-bottom:10px}
+body[data-layout=workbench] .nav{top:0;border:1px solid var(--border);border-radius:10px;margin:12px 0;background:var(--accent)}
+body[data-layout=workbench] .chip{border-radius:8px;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+body[data-layout=workbench] .blocks.layout-workbench{display:grid;gap:14px}
+@media (min-width:720px){
+  body[data-layout=workbench] .blocks.layout-workbench{grid-template-columns:1fr 1fr;gap:14px}
+  body[data-layout=workbench] .wb-zone{grid-column:1/-1;font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;padding:8px 0 0;border-top:1px dashed var(--border);margin-top:4px}
+}
+body[data-layout=workbench] .block{border-radius:10px}
+body[data-layout=workbench] .collage{border-radius:10px;padding:12px}
+
+body[data-layout=index] .nav{display:none}
+.layout-index-wall{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 18px}
+@media (min-width:640px){.layout-index-wall{grid-template-columns:1fr 1fr 1fr}}
+.layout-index-wall a{display:flex;flex-direction:column;gap:4px;padding:12px 12px;border:1px solid var(--border);border-radius:12px;background:var(--card);text-decoration:none;color:var(--fg);min-height:72px;font-size:13px}
+.layout-index-wall a strong{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.layout-index-wall a span{font-size:11px;color:var(--muted)}
+.layout-index-wall a.app{border-style:dashed}
+body[data-layout=index] .blocks.layout-index{display:grid;gap:28px}
+body[data-layout=index] .block{scroll-margin-top:16px}
+
+/* chrome: slim collage when chrome dim asks */
+.collage.slim{padding:12px 14px}
+.collage.slim .c-stage{min-height:88px}
+.collage.slim .c-bits{min-height:56px}
+
+/* prevent horizontal overflow on phone */
+.layout-deck,.layout-wall,.layout-magazine,.layout-timeline,.layout-workbench,.layout-index,.layout-index-wall{max-width:100%}
+body[data-layout] .block{max-width:100%}
+
+</style></head><body data-layout="{{LAYOUT}}" data-diffs="{{DIFFS_ATTR}}"><div class="bgfx"></div>
 <div class="wrap">
 <div class="top in"><b>每日设计灵感</b><span>{{DATE}}</span></div>
 <section class="hero"><div class="eyebrow in" style="animation-delay:.08s">Web demo + App 原视频 · {{COUNT}} 个</div>
@@ -106,9 +183,11 @@ footer{margin:32px 0 40px;font-size:12px;color:var(--muted);border-top:1px solid
 <p class="lead in" style="animation-delay:.22s">顶部是「今日拼接」：当天设计立场 + 收藏/自创元素拼在一起。Web 块可重播；关键参数、可调参数、代码默认折叠，点开再看。App 块放 Mobbin 原视频。打星、收藏会自动同步。</p></section>
 {{COLLAGE}}
 <nav class="nav" aria-label="目录">{{NAV}}</nav>
-<section class="blocks">
+{{INDEX_WALL}}
+<section class="blocks layout-{{LAYOUT}}" id="blocks">
 {{BLOCKS}}
 </section>
+{{DECK_DOTS}}
 <footer>{{DATE}} · 原站商标、截图与录屏版权归各自所有 · Web demo 用占位文字/图形复刻 · App 视频与截图来自 Mobbin</footer>
 </div>
 <script>
@@ -162,6 +241,18 @@ document.querySelectorAll('[data-copy]').forEach(btn=>{
     }catch(e){ btn.textContent='复制失败'; }
   });
 });
+</script>
+
+<script>
+// deck layout: sync dots with horizontal snap
+(()=>{const root=document.querySelector('.layout-deck');const dots=document.querySelector('.deck-dots');
+if(!root||!dots) return;
+const cards=[...root.querySelectorAll(':scope > .block')];
+const btns=[...dots.querySelectorAll('button')];
+const sync=()=>{const mid=root.scrollLeft+root.clientWidth/2;let best=0,bd=1e9;cards.forEach((c,i)=>{const cx=c.offsetLeft+c.offsetWidth/2;const d=Math.abs(cx-mid-root.scrollLeft+root.scrollLeft);const dist=Math.abs((c.offsetLeft+c.offsetWidth/2)-(root.scrollLeft+root.clientWidth/2));if(dist<bd){bd=dist;best=i}});btns.forEach((b,i)=>b.classList.toggle('on',i===best))};
+btns.forEach((b,i)=>b.addEventListener('click',()=>cards[i]?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})));
+root.addEventListener('scroll',()=>{clearTimeout(root._t);root._t=setTimeout(sync,60)},{passive:true});sync();
+})();
 </script>
 <script src="design-feedback.js" data-date="{{DATE}}"></script>
 </body></html>
