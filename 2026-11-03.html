@@ -1,0 +1,430 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>叼报 · 11月3日 · 行情终端</title>
+<style>
+:root{--bg:#0d1f17;--panel:#12281e;--ink:#c8f0d4;--mut:#6f9a7c;--hi:#7CFF9A;--dim:#1a3326;--stamp:#b5402a;--ease:cubic-bezier(.22,1,.36,1);--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Cascadia Code",monospace}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--mono);min-height:100vh;min-height:100dvh;overflow-x:hidden}
+body::before{content:"";pointer-events:none;position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.08) 3px);opacity:.35;z-index:50}
+.wrap{max-width:720px;margin:0 auto;padding:12px 0 calc(28px + env(safe-area-inset-bottom));position:relative;z-index:1}
+.head{padding:4px 14px 0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.head h1{margin:0;font:700 22px/1.1 var(--mono);letter-spacing:.04em;color:var(--hi)}
+.head .meta{font-size:12px;color:var(--mut)}
+.prompt{margin:6px 14px 0;font-size:13px;color:var(--mut)}
+.prompt b{color:var(--hi);font-weight:600}
+.how{margin:8px 14px 4px;font-size:14px;color:#9fd9b0;line-height:1.55}
+.how strong{color:var(--hi);font-weight:700}
+.cut{margin:0 14px 10px;font-size:12px;color:var(--mut);line-height:1.45}
+.stats{display:flex;gap:8px;padding:4px 14px 0;flex-wrap:wrap}
+.stat{background:var(--panel);border:1px solid #1f3a2c;border-radius:6px;padding:8px 10px;min-width:84px}
+.stat b{display:block;font:700 16px/1.1 var(--mono);color:var(--hi)}
+.stat span{font-size:11px;color:var(--mut)}
+.cmds{display:flex;gap:8px;overflow-x:auto;padding:12px 14px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.cmds::-webkit-scrollbar{display:none}
+.cmd{flex:0 0 auto;min-height:44px;min-width:44px;padding:0 12px;border-radius:8px;border:1px solid #244833;background:var(--panel);color:var(--ink);font:13px/1 var(--mono);display:inline-flex;flex-direction:column;justify-content:center;gap:3px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.cmd code{font-size:11px;color:var(--mut)}
+.cmd .flip{display:inline-block;transition:transform .45s var(--ease),color .3s}
+.cmd[aria-pressed="true"]{border-color:var(--hi);color:var(--hi);box-shadow:0 0 0 1px rgba(124,255,154,.25) inset}
+.cmd[aria-pressed="true"] .flip{transform:rotateX(360deg);color:var(--hi)}
+.term{margin:6px 10px 0;border:1px solid #1f3a2c;border-radius:10px;background:linear-gradient(180deg,#0f241a 0%,#0d1f17 100%);box-shadow:0 10px 28px rgba(0,0,0,.35),inset 0 0 40px rgba(0,0,0,.25);overflow:hidden}
+.termbar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid #1f3a2c;font-size:12px;color:var(--mut)}
+.termbar .dot{width:8px;height:8px;border-radius:50%;background:var(--hi);box-shadow:0 0 8px rgba(124,255,154,.8)}
+.stream{display:flex;flex-direction:column;padding:4px 0 8px}.item{border-bottom:1px solid rgba(36,72,51,.45)}.item:last-child{border-bottom:0}.item.dim{opacity:.22;pointer-events:none}.item .dd-sig{padding:0 12px 8px;justify-content:flex-start}
+.log{all:unset;box-sizing:border-box;display:grid;grid-template-columns:auto auto 1fr auto;gap:8px;align-items:start;width:100%;padding:10px 12px;min-height:48px;cursor:pointer;border-left:3px solid transparent;opacity:0;transform:translateY(6px);animation:rowin .55s var(--ease) forwards;animation-delay:var(--d);touch-action:manipulation;position:relative}
+@keyframes rowin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.log:hover,.log:focus-visible{background:rgba(124,255,154,.06)}
+.log[aria-expanded="true"]{background:rgba(124,255,154,.08);border-left-color:var(--hi)}
+.log.dim{opacity:.22!important;pointer-events:none}
+.log.seen .msg b{text-decoration:line-through;text-decoration-color:rgba(124,255,154,.55);opacity:.75}
+.log.seen .stamp{opacity:.9;transform:rotate(-8deg) scale(1)}
+.ts{font-size:11px;color:var(--mut);padding-top:3px;white-space:nowrap}
+.tag{font-size:11px;color:#0d1f17;background:var(--hi);padding:2px 7px;border-radius:999px;align-self:start;margin-top:2px;white-space:nowrap;font-weight:700;letter-spacing:.02em}
+.msg{min-width:0;overflow-wrap:anywhere}
+.msg b{display:block;font-weight:700;color:#e7ffe8}
+.msg em{display:block;font-style:normal;font-size:12px;color:var(--mut);margin-top:2px}
+.lvl-lg .msg b{font-size:17px}.lvl-md .msg b{font-size:16px}.lvl-sm .msg b{font-size:15px}.lvl-xs .msg b{font-size:14px}
+.stamp{font:700 10px/1 var(--mono);letter-spacing:.14em;color:var(--stamp);border:1.5px solid var(--stamp);padding:4px 6px;border-radius:2px;opacity:0;transform:rotate(-9deg) scale(.8);transition:opacity .35s var(--ease),transform .45s cubic-bezier(.34,1.56,.64,1);align-self:center;mix-blend-mode:screen}
+.panel{margin:0 10px 8px;padding:12px 12px 14px;border:1px dashed #2a4a38;border-radius:8px;background:var(--dim)}
+.panel[hidden]{display:none!important}
+.pw{margin:0 0 10px;font-size:14px;color:#d4f5de;line-height:1.55;overflow-wrap:anywhere}
+.sweep{background:linear-gradient(90deg,transparent 0%,rgba(124,255,154,.28) 40%,rgba(124,255,154,.28) 60%,transparent 100%);background-size:220% 100%;background-repeat:no-repeat;background-position:100% 0;padding:1px 0;animation:sweep .9s var(--ease) forwards}
+@keyframes sweep{to{background-position:0 0}}
+.meter{display:flex;gap:14px;margin:0 0 12px}
+.bar{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--mut)}
+.bar i{display:block;width:8px;height:28px;border-radius:4px;background:#1a3326;position:relative;overflow:hidden}
+.bar i::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--v)*20%);background:var(--hi);border-radius:4px;box-shadow:0 0 8px rgba(124,255,154,.5)}
+.bar em{font-style:normal}
+.pbot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pill{min-height:44px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;border:1.5px solid var(--hi);color:var(--hi);text-decoration:none;font-size:14px;background:rgba(124,255,154,.08)}
+.psrc{font-size:12px;color:var(--mut);overflow-wrap:anywhere}
+.panel .dd-sig{margin-top:10px;justify-content:center}
+.box{margin:18px 14px 0;border-top:1px dashed #244833;padding-top:10px}
+.box summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font:600 14px/1.3 var(--mono);color:var(--hi);list-style:none}
+.box summary::-webkit-details-marker{display:none}
+.box summary span{margin-left:8px;font-size:12px;color:var(--mut);font-weight:400}
+.box summary::before{content:"$";color:var(--hi);margin-right:8px}
+.bnote{font-size:12px;color:var(--mut);margin:4px 0 12px;line-height:1.45}
+.row{background:var(--panel);border:1px solid #1f3a2c;border-radius:8px;padding:4px 12px 8px;margin:0 0 10px}
+.row.open{border-color:var(--hi)}
+.rhit{all:unset;box-sizing:border-box;display:block;width:100%;min-height:44px;padding:8px 0;cursor:pointer}
+.rhit:focus-visible,.cmd:focus-visible,.log:focus-visible,.pill:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
+.rs{display:block;font-size:11px;color:var(--mut)}
+.rt{display:block;font-weight:600;font-size:14px;line-height:1.4;overflow-wrap:anywhere;color:#e7ffe8}
+.rw{display:none;margin:4px 0 8px;font-size:13px;color:#9fd9b0;overflow-wrap:anywhere}
+.ro{display:none;min-height:44px;align-items:center;color:var(--hi);font-size:13px}
+.row.open .rw{display:block}.row.open .ro{display:inline-flex}
+.row .dd-sig{margin-top:6px}
+.foot{margin:22px 14px 0;padding-top:12px;border-top:1px solid #1f3a2c;font-size:12px;color:var(--mut);line-height:1.55}
+.toast{position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top));transform:translate(-50%,-140%);background:var(--panel);color:var(--hi);border:1px solid var(--hi);padding:10px 16px;border-radius:8px;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.45);z-index:60;transition:transform .55s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap;opacity:0;font-family:var(--mono)}
+.toast.show{transform:translate(-50%,0);opacity:1}
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important}
+ .log{opacity:1;transform:none}
+ body::before{display:none}
+ .cmd .flip{transform:none!important}
+ .sweep{background:rgba(124,255,154,.18);animation:none}
+}
+</style></head><body><div class="wrap">
+<header class="head"><h1>叼报</h1><span class="meta">11月3日 · session · 12 lines</span></header>
+<p class="prompt">jid@diaobao:<b>~/market</b>$ feed --today</p>
+<p class="how">今天是一台<strong>行情终端</strong>：点顶部斜杠命令过滤话题，再点一行 log 展开摘要；读过的行会划线并盖「已读」章。头条前三行字号更大。</p>
+<p class="cut">今天从 31 条里（X 11 · 社区 20）挑了 12 条进终端，筛掉 19 条：传闻 1 / 同事件封顶 3 / VPS 类封顶 1 / 无新信息或不相关 11 · 另精选里弱货（无审查图、Oracle 融资）放进 ls --all。</p>
+<div class="stats" aria-label="今日概览">
+ <div class="stat"><b id="seenN">0</b><span>已读行</span></div>
+ <div class="stat"><b>12</b><span>精选 log</span></div>
+ <div class="stat"><b id="filtN">12</b><span>当前可见</span></div>
+</div>
+<nav class="cmds" aria-label="斜杠命令"><button type="button" class="cmd" data-cmd="all" aria-pressed="true"><span class="flip">全部</span><code>/all</code></button><button type="button" class="cmd" data-cmd="head" aria-pressed="false"><span class="flip">头条</span><code>/head</code></button><button type="button" class="cmd" data-cmd="vps" aria-pressed="false"><span class="flip">VPS</span><code>/vps</code></button><button type="button" class="cmd" data-cmd="ai" aria-pressed="false"><span class="flip">AI</span><code>/ai</code></button><button type="button" class="cmd" data-cmd="oss" aria-pressed="false"><span class="flip">开源</span><code>/oss</code></button><button type="button" class="cmd" data-cmd="deal" aria-pressed="false"><span class="flip">行情</span><code>/deal</code></button></nav>
+<section class="term" aria-label="行情终端">
+ <div class="termbar"><span class="dot" aria-hidden="true"></span><span>diaobao-term · phosphor · 11月3日</span><span style="margin-left:auto" id="curCmd">/all</span></div>
+ <div class="stream" id="stream"><article class="item" data-n="1" data-cmd="head" data-sig-id="x:2117387909183816165" data-sig-url="https://x.com/YingjunWu/status/2117387909183816165" data-sig-title="开源推理盈亏账" data-sig-author="YingjunWu" data-sig-topic="开源工具" data-sig-tags="topic:开源工具,src:x">
+<button type="button" class="log lvl-lg" id="lg1" data-n="1" data-cmd="head" data-g="头条" style="--d:0ms" aria-expanded="false" aria-controls="pn1">
+ <span class="ts">10:12:01</span><span class="tag" data-flip="头条">头条</span><span class="msg"><b>开源推理盈亏账</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn1" data-n="1" hidden>
+ <p class="pw"><span class="sweep">按 DeepSeek V4.1 Flash 测算：H200 满负载也难覆盖租金，B300 约 35% 利用率才打平；开源托管能赚钱，但远不是「开就能印钞」。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:5"><i></i><em>信息差</em></span><span class="bar" style="--v:5"><i></i><em>干货</em></span><span class="bar" style="--v:4"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://x.com/YingjunWu/status/2117387909183816165" target="_blank" rel="noopener">看原文</a><span class="psrc">X @YingjunWu</span></div>
+</div>
+</article><article class="item" data-n="2" data-cmd="head" data-sig-id="x:2117192788970451256" data-sig-url="https://x.com/SongyuKite/status/2117192788970451256" data-sig-title="AntiGravity周额度" data-sig-author="SongyuKite" data-sig-topic="模型价格" data-sig-tags="topic:模型价格,src:x">
+<button type="button" class="log lvl-md" id="lg2" data-n="2" data-cmd="head" data-g="头条" style="--d:55ms" aria-expanded="false" aria-controls="pn2">
+ <span class="ts">10:12:04</span><span class="tag" data-flip="头条">头条</span><span class="msg"><b>AntiGravity周额度</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn2" data-n="2" hidden>
+ <p class="pw"><span class="sweep">AntiGravity Gemini Pro 周额度换算：Argon 池约合官方 API $20，Flash 池约 $17；关心 Gemini 编程额度的可对照自己的周消耗。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:5"><i></i><em>信息差</em></span><span class="bar" style="--v:4"><i></i><em>干货</em></span><span class="bar" style="--v:5"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://x.com/SongyuKite/status/2117192788970451256" target="_blank" rel="noopener">看原文</a><span class="psrc">X @SongyuKite</span></div>
+</div>
+</article><article class="item" data-n="3" data-cmd="head" data-sig-id="x:2117187473612964164" data-sig-url="https://x.com/piazzzzzz/status/2117187473612964164" data-sig-title="Claude额度约2.8倍" data-sig-author="piazzzzzz" data-sig-topic="模型价格" data-sig-tags="topic:模型价格,src:x">
+<button type="button" class="log lvl-sm" id="lg3" data-n="3" data-cmd="head" data-g="头条" style="--d:110ms" aria-expanded="false" aria-controls="pn3">
+ <span class="ts">10:12:07</span><span class="tag" data-flip="头条">头条</span><span class="msg"><b>Claude额度约2.8倍</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn3" data-n="3" hidden>
+ <p class="pw"><span class="sweep">同档 $20/$200 实测：Claude Code 周用量折合官方 API 约为 Codex 的 2.8/2.7 倍；ChatGPT Plus 的 Codex 额度较 10 月初非缓存 Token 约降 58%。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:5"><i></i><em>信息差</em></span><span class="bar" style="--v:5"><i></i><em>干货</em></span><span class="bar" style="--v:5"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://x.com/piazzzzzz/status/2117187473612964164" target="_blank" rel="noopener">看原文</a><span class="psrc">X @piazzzzzz</span></div>
+</div>
+</article><article class="item" data-n="4" data-cmd="ai" data-sig-id="x:2117277821399937137" data-sig-url="https://x.com/awe0_io/status/2117277821399937137" data-sig-title="T3统一Agent台" data-sig-author="awe0_io" data-sig-topic="开源工具" data-sig-tags="topic:开源工具,src:x">
+<button type="button" class="log lvl-xs" id="lg4" data-n="4" data-cmd="ai" data-g="AI工具与模型" style="--d:165ms" aria-expanded="false" aria-controls="pn4">
+ <span class="ts">10:12:11</span><span class="tag" data-flip="AI工具与模型">AI工具与模型</span><span class="msg"><b>T3统一Agent台</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn4" data-n="4" hidden>
+ <p class="pw"><span class="sweep">开源 T3 Code（约 4 万星）把本机已装的 Claude Code / Codex 等收进一个控制台，手机/网页/桌面都能管；用自己订阅，不另收模型费。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:4"><i></i><em>信息差</em></span><span class="bar" style="--v:5"><i></i><em>干货</em></span><span class="bar" style="--v:5"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://x.com/awe0_io/status/2117277821399937137" target="_blank" rel="noopener">看原文</a><span class="psrc">X @awe0_io</span></div>
+</div>
+</article><article class="item" data-n="5" data-cmd="ai" data-sig-id="x:2117373689217814578" data-sig-url="https://x.com/wxmcan/status/2117373689217814578" data-sig-title="Max5x比API便宜8倍" data-sig-author="wxmcan" data-sig-topic="模型价格" data-sig-tags="topic:模型价格,src:x">
+<button type="button" class="log lvl-xs" id="lg5" data-n="5" data-cmd="ai" data-g="AI工具与模型" style="--d:220ms" aria-expanded="false" aria-controls="pn5">
+ <span class="ts">10:12:15</span><span class="tag" data-flip="AI工具与模型">AI工具与模型</span><span class="msg"><b>Max5x比API便宜8倍</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn5" data-n="5" hidden>
+ <p class="pw"><span class="sweep">一手账本：Claude Code 40 天约 24 亿 token（日均 7300 万），96% 缓存读；按 Opus 5.5 API 约合 Max 5x 比直调便宜约 8 倍。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:4"><i></i><em>信息差</em></span><span class="bar" style="--v:5"><i></i><em>干货</em></span><span class="bar" style="--v:4"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://x.com/wxmcan/status/2117373689217814578" target="_blank" rel="noopener">看原文</a><span class="psrc">X @wxmcan</span></div>
+</div>
+</article><article class="item" data-n="6" data-cmd="oss" data-sig-id="gh:repo/heydamir/unslop" data-sig-url="https://github.com/heydamir/unslop" data-sig-title="heydamir/unslop" data-sig-author="heydamir" data-sig-topic="JavaScript" data-sig-tags="topic:JavaScript,src:github,pick:exploit">
+<button type="button" class="log lvl-xs" id="lg6" data-n="6" data-cmd="oss" data-g="开源项目" style="--d:275ms" aria-expanded="false" aria-controls="pn6">
+ <span class="ts">10:12:19</span><span class="tag" data-flip="开源项目">开源项目</span><span class="msg"><b>heydamir/unslop</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn6" data-n="6" hidden>
+ <p class="pw"><span class="sweep">一个 Claude skill，专门把 vibecoding 出来、一眼 AI 味的界面改得像设计过——和叼报「少 AI 味」同一问题。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:4"><i></i><em>信息差</em></span><span class="bar" style="--v:3"><i></i><em>干货</em></span><span class="bar" style="--v:5"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://github.com/heydamir/unslop" target="_blank" rel="noopener">看原文</a><span class="psrc">GitHub · heydamir</span></div>
+</div>
+</article><article class="item" data-n="7" data-cmd="vps" data-sig-id="x:2117198555605766370" data-sig-url="https://x.com/dfyun66/status/2117198555605766370" data-sig-title="Xray旧版MPTCP洞" data-sig-author="dfyun66" data-sig-topic="VPS" data-sig-tags="topic:VPS,src:x">
+<button type="button" class="log lvl-xs" id="lg7" data-n="7" data-cmd="vps" data-g="VPS/网络" style="--d:330ms" aria-expanded="false" aria-controls="pn7">
+ <span class="ts">10:12:23</span><span class="tag" data-flip="VPS/网络">VPS/网络</span><span class="msg"><b>Xray旧版MPTCP洞</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn7" data-n="7" hidden>
+ <p class="pw"><span class="sweep">旧版 Xray 默认开 MPTCP，受 cve-2026-98432 影响；自建节点建议升级内核或重装新系统，否则有被黑、连带 VPS 被封风险。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:5"><i></i><em>信息差</em></span><span class="bar" style="--v:5"><i></i><em>干货</em></span><span class="bar" style="--v:5"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://x.com/dfyun66/status/2117198555605766370" target="_blank" rel="noopener">看原文</a><span class="psrc">X @dfyun66</span></div>
+</div>
+</article><article class="item" data-n="8" data-cmd="ai" data-sig-id="hf:model/Lightricks/LTX-2.5" data-sig-url="https://huggingface.co/Lightricks/LTX-2.5" data-sig-title="Lightricks/LTX-2.5" data-sig-author="Lightricks" data-sig-topic="image-to-video" data-sig-tags="topic:image-to-video,src:hf,pick:exploit">
+<button type="button" class="log lvl-xs" id="lg8" data-n="8" data-cmd="ai" data-g="AI工具与模型" style="--d:385ms" aria-expanded="false" aria-controls="pn8">
+ <span class="ts">10:12:27</span><span class="tag" data-flip="AI工具与模型">AI工具与模型</span><span class="msg"><b>Lightricks/LTX-2.5</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn8" data-n="8" hidden>
+ <p class="pw"><span class="sweep">Lightricks 开源 LTX-2.5 图生视频模型权重；想本地或自托管跑轻量视频生成可以先拉。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:3"><i></i><em>信息差</em></span><span class="bar" style="--v:3"><i></i><em>干货</em></span><span class="bar" style="--v:3"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noopener">看原文</a><span class="psrc">Hugging Face · Lightricks</span></div>
+</div>
+</article><article class="item" data-n="9" data-cmd="oss" data-sig-id="gh:repo/HRuiCcc/RuiC-PoseAtlas" data-sig-url="https://github.com/HRuiCcc/RuiC-PoseAtlas" data-sig-title="HRuiCcc/RuiC-PoseAtlas" data-sig-author="HRuiCcc" data-sig-topic="JavaScript" data-sig-tags="topic:JavaScript,src:github,pick:exploit">
+<button type="button" class="log lvl-xs" id="lg9" data-n="9" data-cmd="oss" data-g="开源项目" style="--d:440ms" aria-expanded="false" aria-controls="pn9">
+ <span class="ts">10:12:31</span><span class="tag" data-flip="开源项目">开源项目</span><span class="msg"><b>HRuiCcc/RuiC-PoseAtlas</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn9" data-n="9" hidden>
+ <p class="pw"><span class="sweep">姿态+衣装双图鉴：多视角人台线稿与无人物衣装，中英日可搜可下，纯静态零依赖。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:3"><i></i><em>信息差</em></span><span class="bar" style="--v:4"><i></i><em>干货</em></span><span class="bar" style="--v:3"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://github.com/HRuiCcc/RuiC-PoseAtlas" target="_blank" rel="noopener">看原文</a><span class="psrc">GitHub · HRuiCcc</span></div>
+</div>
+</article><article class="item" data-n="10" data-cmd="deal" data-sig-id="x:2117172193201201615" data-sig-url="https://x.com/CryptoJHK/status/2117172193201201615" data-sig-title="中转行情11.02" data-sig-author="CryptoJHK" data-sig-topic="中转" data-sig-tags="topic:中转,src:x">
+<button type="button" class="log lvl-xs" id="lg10" data-n="10" data-cmd="deal" data-g="副业/行情" style="--d:495ms" aria-expanded="false" aria-controls="pn10">
+ <span class="ts">10:12:35</span><span class="tag" data-flip="副业/行情">副业/行情</span><span class="msg"><b>中转行情11.02</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn10" data-n="10" hidden>
+ <p class="pw"><span class="sweep">中转站同行群近 24h 报价：OAI Image 2.5 官转约 1.8x；GPT Team/Pro 池有人报 0.04–0.12 倍率；渠道、型号、计费方式拆开看。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:4"><i></i><em>信息差</em></span><span class="bar" style="--v:4"><i></i><em>干货</em></span><span class="bar" style="--v:4"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://x.com/CryptoJHK/status/2117172193201201615" target="_blank" rel="noopener">看原文</a><span class="psrc">X @CryptoJHK</span></div>
+</div>
+</article><article class="item" data-n="11" data-cmd="oss" data-sig-id="dcr:e315fef3f73c42589aa2f097" data-sig-url="https://didcodexreset.com/zh/news/e315fef3f73c42589aa2f097.html" data-sig-title="GitHub Copilot 本地沙箱功能正式发布" data-sig-author="" data-sig-topic="GitHub Copilot" data-sig-tags="topic:GitHub Copilot,src:dcr,pick:explore">
+<button type="button" class="log lvl-xs" id="lg11" data-n="11" data-cmd="oss" data-g="开源项目" style="--d:550ms" aria-expanded="false" aria-controls="pn11">
+ <span class="ts">10:12:39</span><span class="tag" data-flip="开源项目">开源项目</span><span class="msg"><b>GitHub Copilot 本地沙箱</b><em>GitHub Copilot 本地沙箱功能正式发布</em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn11" data-n="11" hidden>
+ <p class="pw"><span class="sweep">GitHub Copilot 本地沙箱正式可用：命令跑在受限环境，细粒度控文件、网络、凭据与系统能力。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:4"><i></i><em>信息差</em></span><span class="bar" style="--v:4"><i></i><em>干货</em></span><span class="bar" style="--v:4"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://didcodexreset.com/zh/news/e315fef3f73c42589aa2f097.html" target="_blank" rel="noopener">看原文</a><span class="psrc">DidCodexReset</span></div>
+</div>
+</article><article class="item" data-n="12" data-cmd="oss" data-sig-id="x:2117237474493968435" data-sig-url="https://x.com/ganfanren_ai/status/2117237474493968435" data-sig-title="多平台一键分发" data-sig-author="ganfanren_ai" data-sig-topic="开源工具" data-sig-tags="topic:开源工具,src:x">
+<button type="button" class="log lvl-xs" id="lg12" data-n="12" data-cmd="oss" data-g="开源项目" style="--d:605ms" aria-expanded="false" aria-controls="pn12">
+ <span class="ts">10:12:43</span><span class="tag" data-flip="开源项目">开源项目</span><span class="msg"><b>多平台一键分发</b><em></em></span><span class="stamp" aria-hidden="true">已读</span>
+</button>
+<div class="panel" id="pn12" data-n="12" hidden>
+ <p class="pw"><span class="sweep">开源 social-auto-upload：成片后用命令行/Skill 统一填标题简介，推到抖音、小红书、视频号、B 站等，省去逐个 App 上传。</span></p>
+ <div class="meter" aria-label="价值刻度（编辑判断）"><span class="bar" style="--v:3"><i></i><em>信息差</em></span><span class="bar" style="--v:4"><i></i><em>干货</em></span><span class="bar" style="--v:3"><i></i><em>相关</em></span></div>
+ <div class="pbot"><a class="pill" href="https://x.com/ganfanren_ai/status/2117237474493968435" target="_blank" rel="noopener">看原文</a><span class="psrc">X @ganfanren_ai</span></div>
+</div>
+</article></div>
+</section>
+<details class="box"><summary>ls --all<span>19 条 · 全部其余条目</span></summary>
+<p class="bnote">这些没进终端精选：score 筛掉的传闻/同事件封顶/VPS 封顶/无新信息，以及精选里偏弱的无审查图与融资快讯。想翻也都在这儿。</p>
+<article class="row" data-sig-id="x:2117134010749243794" data-sig-url="https://x.com/nana_ai_diary/status/2117134010749243794" data-sig-title="Claude禁转售拼车" data-sig-author="nana_ai_diary" data-sig-topic="中转" data-sig-tags="topic:中转,src:x"><button type="button" class="rhit"><span class="rs">X @nana_ai_diary</span><span class="rt">Claude禁转售拼车</span></button><p class="rw">Anthropic 新 Usage Policy 约 11 月 12 日生效：反代、拼车号池、换号、黑支付都在打击范围；另有提醒不少高价 Claude 中转其实套壳 DeepSeek。对跑 sub2api/拼车的人是硬截止。</p><a class="ro" href="https://x.com/nana_ai_diary/status/2117134010749243794" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="x:2117414403587092734" data-sig-url="https://x.com/ygkkkg/status/2117414403587092734" data-sig-title="DMIT端口陆续恢复" data-sig-author="ygkkkg" data-sig-topic="VPS" data-sig-tags="topic:VPS,src:x"><button type="button" class="rhit"><span class="rs">X @ygkkkg</span><span class="rt">DMIT端口陆续恢复</span></button><p class="rw">网友反馈：此前被 GFW 封 TCP 端口的 DMIT、搬瓦工等 VPS，约一周后开始陆续自动恢复可用（未证实是否全面解封）。可先测自家 TCP，别急着重装。</p><a class="ro" href="https://x.com/ygkkkg/status/2117414403587092734" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="x:2117202126434914318" data-sig-url="https://x.com/bangbuilds/status/2117202126434914318" data-sig-title="Astra降价传闻60%" data-sig-author="bangbuilds" data-sig-topic="模型价格" data-sig-tags="topic:模型价格,src:x"><button type="button" class="rhit"><span class="rs">X @bangbuilds</span><span class="rt">Astra降价传闻60%</span></button><p class="rw">未证实传闻：GPT-6.2 Astra API 拟砍约 60%，每百万输入 $4 / 输出 $20，与 Claude Opus 5.5 同档。属社区流传，未见 OpenAI 官宣。</p><a class="ro" href="https://x.com/bangbuilds/status/2117202126434914318" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="gh:repo/jacke-pp/open-yoki" data-sig-url="https://github.com/jacke-pp/open-yoki" data-sig-title="jacke-pp/open-yoki" data-sig-author="jacke-pp" data-sig-topic="JavaScript" data-sig-tags="topic:JavaScript,src:github,pick:exploit"><button type="button" class="rhit"><span class="rs">GitHub · jacke-pp</span><span class="rt">jacke-pp/open-yoki</span></button><p class="rw">单机可跑的 AI 直播主持：语音、表情、弹幕、记忆与发帖一体。</p><a class="ro" href="https://github.com/jacke-pp/open-yoki" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="gh:repo/sleepy-zone/ai-ref-library-cn" data-sig-url="https://github.com/sleepy-zone/ai-ref-library-cn" data-sig-title="sleepy-zone/ai-ref-library-cn" data-sig-author="sleepy-zone" data-sig-topic="JavaScript" data-sig-tags="topic:JavaScript,src:github,pick:exploit"><button type="button" class="rhit"><span class="rs">GitHub · sleepy-zone</span><span class="rt">sleepy-zone/ai-ref-library-cn</span></button><p class="rw">中文 AI 作图素材库：脸、姿势、服装参考图整理。</p><a class="ro" href="https://github.com/sleepy-zone/ai-ref-library-cn" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:model/deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-url="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-title="deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-author="deepseek-ai" data-sig-topic="image-text-to-text" data-sig-tags="topic:image-text-to-text,src:hf,pick:exploit"><button type="button" class="rhit"><span class="rs">Hugging Face · deepseek-ai</span><span class="rt">deepseek-ai/DeepSeek-V4.1-Flash-1017</span></button><p class="rw">DeepSeek V4.1 Flash 权重上架，支持图文输入的轻量多模态推理。</p><a class="ro" href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:paper/2610.40901" data-sig-url="https://huggingface.co/papers/2610.40901" data-sig-title="TSFLab: A Self-Improving Agent-Agnostic Workbench for Time Series Forecasting Research" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:exploit"><button type="button" class="rhit"><span class="rs">Hugging Face</span><span class="rt">TSFLab: A Self-Improving Agent-Agnostic Workbench for Time Series Forecasting Research</span></button><p class="rw">时序预测自改进工作台论文：帮研究者对比与迭代 TSF 方法。</p><a class="ro" href="https://huggingface.co/papers/2610.40901" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:model/abenzerps/Qwen-Image-2.1-Uncensored-Quantized" data-sig-url="https://huggingface.co/abenzerps/Qwen-Image-2.1-Uncensored-Quantized" data-sig-title="abenzerps/Qwen-Image-2.1-Uncensored-Quantized" data-sig-author="abenzerps" data-sig-topic="text-to-image" data-sig-tags="topic:text-to-image,src:hf,pick:exploit"><button type="button" class="rhit"><span class="rs">Hugging Face · abenzerps</span><span class="rt">abenzerps/Qwen-Image-2.1-Uncensored-Quantized</span></button><p class="rw">Qwen-Image 2.1 无审查量化版，文生图权重。</p><a class="ro" href="https://huggingface.co/abenzerps/Qwen-Image-2.1-Uncensored-Quantized" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:paper/2610.31222" data-sig-url="https://huggingface.co/papers/2610.31222" data-sig-title="GLOW-FM: Efficient Generative Low-Light Image Enhancement with One-Step Latent Flow Matching" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:explore"><button type="button" class="rhit"><span class="rs">Hugging Face</span><span class="rt">GLOW-FM: Efficient Generative Low-Light Image Enhancement with One-Step Latent Flow Matching</span></button><p class="rw">低光图像增强生成模型 GLOW-FM 论文，强调高效与观感保真。</p><a class="ro" href="https://huggingface.co/papers/2610.31222" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hn:50342284" data-sig-url="https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html" data-sig-title="Oracle files to sell $20B in new stock, bonds to finance AI buildout" data-sig-author="smartmic" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit"><button type="button" class="rhit"><span class="rs">Hacker News · smartmic</span><span class="rt">Oracle files to sell $20B in new stock, bonds to finance AI buildout</span></button><p class="rw">Oracle 拟发行约 200 亿美元新股与债券，为 AI 基建筹资。</p><a class="ro" href="https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hn:50341736" data-sig-url="https://terrytao.wordpress.com/2026/11/02/egoless-mathematics-in-the-ai-era/" data-sig-title="Egoless Mathematics in the AI Era" data-sig-author="smilelamp" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit"><button type="button" class="rhit"><span class="rs">Hacker News · smilelamp</span><span class="rt">Egoless Mathematics in the AI Era</span></button><p class="rw">陶哲轩谈 AI 时代「去自我」的数学协作与研究方式。</p><a class="ro" href="https://terrytao.wordpress.com/2026/11/02/egoless-mathematics-in-the-ai-era/" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hn:50341174" data-sig-url="https://rikiyat.github.io/blog/weight-space-programming/" data-sig-title="Astra can read and write weights to improve Qwen" data-sig-author="dbreunig" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit"><button type="button" class="rhit"><span class="rs">Hacker News · dbreunig</span><span class="rt">Astra can read and write weights to improve Qwen</span></button><p class="rw">Astra 可读写权重以改进 Qwen，探索权重空间编程。</p><a class="ro" href="https://rikiyat.github.io/blog/weight-space-programming/" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hn:50344919" data-sig-url="https://www.techpolicy.press/the-sec-should-block-anthropics-ipo-to-protect-the-public/" data-sig-title="The SEC Should Block Anthropic&#39;s IPO to Protect the Public" data-sig-author="cdrnsf" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:explore"><button type="button" class="rhit"><span class="rs">Hacker News · cdrnsf</span><span class="rt">The SEC Should Block Anthropic&#39;s IPO to Protect the Public</span></button><p class="rw">观点文：主张 SEC 应拦截 Anthropic IPO 以保护公众。</p><a class="ro" href="https://www.techpolicy.press/the-sec-should-block-anthropics-ipo-to-protect-the-public/" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="dcr:d6cea3f932cb4c0eaca86fc6" data-sig-url="https://didcodexreset.com/zh/news/d6cea3f932cb4c0eaca86fc6.html" data-sig-title="Cline Cloud Agents 支持任意模型，提供免费层级与折扣订阅服务 ClinePass" data-sig-author="" data-sig-topic="Cline" data-sig-tags="topic:Cline,src:dcr,pick:exploit"><button type="button" class="rhit"><span class="rs">DidCodexReset</span><span class="rt">Cline Cloud Agents 支持任意模型，提供免费层级与折扣订阅服务 ClinePass</span></button><p class="rw">Cline Cloud Agents 可跑任意模型，并推出开放权重折扣订阅 ClinePass。</p><a class="ro" href="https://didcodexreset.com/zh/news/d6cea3f932cb4c0eaca86fc6.html" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="dcr:57d1bcd80443459b87684b47" data-sig-url="https://didcodexreset.com/zh/news/57d1bcd80443459b87684b47.html" data-sig-title="Vipul Ved Prakash 称 Together 在 OpenRouter 的 Token 处理量位居供应商首位" data-sig-author="" data-sig-topic="Together AI" data-sig-tags="topic:Together AI,src:dcr,pick:exploit"><button type="button" class="rhit"><span class="rs">DidCodexReset</span><span class="rt">Vipul Ved Prakash 称 Together 在 OpenRouter 的 Token 处理量位居供应商首位</span></button><p class="rw">Together 在 OpenRouter 开闭源端点合计 Token 量升至供应商第一。</p><a class="ro" href="https://didcodexreset.com/zh/news/57d1bcd80443459b87684b47.html" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="dcr:f37d751491a64ac5a3847135" data-sig-url="https://didcodexreset.com/zh/news/f37d751491a64ac5a3847135.html" data-sig-title="DeepLearning.AI 在 The Batch 中详解 DeepSeek 缓存缩减与 Flash 基准测试表现" data-sig-author="" data-sig-topic="DeepLearning.AI" data-sig-tags="topic:DeepLearning.AI,src:dcr,pick:exploit"><button type="button" class="rhit"><span class="rs">DidCodexReset</span><span class="rt">DeepLearning.AI 在 The Batch 中详解 DeepSeek 缓存缩减与 Flash 基准测试表现</span></button><p class="rw">The Batch 拆 DeepSeek：每 token 缓存约 890 字节，并评 Flash 长文基准。</p><a class="ro" href="https://didcodexreset.com/zh/news/f37d751491a64ac5a3847135.html" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="dcr:52a4b75ac81b42b4b86a55ab" data-sig-url="https://didcodexreset.com/zh/news/52a4b75ac81b42b4b86a55ab.html" data-sig-title="Sayak Paul 发布图像生成 Flow 模型 KV 缓存分析文章" data-sig-author="" data-sig-topic="Flow 模型" data-sig-tags="topic:Flow 模型,src:dcr,pick:explore"><button type="button" class="rhit"><span class="rs">DidCodexReset</span><span class="rt">Sayak Paul 发布图像生成 Flow 模型 KV 缓存分析文章</span></button><p class="rw">Sayak Paul 分析图像 Flow 模型 KV 缓存实现、基准与实验。</p><a class="ro" href="https://didcodexreset.com/zh/news/52a4b75ac81b42b4b86a55ab.html" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="blog:fomoxx/codex-desktop-cpa-instructions-required-400" data-sig-url="https://fomoxx.com/posts/codex-desktop-cpa-instructions-required-400/" data-sig-title="Codex App 经 CLIProxyAPI 接入中转站报 400（instructions_required）的排障与修复" data-sig-author="fomoxx" data-sig-topic="ai-agents" data-sig-tags="topic:ai-agents,src:blog,pick:exploit"><button type="button" class="rhit"><span class="rs">Blog · fomoxx</span><span class="rt">Codex App 经 CLIProxyAPI 接入中转站报 400（instructions_required）的排障与修复</span></button><p class="rw">Codex App 经 CLIProxyAPI 接中转站报 400 缺 instructions，文内给可用配置。</p><a class="ro" href="https://fomoxx.com/posts/codex-desktop-cpa-instructions-required-400/" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="blog:fomoxx/apple-id-chatgpt-pro-72h-review" data-sig-url="https://fomoxx.com/posts/apple-id-chatgpt-pro-72h-review/" data-sig-title="美区 Apple ID 升级 ChatGPT Pro 反复触发 72 小时审核：Plus 成功，Pro 多次失败" data-sig-author="fomoxx" data-sig-topic="ai-agents" data-sig-tags="topic:ai-agents,src:blog,pick:exploit"><button type="button" class="rhit"><span class="rs">Blog · fomoxx</span><span class="rt">美区 Apple ID 升级 ChatGPT Pro 反复触发 72 小时审核：Plus 成功，Pro 多次失败</span></button><p class="rw">美区 Apple ID 用礼品卡升 ChatGPT Pro 反复 72h 审核，Plus 成 Pro 多次失败。</p><a class="ro" href="https://fomoxx.com/posts/apple-id-chatgpt-pro-72h-review/" target="_blank" rel="noopener">看原文</a></article>
+</details>
+<footer class="foot">叼报 · 11月3日<br>主题：把今天的精选当成一台行情终端：每条是一行带时间戳的 log，斜杠命令过滤话题。<br>形式：行情终端（CRT 墨绿 · 斜杠话题别名 · 点行展开面板 · 已读盖章）<br>灵感来源：Paper、Cursor、Typefully、Lthero、Readwise、Ollama、Abode、Superlist；斜杠命令过滤与 CRT 扫描线为自创。</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+var toast=document.getElementById('toast'),seenN=document.getElementById('seenN'),filtN=document.getElementById('filtN'),curCmd=document.getElementById('curCmd');
+var logs=[].slice.call(document.querySelectorAll('.log'));
+var panels=[].slice.call(document.querySelectorAll('.panel'));
+var cmds=[].slice.call(document.querySelectorAll('.cmd'));
+var seen={}, cur=null, filter='all', tt;
+function show(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},1600)}
+function mark(n){
+  if(seen[n]) return;
+  seen[n]=1; seenN.textContent=Object.keys(seen).length;
+  var lg=document.getElementById('lg'+n); if(lg) lg.classList.add('seen'); var it=document.querySelector('.item[data-n="'+n+'"]'); if(it) it.classList.add('seen');
+  var k=Object.keys(seen).length;
+  if(k===3) show('头条三行读完了');
+  else if(k===12) show('今天 12 行 log 都读过了');
+}
+function open(n){
+  n=String(n);
+  if(cur===n){close();return}
+  panels.forEach(function(p){
+    var on=p.dataset.n===n; p.hidden=!on;
+    if(on){ var s=p.querySelector('.sweep'); if(s){s.style.animation='none'; void s.offsetWidth; s.style.animation=''} }
+  });
+  logs.forEach(function(l){l.setAttribute('aria-expanded', l.dataset.n===n?'true':'false')});
+  cur=n; mark(n);
+  var pn=document.getElementById('pn'+n);
+  if(pn) pn.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
+}
+function close(){panels.forEach(function(p){p.hidden=true});logs.forEach(function(l){l.setAttribute('aria-expanded','false')});cur=null}
+function applyFilter(c){
+  filter=c||'all';
+  cmds.forEach(function(x){x.setAttribute('aria-pressed', x.dataset.cmd===filter?'true':'false')});
+  curCmd.textContent='/'+(filter==='all'?'all':filter);
+  var vis=0;
+  [].slice.call(document.querySelectorAll('.item')).forEach(function(it){
+    var ok=filter==='all'||it.dataset.cmd===filter;
+    it.classList.toggle('dim', !ok);
+    var pn=document.getElementById('pn'+it.dataset.n);
+    if(!ok && pn && !pn.hidden) pn.hidden=true;
+    if(ok) vis++;
+  });
+  filtN.textContent=vis;
+  if(cur){ var it=document.querySelector('.item[data-n="'+cur+'"]'); if(it && it.classList.contains('dim')) close(); }
+}
+logs.forEach(function(l){l.addEventListener('click',function(){open(l.dataset.n)})});
+cmds.forEach(function(c){c.addEventListener('click',function(){applyFilter(c.dataset.cmd)})});
+[].slice.call(document.querySelectorAll('.row')).forEach(function(r){
+  r.querySelector('.rhit').addEventListener('click',function(){r.classList.toggle('open')});
+});
+window.__ready=true;
+})();
+</script><!-- news-signal: 叼报互动。短评已启用 action=comment / meta.note≤200 / meta.vote=like|dislike（勿改 daily-portal 脚本；embed 现读）。门户链接 https://daily.jidadiao.fun/go/x/YYYY-MM-DD ；github.io 作备份。 -->
+<style id="dd-sig-mobile">
+/* news-signal 按钮：手机端 ≥44px、不遮挡、可点；短评 .dd-note 样式由脚本自带，此处不重复 */
+body .dd-sig{flex-wrap:wrap;gap:8px;margin-top:10px;position:relative;z-index:2}
+body .dd-sig button{min-width:44px;min-height:44px;box-sizing:border-box;touch-action:manipulation;font-size:16px}
+</style>
+<script id="dd-news-signal" data-date="2026-11-03" data-source="news">
+/* DiaoDaily 叼报 · news-signal.js — 日报条目轻互动（👍 👎 ⭐ 已读 + 可选短评）→ POST /api/signal
+ * 嵌入：<script src="news-signal.js" defer data-date="2026-10-26" data-source="news"><\/script>
+ * 条目标记：<article data-sig-id="x:1849xxxxxxxx" data-sig-url="https://x.com/u/status/..." data-sig-title="标题"
+ *                    data-sig-author="u" data-sig-topic="AI" data-sig-tags="topic:ai,format:thread"> … </article>
+ * 脚本自动在每个 [data-sig-id] 末尾插入一行按钮（或放进其内的 [data-sig-bar] 容器）。不加载任何图片/外部资源。
+ * 同站（daily.jidadiao.fun）走相对路径；github.io 走 https://daily.jidadiao.fun/api/signal（CORS 白名单）。
+ * 去重：localStorage 记住每条状态，同一动作不重复上报；👍/👎 互斥（切换时先报相反动作）；⭐再点 = unfav。
+ * 👍/👎 后弹出可选一行短评（可不写）；有字再发 action=comment（meta.note≤200，meta.vote=like|dislike）。
+ * 已读：条目在视口停留 ≥2s 自动报 read（每条一次），点原文链接报 open。离线/失败排队，下次打开页面重试。 */
+(function () {
+  "use strict";
+  var S = document.currentScript || {}, ds = (S.dataset || {});
+  var DATE = ds.date || (location.pathname.match(/(\d{4}-\d{2}-\d{2})/) || [])[1] || "";
+  var SRC = ds.source === "design" ? "design" : "news";
+  var API = ds.endpoint || (location.host === "daily.jidadiao.fun" ? "/api/signal" : "https://daily.jidadiao.fun/api/signal");
+  var KEY = "dd-sig:" + DATE, QK = "dd-sig-queue";
+  function ld(k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } }
+  function sv(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  var state = ld(KEY, {});
+  function payload(el, action) {
+    var d = el.dataset, tags = (d.sigTags || "").split(/[,，\s]+/).filter(Boolean).slice(0, 20);
+    var o = { source_type: SRC, action: action, item_id: d.sigId, title: (d.sigTitle || "").slice(0, 300),
+              tags: tags, meta: { date: DATE, page: location.pathname.slice(-80) } };
+    if (/^https?:\/\//.test(d.sigUrl || "")) o.item_url = d.sigUrl;
+    if (d.sigAuthor) o.author = d.sigAuthor.slice(0, 120);
+    if (d.sigTopic) o.topic = d.sigTopic.slice(0, 80);
+    return o;
+  }
+  function post(o) {
+    // text/plain = CORS simple request (no preflight); server parses JSON body regardless.
+    return fetch(API, { method: "POST", mode: "cors", credentials: "omit", keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" }, body: JSON.stringify(o) })
+      .then(function (r) {
+        if (r.status >= 200 && r.status < 300) return r.status;
+        var err = new Error("http " + r.status); err.status = r.status; throw err;
+      });
+  }
+  var MAX_TRY = 5, MAX_TRY_403 = 3, MAX_Q = 50;
+  function enqueue(o, err) {
+    var st = err && err.status, n = (o._try || 0) + 1, lim = st === 403 ? MAX_TRY_403 : MAX_TRY;
+    if (st && st >= 400 && st < 500 && st !== 403 && st !== 408 && st !== 429) {
+      try { console.warn("[news-signal] dropped (HTTP " + st + ")", o.item_id); } catch (e) {} return;
+    }
+    if (n >= lim) { try { console.warn("[news-signal] dropped after " + n + " tries (" + (st || "network") + ")", o.item_id); } catch (e) {} return; }
+    o._try = n; var q = ld(QK, []); q.push(o); sv(QK, q.slice(-MAX_Q));
+  }
+  function send(o) {
+    var t = o._try; delete o._try;
+    return post(o).catch(function (err) { o._try = t; enqueue(o, err); });
+  }
+  function flush() { var q = ld(QK, []); if (!q.length) return; sv(QK, []); q.forEach(send); }
+  function mark(id, k, v) { var s = state[id] || (state[id] = {}); s[k] = v; sv(KEY, state); }
+  var BTN = [["like", "👍", "喜欢"], ["dislike", "👎", "不感兴趣"], ["fav", "⭐", "收藏"]];
+  function paint(bar, id) {
+    var s = state[id] || {};
+    Array.prototype.forEach.call(bar.querySelectorAll("button[data-a]"), function (b) {
+      var on = b.dataset.a === "fav" ? !!s.fav : s.vote === b.dataset.a;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    var r = bar.querySelector(".dd-read"); if (r) r.textContent = s.read ? "已读" : "";
+  }
+  function closeNote(bar) {
+    var n = bar.querySelector(".dd-note"); if (n) n.remove();
+  }
+  function askNote(el, bar, vote) {
+    closeNote(bar);
+    var wrap = document.createElement("div");
+    wrap.className = "dd-note";
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", "可选短评");
+    var inp = document.createElement("input");
+    inp.type = "text"; inp.maxLength = 200; inp.placeholder = "为什么？（可不写）";
+    inp.setAttribute("aria-label", "为什么（可不写）");
+    inp.autocomplete = "off";
+    var ok = document.createElement("button");
+    ok.type = "button"; ok.textContent = "发送"; ok.title = "发送短评（空则跳过）";
+    ok.setAttribute("aria-label", "发送短评");
+    function submit() {
+      var note = (inp.value || "").trim().slice(0, 200);
+      if (note) {
+        var o = payload(el, "comment");
+        o.meta = o.meta || {};
+        o.meta.note = note;
+        o.meta.vote = vote;
+        o.note = note;
+        send(o);
+        mark(el.dataset.sigId, "noted", 1);
+      }
+      closeNote(bar);
+    }
+    ok.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); submit(); });
+    inp.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter") { ev.preventDefault(); submit(); }
+      else if (ev.key === "Escape") { ev.preventDefault(); closeNote(bar); }
+    });
+    wrap.addEventListener("click", function (ev) { ev.stopPropagation(); });
+    wrap.appendChild(inp); wrap.appendChild(ok);
+    bar.appendChild(wrap);
+    /* 不自动聚焦：iOS 会放大页面并弹键盘，用户点输入框才输入 */
+  }
+  function click(el, bar, a) {
+    var id = el.dataset.sigId, s = state[id] || {};
+    if (a === "fav") { send(payload(el, s.fav ? "unfav" : "fav")); mark(id, "fav", !s.fav); paint(bar, id); }
+    else if (s.vote === a) { /* 已投同票：不重复上报 */ }
+    else { send(payload(el, a)); mark(id, "vote", a); paint(bar, id); askNote(el, bar, a); }
+  }
+  function css() {
+    if (document.getElementById("dd-sig-css")) return;
+    var st = document.createElement("style"); st.id = "dd-sig-css";
+    st.textContent = ".dd-sig{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px;font:13px/1.2 system-ui,sans-serif;position:relative;z-index:2}" +
+      ".dd-sig button[data-a]{all:unset;cursor:pointer;min-width:44px;min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;" +
+      "border:1px solid currentColor;border-radius:999px;opacity:.55;padding:0 10px;font-size:16px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}" +
+      ".dd-sig button[data-a][aria-pressed=true]{opacity:1;font-weight:700}.dd-sig button:focus-visible{outline:2px solid currentColor}" +
+      ".dd-sig .dd-read{opacity:.5;font-size:12px;margin-left:4px}" +
+      ".dd-sig .dd-note{display:flex;flex:1 1 100%;gap:6px;align-items:center;margin-top:2px;max-width:100%}" +
+      ".dd-sig .dd-note input{flex:1 1 auto;min-width:0;min-height:44px;box-sizing:border-box;padding:8px 10px;border:1px solid currentColor;border-radius:8px;" +
+      "background:transparent;color:inherit;font:16px/1.3 system-ui,sans-serif}" +
+      ".dd-sig .dd-note button{all:unset;cursor:pointer;min-width:44px;min-height:44px;padding:0 12px;border:1px solid currentColor;border-radius:8px;opacity:.8;" +
+      "display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;flex:0 0 auto}" +
+      "@media (max-width:480px){.dd-sig{gap:8px}}";
+    document.head.appendChild(st);
+  }
+  function init() {
+    css(); flush();
+    var els = document.querySelectorAll("[data-sig-id]");
+    var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var el = e.target;
+        if (e.isIntersecting) el._t = setTimeout(function () {
+          var id = el.dataset.sigId;
+          if (!(state[id] || {}).read) { send(payload(el, "read")); mark(id, "read", 1); paint(el._bar, id); }
+          io.unobserve(el);
+        }, 2000); else clearTimeout(el._t);
+      });
+    }, { threshold: 0.6 }) : null;
+    Array.prototype.forEach.call(els, function (el) {
+      var id = el.dataset.sigId; if (!/^[A-Za-z0-9][A-Za-z0-9._:\/@#+\-]{0,199}$/.test(id)) return;
+      var bar = el.querySelector("[data-sig-bar]") || el.appendChild(document.createElement("div"));
+      bar.classList.add("dd-sig"); bar.setAttribute("role", "group"); bar.setAttribute("aria-label", "反馈");
+      BTN.forEach(function (x) {
+        var b = document.createElement("button"); b.type = "button"; b.dataset.a = x[0]; b.textContent = x[1]; b.title = x[2];
+        b.setAttribute("aria-label", x[2]);
+        b.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); click(el, bar, x[0]); });
+        bar.appendChild(b);
+      });
+      var r = document.createElement("span"); r.className = "dd-read"; bar.appendChild(r);
+      el._bar = bar; paint(bar, id);
+      Array.prototype.forEach.call(el.querySelectorAll("a[href^='http']"), function (a) {
+        a.addEventListener("click", function () { if (!(state[id] || {}).open) { send(payload(el, "open")); mark(id, "open", 1); } });
+      });
+      if (io) io.observe(el);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+})();
+
+</script>
+</body></html>
