@@ -1,0 +1,468 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>叼报 · 11月6日 · 软木工作台</title>
+<style>
+:root{--bg:#f0e0b8;--bg2:#d9c7a8;--ink:#2a2116;--mut:#2a211680;--line:#2a21161f;--hi:#5a6b1a;--tape:#c6ff3d;--paper:#fff8ee;--case:#1b2838;--case2:#10161f;--repo:#f3ebe0;--note:#fff3b0;--ease:cubic-bezier(.22,1,.36,1);--pop:cubic-bezier(.34,1.56,.64,1);--sans:"PingFang SC","Noto Sans SC","Helvetica Neue",Arial,sans-serif;--hand:"Segoe Print","Bradley Hand",cursive,var(--sans)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans);min-height:100vh;min-height:100dvh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;background-image:radial-gradient(#cbb896 1.1px,transparent 1.2px);background-size:7px 7px}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:16px 14px calc(28px + env(safe-area-inset-bottom))}
+.head{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap}
+.head h1{margin:0;font:900 32px/1 var(--sans);letter-spacing:.02em}
+.head .m{font:12px/1.4 var(--hand);color:var(--mut)}
+.alert{margin:12px 0 0;padding:10px 12px;border-radius:8px;background:#2a2116;color:#fff8ee;font-size:14px;line-height:1.5}
+.alert b{color:var(--tape)}
+.how{margin:12px 0 0;font-size:15px;line-height:1.7}
+.how b{color:var(--hi)}
+.cut{margin:6px 0 0;font-size:12.5px;color:var(--mut);line-height:1.6}
+.bar{position:sticky;top:0;z-index:30;margin:14px -14px 0;padding:8px 14px;background:color-mix(in oklch,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.pills{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;width:max-content;max-width:100%}
+.pills::-webkit-scrollbar{display:none}
+.pl{flex:0 0 auto;appearance:none;border:0;min-height:44px;padding:0 14px;border-radius:4px;font:700 13px/1 var(--sans);letter-spacing:.04em;cursor:pointer;touch-action:manipulation;background:repeating-linear-gradient(45deg,rgba(198,255,61,.85) 0 10px,rgba(0,0,0,.88) 10px 20px);color:#fff;text-shadow:0 1px 0 #000}
+.pl.on{outline:3px solid var(--ink);outline-offset:2px}
+.pl:focus-visible,.hit:focus-visible,.btn:focus-visible,.rhit:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
+.desk{margin-top:12px;display:grid;gap:16px}
+.zone{position:relative}
+.zone.hide{display:none}
+.tape{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;min-height:44px;background:repeating-linear-gradient(45deg,rgba(198,255,61,.9) 0 12px,rgba(20,18,12,.9) 12px 24px);color:#fff;font:800 14px/1 var(--sans);letter-spacing:.08em;transform:rotate(calc((var(--ti) - 1.5)*.4deg));box-shadow:0 2px 0 rgba(0,0,0,.15);margin-bottom:10px}
+.tape em{font:600 12px/1 var(--hand);letter-spacing:0;opacity:.9}
+.pile{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-height:120px;padding:4px 2px 8px}
+@media(min-width:760px){.pile{grid-template-columns:repeat(3,minmax(0,1fr))}.z-head .pile{grid-template-columns:1.3fr 1fr 1fr}}
+.card{position:relative;min-width:0;transform:rotate(var(--r));animation:drop .7s var(--pop) both;animation-delay:calc(var(--k)*55ms);filter:drop-shadow(0 2px 4px rgba(0,0,0,.10)) drop-shadow(0 8px 20px rgba(0,0,0,.12))}
+@keyframes drop{from{opacity:0;transform:translateY(-28px) rotate(calc(var(--r) + 8deg)) scale(.92)}to{opacity:1;transform:rotate(var(--r)) scale(1)}}
+.card.seen{opacity:.72}
+.card.trayed{display:none}
+.hit{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.bounce:active{animation:scaleBounce .28s var(--ease)}
+@keyframes scaleBounce{0%{transform:scale(1)}50%{transform:scale(.97)}100%{transform:scale(1)}}
+.face{display:block;padding:12px 12px 10px;min-height:132px;overflow:hidden}
+.shape-case .face{border-radius:7px;background:linear-gradient(180deg,#1b2838,#10161f);color:#e7eef7;border:1px solid #2a3b4f;padding-bottom:14px}
+.shape-repo .face{border-radius:4px 14px 14px 14px;background:linear-gradient(180deg,#fff8ee,#f0e6d8);color:var(--ink);border:1px solid #e0d3c2}
+.shape-note .face{border-radius:2px;background:linear-gradient(180deg,#fff6a8,#ffe56a);color:var(--ink);box-shadow:inset 0 -1px 0 rgba(0,0,0,.06)}
+.lvl-lg .face{min-height:168px}.lvl-lg .t{font-size:22px!important}
+.lvl-md .t{font-size:17px!important}
+.meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px;font:11px/1.2 var(--hand);opacity:.75}
+.zn{font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.sn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.blog-tag{display:inline-flex;align-items:center;justify-content:center;min-height:22px;padding:2px 8px;border-radius:999px;background:#ff4d6d;color:#fff;font:800 12px/1 var(--sans);letter-spacing:.04em;box-shadow:0 1px 0 rgba(0,0,0,.15)}
+.t{display:block;font:800 15px/1.35 var(--sans);overflow-wrap:anywhere}
+.w{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-top:6px;font-size:13px;line-height:1.5;opacity:.85}
+.vd{display:grid;grid-template-columns:repeat(3,1fr);gap:2px 6px;margin-top:10px;font:700 12px/1 var(--sans)}
+.vd b{font-size:16px}.vd i{font-style:normal;opacity:.55;font-size:10px}
+.shape-case .vd{color:#9ecbff}
+.clip{position:absolute;right:10px;top:-6px;width:14px;height:28px;border-radius:3px;border:2px solid rgba(0,0,0,.2);border-bottom:0;z-index:2;background:#888;transform:rotate(12deg)}
+.clip.c5{background:#e85d4c}.clip.c4{background:#e2a03a}.clip.c3{background:#6aa84f}.clip.c2{background:#6b8cae}.clip.c1{background:#9a9a9a}
+.stk{position:absolute;left:-8px;top:-10px;z-index:3;display:grid;place-items:center;width:52px;aspect-ratio:1;border-radius:50%;border:3px solid #fff;background:#ff4d6d;color:#fff;font:800 12px/1 var(--sans);box-shadow:0 4px 10px rgba(0,0,0,.2);transform:rotate(-12deg)}
+.scr{position:absolute;right:6px;bottom:4px;width:54px;height:36px;pointer-events:none;opacity:0}
+.scr path{fill:none;stroke:#e85d4c;stroke-width:3;stroke-linecap:round;stroke-dasharray:110;stroke-dashoffset:110}
+.card.seen .scr{opacity:1}.card.seen .scr path{transition:stroke-dashoffset .55s var(--ease);stroke-dashoffset:0}
+.card .dd-sig{padding:0 8px 8px;justify-content:flex-start}
+.tray{margin-top:18px;padding:12px;border-radius:12px;background:rgba(42,33,22,.08);border:1px dashed rgba(42,33,22,.25);min-height:64px}
+.tray h2{margin:0 0 6px;font:800 14px/1.2 var(--sans)}
+.tray .hint{margin:0;font-size:12.5px;color:var(--mut)}
+.tray-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tray-list .chip{display:inline-flex;align-items:center;min-height:36px;padding:0 10px;border-radius:999px;background:var(--paper);font-size:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.box{margin:18px 0 0;border:1px dashed rgba(42,33,22,.25);border-radius:8px;padding:2px 14px 10px;background:rgba(255,248,238,.45)}
+.box summary{min-height:48px;display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;list-style:none}
+.box summary::-webkit-details-marker{display:none}
+.box summary span{font:12px/1.3 var(--hand);font-weight:400;color:var(--mut)}
+.bnote{font-size:12.5px;color:var(--mut);margin:0 0 10px}
+.row{border-top:1px solid var(--line);padding:2px 0 8px}
+.rhit{all:unset;box-sizing:border-box;display:block;width:100%;min-height:44px;padding:8px 0;cursor:pointer}
+.rs{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font:12px/1.3 var(--hand);color:var(--mut)}
+.rt{display:block;font-weight:700;font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+.rw{display:none;margin:2px 0 6px;font-size:13.5px;color:var(--mut);overflow-wrap:anywhere}
+.ro{display:none;min-height:44px;align-items:center;color:var(--hi);font-size:13px}
+.row.open .rw{display:block}.row.open .ro{display:inline-flex}
+.foot{margin:22px 0 0;font-size:12px;color:var(--mut);line-height:1.7}
+.drawer{position:fixed;left:0;right:0;bottom:0;z-index:80;transform:translateY(110%);transition:transform .35s var(--ease);padding:0 12px calc(12px + env(safe-area-inset-bottom));pointer-events:none}
+.drawer.on{transform:none;pointer-events:auto}
+.drawer .sheet{max-width:560px;margin:0 auto;background:var(--paper);border-radius:16px 16px 12px 12px;box-shadow:0 -10px 40px rgba(0,0,0,.25);padding:14px 14px 12px;max-height:min(72vh,72dvh);overflow:auto}
+.d-bg{position:fixed;inset:0;z-index:70;background:rgba(42,33,22,.45);opacity:0;pointer-events:none;transition:opacity .25s}
+.d-bg.on{opacity:1;pointer-events:auto}
+.d-k{font:12px/1 var(--hand);color:var(--mut)}
+.d-t{margin:6px 0 8px;font:800 22px/1.3 var(--sans)}
+.d-w{margin:0 0 10px;font-size:16px;line-height:1.7}
+.d-w mark{background:linear-gradient(#c6ff3d,#c6ff3d) no-repeat;background-size:100% 100%;border-radius:3px;padding:0 2px}
+.d-s{margin:0 0 8px;font-size:13.5px;color:var(--mut);overflow-wrap:anywhere}
+.d-o{margin:0 0 12px;font:12px/1.5 var(--hand);color:var(--mut);overflow-wrap:anywhere}
+.d-v{display:flex;gap:6px;margin:0 0 12px}
+.d-v span{flex:1;border-top:2px solid var(--ink);padding-top:4px;font-size:12px;color:var(--mut)}
+.d-v b{display:block;font:700 18px/1.2 var(--sans);color:var(--ink)}
+.d-acts{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border-radius:999px;font:700 14px/1 var(--sans);text-decoration:none;cursor:pointer;border:0;background:var(--ink);color:#fff8ee;touch-action:manipulation}
+.btn.ghost{background:transparent;border:1px solid rgba(42,33,22,.25);color:var(--ink)}
+.btn.tape{background:repeating-linear-gradient(45deg,rgba(198,255,61,.95) 0 10px,rgba(20,18,12,.92) 10px 20px);color:#fff;text-shadow:0 1px 0 #000}
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important}
+ .card{transform:none}.card.seen .scr path{stroke-dashoffset:0}
+}
+</style></head><body><div class="wrap">
+<header class="head"><h1>叼报</h1><span class="m">2026-11-06 · 软木工作台 · DESK</span></header>
+<p class="alert"><b>X 来源今日暂缺（接口故障）</b> — 本页只用社区精选 20 条拼装，X 条目为 0。</p>
+<p class="how">今天把精选摊在一张<b>软木工作台</b>上：警示胶带划成四区，游戏盒和仓库卡散落其上。点任意一张掀开抽屉细读；读完可「收进托盘」，卡片会盖上涂鸦勾。博客条目带红色「博客」刀模贴纸。</p>
+<p class="cut">桌上 20 张素材（X 0 · 社区 20）钉出 12 张，筛掉 8 条：X 来源全缺（接口故障）/ 昨日已推 2（Hy4、agent-autoloop）/ Rust 项目 1（quiet-md）/ 同事件并条 2（Flash obliterated、Cline 试用）/ 无新信息或吐槽 3。回形针颜色是信息差/干货/相关的编辑判断，不是热度。</p>
+<div class="bar"><div class="pills" role="group" aria-label="按分区看"><button type="button" class="pl on" data-f="all" aria-pressed="true">全部</button><button type="button" class="pl" data-f="head" aria-pressed="false">头条</button><button type="button" class="pl" data-f="tool" aria-pressed="false">工具</button><button type="button" class="pl" data-f="model" aria-pressed="false">模型</button><button type="button" class="pl" data-f="biz" aria-pressed="false">行业</button></div></div>
+<main class="desk"><section class="zone z-head" data-z="head" aria-label="头条">
+<div class="tape" style="--ti:0"><span>头条</span><em>3 · 先看这三张</em></div>
+<div class="pile"><article class="card shape-case lvl-lg" data-n="1" data-z="head" style="--ev:0.93;--k:0;--sx:4%;--sy:6%;--r:-2deg" data-sig-id="hf:model/deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-url="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-title="deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-author="deepseek-ai" data-sig-topic="image-text-to-text" data-sig-tags="topic:image-text-to-text,src:hf,pick:exploit">
+<i class="clip c5" title="价值 4.7" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 1 张：DeepSeek Flash 权重上线">
+ <span class="face">
+  <span class="meta"><span class="zn">头条</span><span class="sn">Hugging Face · deepseek-ai</span></span>
+  <span class="t">DeepSeek Flash 权重上线</span>
+  <span class="w">V4.1-Flash-1017 已在 HF，图文输入，想本地或自托管跑轻量多模态可以直接拉。</span>
+  <span class="vd" aria-label="信息差 5 干货 4 相关 5"><b>5</b><b>4</b><b>5</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article><article class="card shape-case lvl-md" data-n="2" data-z="head" style="--ev:1.00;--k:1;--sx:52%;--sy:8%;--r:2.5deg" data-sig-id="dcr:d89ae89d5ab1431f98d83646" data-sig-url="https://didcodexreset.com/zh/news/d89ae89d5ab1431f98d83646.html" data-sig-title="Claude Python 与 TypeScript SDK 内置计算机与浏览器操作工具集" data-sig-author="" data-sig-topic="Claude" data-sig-tags="topic:Claude,src:dcr,pick:explore">
+<i class="clip c5" title="价值 5.0" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 2 张：Claude SDK 内置电脑与浏览器">
+ <span class="face">
+  <span class="meta"><span class="zn">头条</span><span class="sn">DidCodexReset</span></span>
+  <span class="t">Claude SDK 内置电脑与浏览器</span>
+  <span class="w">Python/TS SDK 现成电脑操作+浏览器工具，可直接跑执行循环并分发给驱动，写 agent 少接一层。</span>
+  <span class="vd" aria-label="信息差 5 干货 5 相关 5"><b>5</b><b>5</b><b>5</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article><article class="card shape-note lvl-md" data-n="3" data-z="head" style="--ev:0.87;--k:2;--sx:8%;--sy:48%;--r:-1.5deg" data-sig-id="blog:oldj/switchhosts-5" data-sig-url="https://oldj.net/posts/switchhosts-5" data-sig-title="SwitchHosts 5.0" data-sig-author="oldj&#39;s blog" data-sig-topic="indie-dev" data-sig-tags="topic:indie-dev,src:blog,pick:exploit">
+<span class="stk" aria-hidden="true">博客</span><i class="clip c4" title="价值 4.3" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 3 张：SwitchHosts 5.0 换 Tauri">
+ <span class="face">
+  <span class="meta"><span class="zn">头条</span><span class="blog-tag" aria-label="博客">博客</span><span class="sn">Blog · oldj&#39;s blog</span></span>
+  <span class="t">SwitchHosts 5.0 换 Tauri</span>
+  <span class="w">存在 15 年的改 hosts 工具升到 5.0，底层 Electron→Tauri，安装包明显变小，日常切环境更轻。</span>
+  <span class="vd" aria-label="信息差 4 干货 5 相关 4"><b>4</b><b>5</b><b>4</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article></div>
+</section><section class="zone z-tool" data-z="tool" aria-label="工具">
+<div class="tape" style="--ti:1"><span>工具</span><em>2 · 能直接装的</em></div>
+<div class="pile"><article class="card shape-repo lvl-sm" data-n="4" data-z="tool" style="--ev:0.73;--k:3;--sx:54%;--sy:46%;--r:1.8deg" data-sig-id="gh:repo/deepseek-ai/dsh-superagent-prototype" data-sig-url="https://github.com/deepseek-ai/dsh-superagent-prototype" data-sig-title="deepseek-ai/dsh-superagent-prototype" data-sig-author="deepseek-ai" data-sig-topic="TypeScript" data-sig-tags="topic:TypeScript,src:github,pick:exploit">
+<i class="clip c4" title="价值 3.7" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 4 张：DeepSeek superagent 原型">
+ <span class="face">
+  <span class="meta"><span class="zn">工具</span><span class="sn">GitHub · deepseek-ai</span></span>
+  <span class="t">DeepSeek superagent 原型</span>
+  
+  <span class="vd" aria-label="信息差 4 干货 3 相关 4"><b>4</b><b>3</b><b>4</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article><article class="card shape-repo lvl-sm" data-n="5" data-z="tool" style="--ev:0.67;--k:4;--sx:6%;--sy:8%;--r:-2.2deg" data-sig-id="gh:repo/UncensoredLabs/uncensored-ai-api" data-sig-url="https://github.com/UncensoredLabs/uncensored-ai-api" data-sig-title="UncensoredLabs/uncensored-ai-api" data-sig-author="UncensoredLabs" data-sig-topic="JavaScript" data-sig-tags="topic:JavaScript,src:github,pick:exploit">
+<i class="clip c3" title="价值 3.3" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 5 张：无审查 AI API 开源仓">
+ <span class="face">
+  <span class="meta"><span class="zn">工具</span><span class="sn">GitHub · UncensoredLabs</span></span>
+  <span class="t">无审查 AI API 开源仓</span>
+  
+  <span class="vd" aria-label="信息差 3 干货 4 相关 3"><b>3</b><b>4</b><b>3</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article></div>
+</section><section class="zone z-model" data-z="model" aria-label="模型">
+<div class="tape" style="--ti:2"><span>模型</span><em>3 · 新模型与成本</em></div>
+<div class="pile"><article class="card shape-case lvl-sm" data-n="6" data-z="model" style="--ev:0.73;--k:5;--sx:50%;--sy:10%;--r:2deg" data-sig-id="dcr:e3004930afbe4f3982ebd946" data-sig-url="https://didcodexreset.com/zh/news/e3004930afbe4f3982ebd946.html" data-sig-title="OpenAI 向所有用户推出带有交互元素的 ChatGPT 视觉化“智能 UI”" data-sig-author="" data-sig-topic="OpenAI" data-sig-tags="topic:OpenAI,src:dcr,pick:explore">
+<i class="clip c4" title="价值 3.7" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 6 张：ChatGPT 智能 UI 全量推开">
+ <span class="face">
+  <span class="meta"><span class="zn">模型</span><span class="sn">DidCodexReset</span></span>
+  <span class="t">ChatGPT 智能 UI 全量推开</span>
+  
+  <span class="vd" aria-label="信息差 4 干货 3 相关 4"><b>4</b><b>3</b><b>4</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article><article class="card shape-case lvl-sm" data-n="7" data-z="model" style="--ev:0.73;--k:6;--sx:8%;--sy:50%;--r:-1deg" data-sig-id="reddit:1xossr5" data-sig-url="https://www.reddit.com/r/LocalLLaMA/comments/1xossr5/zai_chief_scientist_jie_tang_just_revealed_the/" data-sig-title="Z.ai chief scientist Jie Tang just revealed the training pipeline behind the upcoming GLM-5.5 (32B, 122B, and 256B)" data-sig-author="wapswaps" data-sig-topic="LocalLLaMA" data-sig-tags="topic:LocalLLaMA,src:reddit,pick:exploit">
+<i class="clip c4" title="价值 3.7" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 7 张：GLM-5.5 将有 32B 档">
+ <span class="face">
+  <span class="meta"><span class="zn">模型</span><span class="sn">Reddit · wapswaps</span></span>
+  <span class="t">GLM-5.5 将有 32B 档</span>
+  
+  <span class="vd" aria-label="信息差 4 干货 3 相关 4"><b>4</b><b>3</b><b>4</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article><article class="card shape-case lvl-sm" data-n="8" data-z="model" style="--ev:0.67;--k:7;--sx:52%;--sy:48%;--r:1.5deg" data-sig-id="hf:paper/2611.03330" data-sig-url="https://huggingface.co/papers/2611.03330" data-sig-title="The SIMPLE Law for Energy Cost of LLM Inference" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:exploit">
+<i class="clip c3" title="价值 3.3" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 8 张：SIMPLE Law 估推理能耗">
+ <span class="face">
+  <span class="meta"><span class="zn">模型</span><span class="sn">Hugging Face</span></span>
+  <span class="t">SIMPLE Law 估推理能耗</span>
+  
+  <span class="vd" aria-label="信息差 3 干货 4 相关 3"><b>3</b><b>4</b><b>3</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article></div>
+</section><section class="zone z-biz" data-z="biz" aria-label="行业">
+<div class="tape" style="--ti:3"><span>行业</span><em>4 · 数字和信号</em></div>
+<div class="pile"><article class="card shape-case lvl-sm" data-n="9" data-z="biz" style="--ev:0.60;--k:8;--sx:6%;--sy:8%;--r:2deg" data-sig-id="dcr:57d1bcd80443459b87684b47" data-sig-url="https://didcodexreset.com/zh/news/57d1bcd80443459b87684b47.html" data-sig-title="Vipul Ved Prakash 称 Together 在 OpenRouter 的 Token 处理量位居供应商首位" data-sig-author="" data-sig-topic="Together AI" data-sig-tags="topic:Together AI,src:dcr,pick:exploit">
+<i class="clip c3" title="价值 3.0" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 9 张：Together 登顶 OpenRouter">
+ <span class="face">
+  <span class="meta"><span class="zn">行业</span><span class="sn">DidCodexReset</span></span>
+  <span class="t">Together 登顶 OpenRouter</span>
+  
+  <span class="vd" aria-label="信息差 3 干货 2 相关 4"><b>3</b><b>2</b><b>4</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article><article class="card shape-case lvl-sm" data-n="10" data-z="biz" style="--ev:0.60;--k:9;--sx:50%;--sy:12%;--r:-2deg" data-sig-id="hn:50385870" data-sig-url="https://finance.yahoo.com/technology/ai/articles/mark-cuban-says-facebook-knowingly-213000020.html" data-sig-title="Cuban: Facebook knowingly runs AI deepfake scam ads; docs say $16B fraud revenue" data-sig-author="randycupertino" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit">
+<i class="clip c3" title="价值 3.0" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 10 张：Meta 被指明知放换脸诈骗广告">
+ <span class="face">
+  <span class="meta"><span class="zn">行业</span><span class="sn">Hacker News · randycupertino</span></span>
+  <span class="t">Meta 被指明知放换脸诈骗广告</span>
+  
+  <span class="vd" aria-label="信息差 4 干货 2 相关 3"><b>4</b><b>2</b><b>3</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article><article class="card shape-note lvl-sm" data-n="11" data-z="biz" style="--ev:0.60;--k:10;--sx:8%;--sy:52%;--r:1.2deg" data-sig-id="blog:mout/google-disney-character-ai" data-sig-url="https://blog.mout.me/google-disney-character-ai/" data-sig-title="Google 抽魂，迪士尼抄底：C.ai 破产背后的三年恩怨局" data-sig-author="MouT.me" data-sig-topic="postmortem" data-sig-tags="topic:postmortem,src:blog,pick:exploit">
+<span class="stk" aria-hidden="true">博客</span><i class="clip c3" title="价值 3.0" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 11 张：C.ai：Google 挖人、迪士尼抄底">
+ <span class="face">
+  <span class="meta"><span class="zn">行业</span><span class="blog-tag" aria-label="博客">博客</span><span class="sn">Blog · MouT.me</span></span>
+  <span class="t">C.ai：Google 挖人、迪士尼抄底</span>
+  
+  <span class="vd" aria-label="信息差 4 干货 2 相关 3"><b>4</b><b>2</b><b>3</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article><article class="card shape-case lvl-sm" data-n="12" data-z="biz" style="--ev:0.47;--k:11;--sx:52%;--sy:50%;--r:-1.6deg" data-sig-id="hn:50386909" data-sig-url="https://www.reuters.com/legal/transactional/ai-data-center-stocks-slip-democratic-sweep-clouds-expansion-plans-2026-11-05/" data-sig-title="Investors wipe $2.5T off Nasdaq as blue tsunami prompts AI fears" data-sig-author="lilerjee" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit">
+<i class="clip c2" title="价值 2.3" aria-hidden="true"></i>
+<button type="button" class="hit bounce" aria-label="掀开第 12 张：纳指一日蒸发 2.5 万亿">
+ <span class="face">
+  <span class="meta"><span class="zn">行业</span><span class="sn">Hacker News · lilerjee</span></span>
+  <span class="t">纳指一日蒸发 2.5 万亿</span>
+  
+  <span class="vd" aria-label="信息差 3 干货 2 相关 2"><b>3</b><b>2</b><b>2</b><i>差</i><i>货</i><i>关</i></span>
+ </span>
+</button>
+<svg class="scr" viewBox="0 0 60 40" aria-hidden="true"><path d="M8 22 C18 8 28 30 38 14 C44 8 52 18 56 12"/></svg>
+</article></div>
+</section></main>
+<section class="tray" aria-label="已读托盘"><h2>已读托盘</h2><p class="hint" id="trayHint">还是空的 — 在抽屉里点「收进托盘」。</p><div class="tray-list" id="trayList"></div></section>
+<details class="box"><summary>抽屉底层<span>8 条 · 没钉上桌的全在这</span></summary>
+<p class="bnote">X 全缺、昨日已推、Rust 项目、同事件重复、没新信息的，都在底层，想翻也能翻。</p>
+<article class="row" data-sig-id="gh:repo/KKKKhazix/agent-autoloop" data-sig-url="https://github.com/KKKKhazix/agent-autoloop" data-sig-title="KKKKhazix/agent-autoloop" data-sig-author="KKKKhazix" data-sig-topic="TypeScript" data-sig-tags="topic:TypeScript,src:github,pick:exploit"><button type="button" class="rhit"><span class="rs">GitHub · KKKKhazix</span><span class="rt">KKKKhazix/agent-autoloop</span></button><p class="rw">让命令行 Agent 后台自己接活跟进，拿不准才弹卡片找你拍板。</p><a class="ro" href="https://github.com/KKKKhazix/agent-autoloop" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="gh:repo/s1dashu/quiet-md" data-sig-url="https://github.com/s1dashu/quiet-md" data-sig-title="s1dashu/quiet-md" data-sig-author="s1dashu" data-sig-topic="Rust" data-sig-tags="topic:Rust,src:github,pick:explore"><button type="button" class="rhit"><span class="rs">GitHub · s1dashu</span><span class="rt">s1dashu/quiet-md</span></button><p class="rw">macOS/Windows 原生笔记应用，Rust+GPUI，本地优先，兼容飞书/Lark 文档 XML。</p><a class="ro" href="https://github.com/s1dashu/quiet-md" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:paper/2611.04408" data-sig-url="https://huggingface.co/papers/2611.04408" data-sig-title="Halley: A Predictive Control Plane for Optical AI Data Center Networks" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:exploit"><button type="button" class="rhit"><span class="rs">Hugging Face</span><span class="rt">Halley: A Predictive Control Plane for Optical AI Data Center Networks</span></button><p class="rw">论文提出 Halley：用预测控制面调度光互联 AI 数据中心网络，面向万卡训练集群。</p><a class="ro" href="https://huggingface.co/papers/2611.04408" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:model/OBLITERATUS/DeepSeek-V4.1-Flash-1017-obliterated" data-sig-url="https://huggingface.co/OBLITERATUS/DeepSeek-V4.1-Flash-1017-obliterated" data-sig-title="OBLITERATUS/DeepSeek-V4.1-Flash-1017-obliterated" data-sig-author="OBLITERATUS" data-sig-topic="text-generation" data-sig-tags="topic:text-generation,src:hf,pick:explore"><button type="button" class="rhit"><span class="rs">Hugging Face · OBLITERATUS</span><span class="rt">OBLITERATUS/DeepSeek-V4.1-Flash-1017-obliterated</span></button><p class="rw">社区把 DeepSeek-V4.1-Flash-1017 做了 abliterator 去拒答版本，仅文本生成。</p><a class="ro" href="https://huggingface.co/OBLITERATUS/DeepSeek-V4.1-Flash-1017-obliterated" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hn:50383963" data-sig-url="https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/" data-sig-title="Tencent Launches Hy4, One of the Leading Open-Source AI Models" data-sig-author="gmays" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit"><button type="button" class="rhit"><span class="rs">Hacker News · gmays</span><span class="rt">Tencent Launches Hy4, One of the Leading Open-Source AI Models</span></button><p class="rw">腾讯发布混元 Hy4 并称跻身领先开源模型之列，官方通稿已出。</p><a class="ro" href="https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="dcr:d6cea3f932cb4c0eaca86fc6" data-sig-url="https://didcodexreset.com/zh/news/d6cea3f932cb4c0eaca86fc6.html" data-sig-title="Cline Cloud Agents 支持任意模型，提供免费层级与折扣订阅服务 ClinePass" data-sig-author="" data-sig-topic="Cline" data-sig-tags="topic:Cline,src:dcr,pick:exploit"><button type="button" class="rhit"><span class="rs">DidCodexReset</span><span class="rt">Cline Cloud Agents 支持任意模型，提供免费层级与折扣订阅服务 ClinePass</span></button><p class="rw">Cline Cloud Agents 可跑任意模型，含 DeepSeek-V4.1-Flash 免费试用，并推 ClinePass 约 5 倍折扣。</p><a class="ro" href="https://didcodexreset.com/zh/news/d6cea3f932cb4c0eaca86fc6.html" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="reddit:1xoeeyf" data-sig-url="https://www.reddit.com/r/LocalLLaMA/comments/1xoeeyf/qwen3827b_has_become_unuseable_recently/" data-sig-title="Qwen3.8-27B has become unuseable recently" data-sig-author="liright" data-sig-topic="LocalLLaMA" data-sig-tags="topic:LocalLLaMA,src:reddit,pick:exploit"><button type="button" class="rhit"><span class="rs">Reddit · liright</span><span class="rt">Qwen3.8-27B has become unuseable recently</span></button><p class="rw">有人反馈本机 Qwen3.8-27B 近期质量骤降，Q4 量化在 4090 上几乎不可用。</p><a class="ro" href="https://www.reddit.com/r/LocalLLaMA/comments/1xoeeyf/qwen3827b_has_become_unuseable_recently/" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="reddit:1xovnaa" data-sig-url="https://www.reddit.com/r/LocalLLaMA/comments/1xovnaa/maybe_well_get_cheap_ram_for_christmas_after_all/" data-sig-title="Maybe we&#39;ll get cheap RAM for Christmas after all!" data-sig-author="keepthepace" data-sig-topic="LocalLLaMA" data-sig-tags="topic:LocalLLaMA,src:reddit,pick:exploit"><button type="button" class="rhit"><span class="rs">Reddit · keepthepace</span><span class="rt">Maybe we&#39;ll get cheap RAM for Christmas after all!</span></button><p class="rw">LocalLLaMA 讨论内存价格回落预期，有人猜圣诞前内存可能便宜一点。</p><a class="ro" href="https://www.reddit.com/r/LocalLLaMA/comments/1xovnaa/maybe_well_get_cheap_ram_for_christmas_after_all/" target="_blank" rel="noopener">看原文</a></article>
+</details>
+<footer class="foot">叼报 · 11月6日<br>主题：把今天的精选摊在一张软木工作台上：胶带划分区，游戏盒和仓库卡散落其上，博客贴刀模贴纸，读完收进托盘。<br>形式：实物桌面/拼贴型 · 软木工作台<br>灵感来源：Lthero、Bear、Things、Amie；已读托盘与价值回形针为自创。</footer>
+</div>
+<div class="d-bg" id="dbg" hidden></div>
+<div class="drawer" id="dr" aria-hidden="true"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dt">
+<div class="d-k" id="dk"></div><h3 class="d-t" id="dt"></h3><p class="d-w" id="dw"></p><div class="d-v" id="dv"></div><p class="d-s" id="ds"></p><p class="d-o" id="do"></p>
+<div class="d-acts"><a class="btn" id="du" href="#" target="_blank" rel="noopener">看原文</a><button type="button" class="btn tape" id="dtray">收进托盘</button><button type="button" class="btn ghost" id="dx">放回桌面</button></div>
+</div></div>
+<script>
+(function(){
+var D=[{"n": 1, "t": "DeepSeek Flash 权重上线", "w": "V4.1-Flash-1017 已在 HF，\u003cmark\u003e图文输入\u003c/mark\u003e，想本地或自托管跑轻量多模态可以直接拉。", "s": "DeepSeek V4.1-Flash-1017 权重已上 HF，支持图文输入，可本地或自托管试跑。", "o": "deepseek-ai/DeepSeek-V4.1-Flash-1017", "u": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017", "src": "Hugging Face · deepseek-ai", "g": "头条", "v": [5, 4, 5], "blog": false}, {"n": 2, "t": "Claude SDK 内置电脑与浏览器", "w": "Python/TS SDK 现成\u003cmark\u003e电脑操作+浏览器工具\u003c/mark\u003e，可直接跑执行循环并分发给驱动，写 agent 少接一层。", "s": "Claude 的 Python/TS SDK 内置电脑操作与浏览器工具，可直接跑执行循环并分发给驱动。", "o": "Claude Python 与 TypeScript SDK 内置计算机与浏览器操作工具集", "u": "https://didcodexreset.com/zh/news/d89ae89d5ab1431f98d83646.html", "src": "DidCodexReset", "g": "头条", "v": [5, 5, 5], "blog": false}, {"n": 3, "t": "SwitchHosts 5.0 换 Tauri", "w": "存在 15 年的改 hosts 工具升到 5.0，底层 Electron→\u003cmark\u003eTauri\u003c/mark\u003e，安装包明显变小，日常切环境更轻。", "s": "SwitchHosts 升到 5.0，底层从 Electron 换成 Tauri，安装包明显变小。", "o": "SwitchHosts 5.0", "u": "https://oldj.net/posts/switchhosts-5", "src": "Blog · oldj's blog", "g": "头条", "v": [4, 5, 4], "blog": true}, {"n": 4, "t": "DeepSeek superagent 原型", "w": "官方开源更自主的 agent 原型仓，方向是\u003cmark\u003e少打断、自己把任务跟到底\u003c/mark\u003e，可对照你现在的例程架构。", "s": "DeepSeek 开源更自主的 agent 原型仓库，方向是少打断、自己把任务跟到底。", "o": "deepseek-ai/dsh-superagent-prototype", "u": "https://github.com/deepseek-ai/dsh-superagent-prototype", "src": "GitHub · deepseek-ai", "g": "工具", "v": [4, 3, 4], "blog": false}, {"n": 5, "t": "无审查 AI API 开源仓", "w": "浏览器聊天 + API，接 DeepSeek/GLM，带 Python/TS 示例与定价；自建中转前可先看它怎么接。", "s": "开源无审查 AI API 与浏览器聊天，接 DeepSeek/GLM，带 Python/TS 示例与定价说明。", "o": "UncensoredLabs/uncensored-ai-api", "u": "https://github.com/UncensoredLabs/uncensored-ai-api", "src": "GitHub · UncensoredLabs", "g": "工具", "v": [3, 4, 3], "blog": false}, {"n": 6, "t": "ChatGPT 智能 UI 全量推开", "w": "回复里可直接长出\u003cmark\u003e可点的交互元件\u003c/mark\u003e，做产品演示或内部工具时，聊天输出不再只是纯文本。", "s": "OpenAI 向全量用户推 ChatGPT「智能 UI」，回复里可直接长出可点的交互元件。", "o": "OpenAI 向所有用户推出带有交互元素的 ChatGPT 视觉化“智能 UI”", "u": "https://didcodexreset.com/zh/news/e3004930afbe4f3982ebd946.html", "src": "DidCodexReset", "g": "模型", "v": [4, 3, 4], "blog": false}, {"n": 7, "t": "GLM-5.5 将有 32B 档", "w": "智谱首席科学家透露训练管线，GLM-5.5 规划\u003cmark\u003e32B/122B/256B\u003c/mark\u003e，小模型党可以盯发权重窗口。", "s": "智谱首席科学家透露 GLM-5.5 训练管线，将有 32B/122B/256B 等多档，小模型也会来。", "o": "Z.ai chief scientist Jie Tang just revealed the training pipeline behind the upcoming GLM-5.5 (32B, 122B, and 256B)", "u": "https://www.reddit.com/r/LocalLLaMA/comments/1xossr5/zai_chief_scientist_jie_tang_just_revealed_the/", "src": "Reddit · wapswaps", "g": "模型", "v": [4, 3, 4], "blog": false}, {"n": 8, "t": "SIMPLE Law 估推理能耗", "w": "论文指出按 token 计费≠能耗均匀：KV-cache 越长越贵，自建推理时可用它粗算\u003cmark\u003e电费与显存\u003c/mark\u003e。", "s": "论文提出 SIMPLE Law：按 KV-cache 增长估算推理能耗，说明「按 token 计费」并不等于能耗均匀。", "o": "The SIMPLE Law for Energy Cost of LLM Inference", "u": "https://huggingface.co/papers/2611.03330", "src": "Hugging Face", "g": "模型", "v": [3, 4, 3], "blog": false}, {"n": 9, "t": "Together 登顶 OpenRouter", "w": "创始人称 Together 在 OpenRouter 开源+闭源端点的综合 Token 量已\u003cmark\u003e升至供应商第一\u003c/mark\u003e，选中转可作参考。", "s": "Together 创始人称其在 OpenRouter 开源+闭源端点的综合 Token 处理量已升至供应商第一。", "o": "Vipul Ved Prakash 称 Together 在 OpenRouter 的 Token 处理量位居供应商首位", "u": "https://didcodexreset.com/zh/news/57d1bcd80443459b87684b47.html", "src": "DidCodexReset", "g": "行业", "v": [3, 2, 4], "blog": false}, {"n": 10, "t": "Meta 被指明知放换脸诈骗广告", "w": "Mark Cuban 称内部文件提到约\u003cmark\u003e160 亿美元\u003c/mark\u003e欺诈相关收入；看广告投放与平台审核的人值得存一档。", "s": "Mark Cuban 称 Meta 明知故犯投放 AI 换脸诈骗广告，内部文件提到约 160 亿美元欺诈相关收入。", "o": "Cuban: Facebook knowingly runs AI deepfake scam ads; docs say $16B fraud revenue", "u": "https://finance.yahoo.com/technology/ai/articles/mark-cuban-says-facebook-knowingly-213000020.html", "src": "Hacker News · randycupertino", "g": "行业", "v": [4, 2, 3], "blog": false}, {"n": 11, "t": "C.ai：Google 挖人、迪士尼抄底", "w": "个人博客复盘：Google 花 27 亿反向挖人却成债主，迪士尼\u003cmark\u003e2000 万\u003c/mark\u003e接盘并收走 66 名核心员工。", "s": "复盘 C.ai 破产：Google 花 27 亿反向挖人却成债主，迪士尼 2000 万接盘并收走 66 名核心员工。", "o": "Google 抽魂，迪士尼抄底：C.ai 破产背后的三年恩怨局", "u": "https://blog.mout.me/google-disney-character-ai/", "src": "Blog · MouT.me", "g": "行业", "v": [4, 2, 3], "blog": true}, {"n": 12, "t": "纳指一日蒸发 2.5 万亿", "w": "投资者抹去纳斯达克约\u003cmark\u003e2.5 万亿美元\u003c/mark\u003e市值，AI 与数据中心扩张预期承压，留意相关持仓波动。", "s": "美股投资者一日抹去纳斯达克约 2.5 万亿美元市值，AI 与数据中心扩张预期承压。", "o": "Investors wipe $2.5T off Nasdaq as blue tsunami prompts AI fears", "u": "https://www.reuters.com/legal/transactional/ai-data-center-stocks-slip-democratic-sweep-clouds-expansion-plans-2026-11-05/", "src": "Hacker News · lilerjee", "g": "行业", "v": [3, 2, 2], "blog": false}],N=D.length,seen={},tray={},cur=0,last=null;
+var dr=document.getElementById('dr'),dbg=document.getElementById('dbg');
+var $=function(i){return document.getElementById(i)};
+function card(n){return document.querySelector('.card[data-n="'+n+'"]')}
+function mark(n){if(seen[n])return;seen[n]=1;var c=card(n);if(c)c.classList.add('seen')}
+function show(n){
+  var d=D.find(function(x){return x.n==n});if(!d)return;cur=n;
+  $('dk').textContent=(d.blog?'博客 · ':'')+d.g+' · #'+d.n;
+  $('dt').textContent=d.t;$('dw').innerHTML=d.w;
+  $('dv').innerHTML=['信息差','干货','相关'].map(function(l,k){return '<span><b>'+d.v[k]+'</b>'+l+'</span>'}).join('');
+  $('ds').textContent=d.s||'';$('ds').hidden=!d.s;
+  $('do').textContent=d.src+(d.o&&d.o!==d.t?' · '+d.o:'');$('du').href=d.u;
+  mark(n);
+}
+function open(n){
+  show(n);dbg.hidden=false;dr.setAttribute('aria-hidden','false');
+  requestAnimationFrame(function(){dbg.classList.add('on');dr.classList.add('on')});
+  document.body.style.overflow='hidden';setTimeout(function(){$('dx').focus()},30);
+}
+function close(){
+  dr.classList.remove('on');dbg.classList.remove('on');document.body.style.overflow='';
+  setTimeout(function(){dbg.hidden=true;dr.setAttribute('aria-hidden','true')},280);if(last)last.focus();
+}
+function toTray(){
+  if(tray[cur]){close();return}
+  tray[cur]=1;mark(cur);var c=card(cur);if(c)c.classList.add('trayed');
+  var d=D.find(function(x){return x.n==cur});
+  var chip=document.createElement('span');chip.className='chip';chip.textContent=(d.blog?'博客 · ':'')+d.t;
+  $('trayList').appendChild(chip);$('trayHint').textContent='已收 '+Object.keys(tray).length+' / '+N;
+  close();
+}
+[].forEach.call(document.querySelectorAll('.card .hit'),function(h){h.addEventListener('click',function(){last=h;open(+h.parentNode.dataset.n)})});
+$('dx').onclick=close;$('dbg').onclick=close;$('dtray').onclick=toTray;
+document.addEventListener('keydown',function(e){if(dr.classList.contains('on')&&e.key==='Escape')close()});
+[].forEach.call(document.querySelectorAll('.pl'),function(p){p.addEventListener('click',function(){
+  var f=p.dataset.f;[].forEach.call(document.querySelectorAll('.pl'),function(q){var on=q===p;q.classList.toggle('on',on);q.setAttribute('aria-pressed',on)});
+  [].forEach.call(document.querySelectorAll('.zone'),function(z){z.classList.toggle('hide',f!=='all'&&z.dataset.z!==f)});
+})});
+[].forEach.call(document.querySelectorAll('.row'),function(r){r.querySelector('.rhit').addEventListener('click',function(){r.classList.toggle('open')})});
+window.__ready=true;
+})();
+</script><!-- news-signal: 叼报互动。短评已启用 action=comment / meta.note≤200 / meta.vote=like|dislike（勿改 daily-portal 脚本；embed 现读）。门户链接 https://daily.jidadiao.fun/go/x/YYYY-MM-DD ；github.io 作备份。 -->
+<style id="dd-sig-mobile">
+/* news-signal 按钮：手机端 ≥44px、不遮挡、可点；短评 .dd-note 样式由脚本自带，此处不重复 */
+body .dd-sig{flex-wrap:wrap;gap:8px;margin-top:10px;position:relative;z-index:2}
+body .dd-sig button{min-width:44px;min-height:44px;box-sizing:border-box;touch-action:manipulation;font-size:16px}
+</style>
+<script id="dd-news-signal" data-date="2026-11-06" data-source="news">
+/* DiaoDaily 叼报 · news-signal.js — 日报条目轻互动（👍 👎 ⭐ 已读 + 可选短评）→ POST /api/signal
+ * 嵌入：<script src="news-signal.js" defer data-date="2026-10-26" data-source="news"><\/script>
+ * 条目标记：<article data-sig-id="x:1849xxxxxxxx" data-sig-url="https://x.com/u/status/..." data-sig-title="标题"
+ *                    data-sig-author="u" data-sig-topic="AI" data-sig-tags="topic:ai,format:thread"> … </article>
+ * 脚本自动在每个 [data-sig-id] 末尾插入一行按钮（或放进其内的 [data-sig-bar] 容器）。不加载任何图片/外部资源。
+ * 同站（daily.jidadiao.fun）走相对路径；github.io 走 https://daily.jidadiao.fun/api/signal（CORS 白名单）。
+ * 去重：localStorage 记住每条状态，同一动作不重复上报；👍/👎 互斥（切换时先报相反动作）；⭐再点 = unfav。
+ * 👍/👎 后弹出可选一行短评（可不写）；有字再发 action=comment（meta.note≤200，meta.vote=like|dislike）。
+ * 已读：条目在视口停留 ≥2s 自动报 read（每条一次），点原文链接报 open。离线/失败排队，下次打开页面重试。 */
+(function () {
+  "use strict";
+  var S = document.currentScript || {}, ds = (S.dataset || {});
+  var DATE = ds.date || (location.pathname.match(/(\d{4}-\d{2}-\d{2})/) || [])[1] || "";
+  var SRC = ds.source === "design" ? "design" : "news";
+  var API = ds.endpoint || (location.host === "daily.jidadiao.fun" ? "/api/signal" : "https://daily.jidadiao.fun/api/signal");
+  var KEY = "dd-sig:" + DATE, QK = "dd-sig-queue";
+  function ld(k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } }
+  function sv(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  var state = ld(KEY, {});
+  function payload(el, action) {
+    var d = el.dataset, tags = (d.sigTags || "").split(/[,，\s]+/).filter(Boolean).slice(0, 20);
+    var o = { source_type: SRC, action: action, item_id: d.sigId, title: (d.sigTitle || "").slice(0, 300),
+              tags: tags, meta: { date: DATE, page: location.pathname.slice(-80) } };
+    if (/^https?:\/\//.test(d.sigUrl || "")) o.item_url = d.sigUrl;
+    if (d.sigAuthor) o.author = d.sigAuthor.slice(0, 120);
+    if (d.sigTopic) o.topic = d.sigTopic.slice(0, 80);
+    return o;
+  }
+  function post(o) {
+    // text/plain = CORS simple request (no preflight); server parses JSON body regardless.
+    return fetch(API, { method: "POST", mode: "cors", credentials: "omit", keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" }, body: JSON.stringify(o) })
+      .then(function (r) {
+        if (r.status >= 200 && r.status < 300) return r.status;
+        var err = new Error("http " + r.status); err.status = r.status; throw err;
+      });
+  }
+  var MAX_TRY = 5, MAX_TRY_403 = 3, MAX_Q = 50;
+  function enqueue(o, err) {
+    var st = err && err.status, n = (o._try || 0) + 1, lim = st === 403 ? MAX_TRY_403 : MAX_TRY;
+    if (st && st >= 400 && st < 500 && st !== 403 && st !== 408 && st !== 429) {
+      try { console.warn("[news-signal] dropped (HTTP " + st + ")", o.item_id); } catch (e) {} return;
+    }
+    if (n >= lim) { try { console.warn("[news-signal] dropped after " + n + " tries (" + (st || "network") + ")", o.item_id); } catch (e) {} return; }
+    o._try = n; var q = ld(QK, []); q.push(o); sv(QK, q.slice(-MAX_Q));
+  }
+  function send(o) {
+    var t = o._try; delete o._try;
+    return post(o).catch(function (err) { o._try = t; enqueue(o, err); });
+  }
+  function flush() { var q = ld(QK, []); if (!q.length) return; sv(QK, []); q.forEach(send); }
+  function mark(id, k, v) { var s = state[id] || (state[id] = {}); s[k] = v; sv(KEY, state); }
+  var BTN = [["like", "👍", "喜欢"], ["dislike", "👎", "不感兴趣"], ["fav", "⭐", "收藏"]];
+  function paint(bar, id) {
+    var s = state[id] || {};
+    Array.prototype.forEach.call(bar.querySelectorAll("button[data-a]"), function (b) {
+      var on = b.dataset.a === "fav" ? !!s.fav : s.vote === b.dataset.a;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    var r = bar.querySelector(".dd-read"); if (r) r.textContent = s.read ? "已读" : "";
+  }
+  function closeNote(bar) {
+    var n = bar.querySelector(".dd-note"); if (n) n.remove();
+  }
+  function askNote(el, bar, vote) {
+    closeNote(bar);
+    var wrap = document.createElement("div");
+    wrap.className = "dd-note";
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", "可选短评");
+    var inp = document.createElement("input");
+    inp.type = "text"; inp.maxLength = 200; inp.placeholder = "为什么？（可不写）";
+    inp.setAttribute("aria-label", "为什么（可不写）");
+    inp.autocomplete = "off";
+    var ok = document.createElement("button");
+    ok.type = "button"; ok.textContent = "发送"; ok.title = "发送短评（空则跳过）";
+    ok.setAttribute("aria-label", "发送短评");
+    function submit() {
+      var note = (inp.value || "").trim().slice(0, 200);
+      if (note) {
+        var o = payload(el, "comment");
+        o.meta = o.meta || {};
+        o.meta.note = note;
+        o.meta.vote = vote;
+        o.note = note;
+        send(o);
+        mark(el.dataset.sigId, "noted", 1);
+      }
+      closeNote(bar);
+    }
+    ok.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); submit(); });
+    inp.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter") { ev.preventDefault(); submit(); }
+      else if (ev.key === "Escape") { ev.preventDefault(); closeNote(bar); }
+    });
+    wrap.addEventListener("click", function (ev) { ev.stopPropagation(); });
+    wrap.appendChild(inp); wrap.appendChild(ok);
+    bar.appendChild(wrap);
+    /* 不自动聚焦：iOS 会放大页面并弹键盘，用户点输入框才输入 */
+  }
+  function click(el, bar, a) {
+    var id = el.dataset.sigId, s = state[id] || {};
+    if (a === "fav") { send(payload(el, s.fav ? "unfav" : "fav")); mark(id, "fav", !s.fav); paint(bar, id); }
+    else if (s.vote === a) { /* 已投同票：不重复上报 */ }
+    else { send(payload(el, a)); mark(id, "vote", a); paint(bar, id); askNote(el, bar, a); }
+  }
+  function css() {
+    if (document.getElementById("dd-sig-css")) return;
+    var st = document.createElement("style"); st.id = "dd-sig-css";
+    st.textContent = ".dd-sig{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px;font:13px/1.2 system-ui,sans-serif;position:relative;z-index:2}" +
+      ".dd-sig button[data-a]{all:unset;cursor:pointer;min-width:44px;min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;" +
+      "border:1px solid currentColor;border-radius:999px;opacity:.55;padding:0 10px;font-size:16px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}" +
+      ".dd-sig button[data-a][aria-pressed=true]{opacity:1;font-weight:700}.dd-sig button:focus-visible{outline:2px solid currentColor}" +
+      ".dd-sig .dd-read{opacity:.5;font-size:12px;margin-left:4px}" +
+      ".dd-sig .dd-note{display:flex;flex:1 1 100%;gap:6px;align-items:center;margin-top:2px;max-width:100%}" +
+      ".dd-sig .dd-note input{flex:1 1 auto;min-width:0;min-height:44px;box-sizing:border-box;padding:8px 10px;border:1px solid currentColor;border-radius:8px;" +
+      "background:transparent;color:inherit;font:16px/1.3 system-ui,sans-serif}" +
+      ".dd-sig .dd-note button{all:unset;cursor:pointer;min-width:44px;min-height:44px;padding:0 12px;border:1px solid currentColor;border-radius:8px;opacity:.8;" +
+      "display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;flex:0 0 auto}" +
+      "@media (max-width:480px){.dd-sig{gap:8px}}";
+    document.head.appendChild(st);
+  }
+  function init() {
+    css(); flush();
+    var els = document.querySelectorAll("[data-sig-id]");
+    var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var el = e.target;
+        if (e.isIntersecting) el._t = setTimeout(function () {
+          var id = el.dataset.sigId;
+          if (!(state[id] || {}).read) { send(payload(el, "read")); mark(id, "read", 1); paint(el._bar, id); }
+          io.unobserve(el);
+        }, 2000); else clearTimeout(el._t);
+      });
+    }, { threshold: 0.6 }) : null;
+    Array.prototype.forEach.call(els, function (el) {
+      var id = el.dataset.sigId; if (!/^[A-Za-z0-9][A-Za-z0-9._:\/@#+\-]{0,199}$/.test(id)) return;
+      var bar = el.querySelector("[data-sig-bar]") || el.appendChild(document.createElement("div"));
+      bar.classList.add("dd-sig"); bar.setAttribute("role", "group"); bar.setAttribute("aria-label", "反馈");
+      BTN.forEach(function (x) {
+        var b = document.createElement("button"); b.type = "button"; b.dataset.a = x[0]; b.textContent = x[1]; b.title = x[2];
+        b.setAttribute("aria-label", x[2]);
+        b.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); click(el, bar, x[0]); });
+        bar.appendChild(b);
+      });
+      var r = document.createElement("span"); r.className = "dd-read"; bar.appendChild(r);
+      el._bar = bar; paint(bar, id);
+      Array.prototype.forEach.call(el.querySelectorAll("a[href^='http']"), function (a) {
+        a.addEventListener("click", function () { if (!(state[id] || {}).open) { send(payload(el, "open")); mark(id, "open", 1); } });
+      });
+      if (io) io.observe(el);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+})();
+
+</script>
+</body></html>
