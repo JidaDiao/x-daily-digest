@@ -142,6 +142,7 @@ if os.path.exists(f'pages/{DATE}.py'):  # 页面模板按日独立：pages/YYYY-
     for k in ('skeleton','bg'):
         if cfg.get(k): rec[k]=cfg[k]
     if cfg.get('notes'): rec['notes']=cfg['notes']
+    if cfg.get('diffs'): rec['diffs']=cfg['diffs']
     uc.append(rec); json.dump(sorted(uc,key=lambda x:x['date']),open(p,'w'),ensure_ascii=False,indent=2)
     print('wrote',f'web/{DATE}.html',len(html),'non-core share',rec['non_core_share']); sys.exit(0)
 cfg=THEMES[DATE]
