@@ -1,4 +1,4 @@
-# daily.jidadiao.fun 门户（VPS 110.42.109.168，ssh -i ~/.ssh/vps_jidadiao root@…，box 上 `ssh vps`）
+# daily.jidadiao.fun 门户（VPS <VPS_HOST>，ssh -i ~/.ssh/vps_jidadiao root@…，box 上 `ssh vps`）
 - /srv/daily/site      gh-pages 镜像（git，经 ghfast.top 代理拉取；回退直连/codeload tarball）
 - /srv/daily/bin       build.py（生成 www/index.html、favorites.json、favorites.zip）、api.py（收藏接收）、sync.sh、portal.html 模板
 - /srv/daily/data      feedback.json（date|site 最新一条）、library.json（回填收藏）、design-tokens.json（快照，需更新时从 box scp）

@@ -124,9 +124,10 @@ def load_day_items(date, root='.'):
     return {'groups':groups,'all':all_items,'log':'\n'.join(log)}
 
 OVERRIDE='''<style id="dd-sig-mobile">
-/* news-signal 按钮：手机端 ≥44px、不遮挡、可点；短评 .dd-note 样式由脚本自带，此处不重复 */
+/* news-signal 按钮：扁平 SVG、≥44px；按下态由脚本自带（实心底+图标反白） */
 body .dd-sig{flex-wrap:wrap;gap:8px;margin-top:10px;position:relative;z-index:2}
-body .dd-sig button{min-width:44px;min-height:44px;box-sizing:border-box;touch-action:manipulation;font-size:16px}
+body .dd-sig button[data-a]{width:44px;height:44px;min-width:44px;min-height:44px;box-sizing:border-box;touch-action:manipulation;padding:0}
+body .dd-sig button[data-a] svg{width:20px;height:20px;display:block}
 </style>'''
 # 短评已启用：SIG_PATH 现读内联；点赞/踩后可选 comment（meta.note≤200，meta.vote=like|dislike）。
 EMBED_NOTE='<!-- news-signal: 叼报互动。短评已启用 action=comment / meta.note≤200 / meta.vote=like|dislike（勿改 daily-portal 脚本；embed 现读）。门户链接 https://daily.jidadiao.fun/go/x/YYYY-MM-DD ；github.io 作备份。 -->'
