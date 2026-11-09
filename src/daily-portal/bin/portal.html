@@ -1,5 +1,16 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>每日推送</title><meta name="theme-color" content="#f7f7f5">
+<title>每日推送</title>
+<meta name="theme-color" content="#2c76a0">
+<meta name="description" content="DiaoDaily 叼报 · 每日资讯与设计灵感">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="每日推送">
+<meta name="application-name" content="每日推送">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/icon-512.png" sizes="512x512">
+<link rel="manifest" href="/manifest.webmanifest">
 <style>
 :root{--bg:#f7f7f5;--card:#fff;--fg:#1d1d1f;--mute:#6e6e73;--line:#e8e8e6;--ac:#2c76a0;--acs:#e6f2f9;--ease:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
@@ -72,7 +83,7 @@ pre{background:var(--bg);border-radius:10px;padding:10px;overflow:auto;font-size
 .c.st::before{opacity:1}.c.st-l::before{left:50%;margin-left:-21px;border-radius:21px 0 0 21px}.c.st-r::before{right:50%;margin-right:-21px;border-radius:0 21px 21px 0}.c.st-l.st-r::before{border-radius:21px}
 .rg{position:relative;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;transition:transform .3s var(--ease),background .3s}
 .rg svg{position:absolute;inset:0;transform:rotate(-90deg)}
-.rg circle{fill:none;stroke-width:2.6;stroke-linecap:round;transition:stroke .4s var(--ease)}
+.rg circle{fill:none;stroke-width:3.4;stroke-linecap:round;transition:stroke .4s var(--ease)}
 .rg .n{position:relative;font-size:14.5px;font-weight:550;font-variant-numeric:tabular-nums}
 .c.has{cursor:pointer}.c.has:hover .rg{transform:scale(1.07)}
 .c.none .n{color:#c7c7cc;font-weight:400}.c.pad{visibility:hidden}
@@ -84,9 +95,9 @@ pre{background:var(--bg);border-radius:10px;padding:10px;overflow:auto;font-size
 .tag{display:inline-flex;align-items:center;gap:5px}.tag i{width:7px;height:7px;border-radius:50%;background:#dcdcd8}.tag.on i{background:var(--ac)}
 .pv h4{margin:6px 0 2px;font-size:16px}.pv p{margin:0 0 10px;color:var(--mute);font-size:13px}
 .pv .pills .pill{font-size:13px;padding:7px 14px}.pv .pills .pill.pri{background:var(--fg);color:#fff;border-color:var(--fg)}
-.lg{display:flex;flex-wrap:wrap;gap:8px 16px;margin:14px 6px 0;font-size:12px;color:var(--mute)}
-.lg span{display:inline-flex;align-items:center;gap:6px}
-.lg svg{width:16px;height:16px;transform:rotate(-90deg)}.lg circle{fill:none;stroke-width:3;stroke-linecap:round}
+.lg{display:flex;flex-wrap:wrap;gap:12px 18px;margin:16px 6px 0;padding:12px 14px;background:var(--bg);border-radius:14px;font-size:13px;color:var(--fg)}.lg .lgt{flex-basis:100%;font-size:12px;color:var(--mute)}
+.lg span{display:inline-flex;align-items:center;gap:8px}
+.lg svg{width:28px;height:28px;transform:rotate(-90deg)}.lg circle{fill:none;stroke-width:4;stroke-linecap:round}
 .lg .cap{width:22px;height:10px;border-radius:5px;background:var(--acs)}
 @media(min-width:720px){.c{height:60px}.rg{width:46px;height:46px}.cal{padding:22px 24px 20px}.c.st-l::before{margin-left:-23px}.c.st-r::before{margin-right:-23px}}
 @media (prefers-reduced-motion:reduce){.rg,.c::before{transition:none}}
@@ -123,10 +134,10 @@ $("#archive").innerHTML=`<div class="cal"><div class="ch"><b id="mt"></b><span><
 <div class="sum" id="sum"></div>
 <div class="wd">${"一二三四五六日".split("").map(w=>`<span>${w}</span>`).join("")}</div><div class="gr" id="gr"></div>
 <div class="pv" id="pv"></div>
-<div class="lg"><span>${ring([1,0,0])}X 已读</span><span>${ring([0,1,0])}设计已读</span><span>${ring([0,0,1])}设计已打分</span><span><i class="cap"></i>连续全部完成</span></div></div>`;
+<div class="lg"><span class="lgt">每个日期外面一圈分成三段，蓝色亮起＝做完了：</span><span>${ring([1,0,0])}叼报已读</span><span>${ring([0,1,0])}设计已读</span><span>${ring([0,0,1])}设计已打分</span><span><i class="cap"></i>三项全完成（连成蓝条）</span></div></div>`;
 document.querySelectorAll(".lg svg").forEach(v=>v.setAttribute("viewBox","0 0 44 44"));
 function tags(d){const b=byD[d]||{},[x,dr,rt]=flags(d),t=(on,l)=>`<span class="tag ${on?"on":""}"><i></i>${l}</span>`;
- return (b.x?t(x,x?"X 已读":"X 未读"):"")+(b.design?t(dr,dr?"设计已读":"设计未读")+t(rt,rt?"已打分":"未打分"):"")}
+ return (b.x?t(x,x?"叼报已读":"叼报未读"):"")+(b.design?t(dr,dr?"设计已读":"设计未读")+t(rt,rt?"已打分":"未打分"):"")}
 function preview(d){const b=byD[d],pv=$("#pv"),isT=d===nowSH;
  if(!d){pv.innerHTML="";return}
  if(!b&&!isT){pv.innerHTML=`<div class="pi"><div class="pd">${d} ${wk(d)}</div><h4>这天没有推送</h4></div>`;return}
@@ -164,4 +175,4 @@ const tabs=[...document.querySelectorAll(".tabs button")],ind=$(".tabs .ind");
 function go(n,push){tabs.forEach(b=>b.setAttribute("aria-selected",b.dataset.t===n));document.querySelectorAll("section").forEach(s=>{const on=s.id===n;if(on&&!s.classList.contains("on")){s.querySelectorAll(".in").forEach(e=>{e.style.animation="none";e.offsetWidth;e.style.animation=""})}s.classList.toggle("on",on)});const b=tabs.find(b=>b.dataset.t===n);ind.style.width=b.offsetWidth+"px";ind.style.transform=`translateX(${b.offsetLeft-4}px)`;if(push)history.replaceState(null,"","#"+n)}
 tabs.forEach(b=>b.onclick=()=>go(b.dataset.t,1));addEventListener("resize",()=>go(tabs.find(b=>b.getAttribute("aria-selected")=="true").dataset.t));
 go(["today","archive","favs"].includes(location.hash.slice(1))?location.hash.slice(1):"today");
-</script></body></html>
+</script><script src="/pwa-nav.js?v=4" defer></script></body></html>
