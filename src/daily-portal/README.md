@@ -1,4 +1,4 @@
-# daily.jidadiao.fun 门户（VPS <VPS_HOST>，ssh -i <SSH_KEY_PATH> root@…，box 上 `ssh vps`）
+# daily.jidadiao.fun 门户（VPS <VPS_HOST>，ssh -i ~/.ssh/vps_jidadiao root@…，box 上 `ssh vps`）
 - /srv/daily/site      gh-pages 镜像（git，经 ghfast.top 代理拉取；回退直连/codeload tarball）
 - /srv/daily/bin       build.py（生成 www/index.html、favorites.json、favorites.zip）、api.py（收藏接收）、sync.sh、portal.html 模板
 - /srv/daily/data      feedback.json（date|site 最新一条）、library.json（回填收藏）、design-tokens.json（快照，需更新时从 box scp）
@@ -37,3 +37,5 @@
 - 2026-10-26（UTC+8）可选短评 + 外名「叼报」（备份 *.bak-20261026；VPS 同名）
   - news-signal.js：👍/👎 后可选一行短评 → action=comment（meta.note≤200, meta.vote）
   - api.py / prefs.py：浏览器允许 comment；derive 写 item 记忆；pref-summary.py 供 12:00 概览
+
+- 2026-11-01（UTC+8）钥匙级偏好学习：bin/learning.py；prefs schema v4 + key_overrides；CLI learned/clear-key/factor；GET /api/learned；action=dismiss 预留。详见 PREFS_API.md v3.2。

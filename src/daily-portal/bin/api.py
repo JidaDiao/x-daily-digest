@@ -19,7 +19,7 @@ READ = DATA + "/read.json"
 HITS = {}
 ALLOWED = "https://daily.jidadiao.fun"
 SIG_ORIGINS = (ALLOWED, "https://jidadiao.github.io")  # /api/signal browser path (news-signal.js on github.io pages)
-BROWSER_ACTIONS = ("like", "dislike", "fav", "unfav", "read", "open", "skip", "comment")
+BROWSER_ACTIONS = ("like", "dislike", "fav", "unfav", "read", "open", "skip", "comment", "dismiss")
 BOT_RE = re.compile(r"bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp|telegram|discord|slack|curl|wget|python|httpx|go-http|java/|okhttp|libwww|scrapy|headless", re.I)
 SH = datetime.timezone(datetime.timedelta(hours=8))
 def sh_today(): return datetime.datetime.now(SH).date()
@@ -55,7 +55,7 @@ class H(BaseHTTPRequestHandler):
         if self.path.startswith("/api/status"):
             o = status(); o["stale"], o["sync"] = sync_info(); return self.j(200, o)
         if self.path.startswith("/go/"): return self.go()
-        if self.path.split("?")[0] in ("/api/profile", "/api/memories", "/api/search", "/api/memory-evidence"): return self.prefs_get()
+        if self.path.split("?")[0] in ("/api/profile", "/api/memories", "/api/search", "/api/memory-evidence", "/api/learned"): return self.prefs_get()
         self.j(404, {"error": "not found"})
     def cors(self):
         o = self.headers.get("Origin") or ""
@@ -190,6 +190,8 @@ class H(BaseHTTPRequestHandler):
                     dt = q.get("date")
                     if dt and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", dt): return self.j(400, {"error": "date"})
                     o = prefs.profile(c, dt, min(lim, 20))
+                elif u.path == "/api/learned":
+                    o = prefs.learned_keys(c, limit=min(lim, 100))
                 elif u.path == "/api/memory-evidence":
                     if not re.fullmatch(r"\d{1,9}", q.get("id", "")): return self.j(400, {"error": "id"})
                     try: o = prefs.memory_evidence(c, int(q["id"]), lim)
