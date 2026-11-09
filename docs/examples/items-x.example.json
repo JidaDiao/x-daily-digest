@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-09",
+  "issue": "NO. 1109",
+  "source": "Grok Bot X 日报",
+  "window": "2026-11-08 12:00 至 2026-11-09 10:30（Asia/Shanghai）",
+  "items": [
+    {
+      "source": "x",
+      "id": "0000000000000000001",
+      "title": "示例：某中转调整价格",
+      "url": "https://x.com/example/status/0000000000000000001",
+      "summary": "作者称某线路价格从 x 调到 y，并给出测速数字。未见到官方公告，摘要按未证实处理。",
+      "cat": "行业",
+      "handle": "example",
+      "likes": 12,
+      "rts": 1,
+      "media": "media/0000000000000000001.jpg",
+      "avatar": "media/example.jpg"
+    }
+  ]
+}
