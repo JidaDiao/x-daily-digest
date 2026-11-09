@@ -1,0 +1,463 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>叼报 · 11月9日 · 周一试听间</title>
+<style>
+:root{--shop:#f3e6d6;--ink:#1a1410;--mut:#6b5e52;--hi:#b42318;--sleeve:#fbf6ee;--vinyl:#1a1410;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--sans:"PingFang SC","Noto Sans SC","Helvetica Neue",Arial,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,monospace}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;overflow-x:hidden;max-width:100%}
+body{margin:0;background:var(--shop);color:var(--ink);font:16px/1.55 var(--sans);min-height:100vh;min-height:100dvh;overflow-x:hidden;max-width:100%}
+body{background-image:repeating-linear-gradient(90deg,#00000008 0 1px,transparent 1px 42px),linear-gradient(180deg,#efe0cc,var(--shop) 120px)}
+.wrap{position:relative;max-width:760px;width:100%;margin:0 auto;padding:16px 0 calc(36px + env(safe-area-inset-bottom))}
+.head{padding:0 16px;display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.head h1{margin:0;font:750 34px/.95 var(--sans);letter-spacing:-.04em}
+.cap{display:inline-flex;align-items:center;min-height:32px;padding:0 10px;border-radius:999px;background:var(--ink);color:var(--sleeve);font:650 13px/1 var(--mono)}
+.head .m{width:100%;margin:4px 0 0;font:13px/1.4 var(--mono);color:var(--mut)}
+.how{margin:10px 16px 0;font:15px/1.65 var(--sans);color:#2a221c}
+.how b{color:var(--hi);font-weight:650}
+.cut{margin:6px 16px 0;font:13px/1.55 var(--sans);color:var(--mut)}
+.stage{position:relative;margin-top:10px}
+.track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 16px 18px;scroll-padding:0 16px;scrollbar-width:none;overscroll-behavior-x:contain;touch-action:pan-x pan-y}
+.track::-webkit-scrollbar{display:none}
+.disc{flex:0 0 100%;min-width:0;scroll-snap-align:center;scroll-snap-stop:always}
+.sleeve{position:relative;background:var(--sleeve);color:var(--ink);border-radius:4px;padding:18px 18px 16px 56px;box-shadow:0 10px 28px -18px #0006,0 0 0 1px #1a141014;overflow:hidden;transform:scale(.94);filter:blur(7px);opacity:.42;transition:filter .7s var(--ease),opacity .7s var(--ease),transform .55s var(--spring)}
+.sleeve::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;background-image:repeating-radial-gradient(circle at 30% 20%,#1a1410 0 0.6px,transparent 0.7px 3px)}
+.disc.on .sleeve{filter:none;opacity:1;transform:scale(1)}
+.disc.ok .sleeve{box-shadow:0 10px 28px -18px #0004,0 0 0 1.5px color-mix(in oklch,var(--hi) 35%,transparent)}
+.spine{position:absolute;left:0;top:0;bottom:0;width:42px;background:color-mix(in oklch,var(--hi) 14%,var(--sleeve));border-right:1px solid #1a141014;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;padding:12px 0}
+.zn{writing-mode:vertical-rl;text-orientation:upright;font:650 12px/1 var(--sans);letter-spacing:.12em;color:var(--hi)}
+.no{font:750 13px/1 var(--mono);color:var(--ink)}
+.sticker{position:absolute;top:14px;right:12px;z-index:2;display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:5px 10px;background:var(--hi);color:#fff8f2;font:750 13px/1 var(--sans);letter-spacing:.18em;transform:rotate(6deg);box-shadow:2px 3px 0 #1a14101a}
+.platter{display:flex;justify-content:center;margin:2px 0 8px}
+.vinyl{width:88px;height:88px;border-radius:50%;background:repeating-radial-gradient(circle at 50% 50%,#111 0 4px,#1c1c1c 4px 7px);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px #0008}
+.label{width:38px;height:38px;border-radius:50%;background:var(--hi);color:#fff8f2;display:flex;flex-direction:column;align-items:center;justify-content:center;font:750 12px/1 var(--mono);box-shadow:0 0 0 0 color-mix(in oklch,var(--hi) 45%,transparent)}
+.label em{font:650 12px/1 var(--mono);font-style:normal;opacity:.9;margin-top:2px}
+.disc.on .label{animation:pulse 1.8s ease-out infinite}
+.meta{margin:0 0 6px;font:12px/1.3 var(--mono);color:var(--mut);letter-spacing:.03em}
+.ttl{margin:0 0 8px;font:750 20px/1.28 var(--sans);letter-spacing:-.03em;overflow-wrap:anywhere}
+.szL .ttl{font-size:28px}.szM .ttl{font-size:24px}.szS .ttl{font-size:21px}
+.szL .vinyl{width:110px;height:110px}.szL .label{width:46px;height:46px;font-size:14px}
+.why{margin:0 0 12px;font:15px/1.65 var(--sans);color:#2c241c;overflow-wrap:anywhere}
+.why mark{background:#b4231833;color:inherit;padding:0 .08em}
+.meter{display:flex;gap:14px;align-items:flex-end;margin:0 0 12px}
+.vu{display:flex;flex-direction:column;align-items:center;gap:4px;font:12px/1 var(--sans);color:var(--mut)}
+.vu i{display:block;width:8px;height:28px;border-radius:2px;background:#e6d7c4;position:relative;overflow:hidden}
+.vu i::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--v)*20%);background:var(--hi);transform-origin:bottom;transform:scaleY(.15);transition:transform .55s var(--ease)}
+.disc.on .vu i::after{transform:scaleY(1)}
+.disc.on .vu:nth-child(2) i::after{transition-delay:.08s}.disc.on .vu:nth-child(3) i::after{transition-delay:.16s}
+.vu em{font-style:normal}
+.acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.orig{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);text-decoration:none;font:650 15px/1 var(--sans)}
+.heard{appearance:none;border:0;background:var(--ink);color:var(--sleeve);font:650 15px/1 var(--sans);border-radius:999px;padding:0 18px;min-height:48px;cursor:pointer;touch-action:manipulation;display:inline-flex;align-items:center;gap:8px}
+.orig:active,.heard:active,.chip:active,.nav:active{transform:scale(.97)}
+.chk{width:14px;height:14px;border:1.5px solid currentColor;border-radius:50%;position:relative;flex:0 0 auto}
+.disc.ok .chk{background:#fff8f2;border-color:#fff8f2;animation:pop .45s var(--spring) both}
+.disc.ok .chk::after{content:"";position:absolute;left:3px;top:1px;width:5px;height:8px;border:solid var(--hi);border-width:0 1.8px 1.8px 0;transform:rotate(45deg)}
+.disc .dd-sig{margin:12px 0 0}
+.ctrl{display:flex;align-items:center;gap:10px;padding:0 16px}
+.nav{min-width:44px;min-height:44px;border-radius:50%;border:1px solid #1a141033;background:#fff;color:var(--ink);font-size:20px;cursor:pointer;touch-action:manipulation}
+.arm{flex:1;height:10px;position:relative}
+.groove{position:absolute;left:0;right:0;top:4px;height:2px;background:#1a14101f;border-radius:1px}
+.needle{position:absolute;top:0;width:10px;height:10px;border-radius:50%;background:var(--hi);transform:translateX(-50%);left:0;transition:left .45s var(--ease);box-shadow:0 0 0 3px color-mix(in oklch,var(--hi) 18%,transparent)}
+.pn{font:13px/1 var(--mono);color:var(--mut);min-width:64px;text-align:right}
+.tray{display:flex;gap:6px;overflow-x:auto;padding:14px 16px 4px;scrollbar-width:none;max-width:100%}
+.tray::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;min-width:44px;min-height:44px;border:1px solid #1a141022;background:#fff;color:var(--ink);border-radius:4px;font:13px/1.1 var(--mono);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 8px;touch-action:manipulation}
+.chip small{font:12px/1.2 var(--sans);color:var(--mut);letter-spacing:.04em}
+.chip.on{border-color:var(--hi);color:var(--hi);background:#fff6f4}
+.chip.seen b::after{content:" ·";color:var(--hi)}
+.box{margin:22px 16px 0;border-top:1px dashed #1a141022;padding-top:10px}
+.box summary{min-height:44px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font:650 16px/1.3 var(--sans);list-style:none}
+.box summary::-webkit-details-marker{display:none}
+.box summary span{font:12px/1 var(--mono);color:var(--mut);font-weight:400}
+.bnote{font-size:13px;color:var(--mut);margin:0 0 10px}
+.row{padding:10px 0;border-bottom:1px dashed #1a14101a}
+.rhit{appearance:none;display:block;width:100%;border:0;background:none;padding:8px 0;margin:0;text-align:left;color:inherit;cursor:pointer;touch-action:manipulation;min-height:44px}
+.rs{display:block;font:12px/1.3 var(--mono);color:var(--mut)}
+.rt{display:block;margin-top:4px;font:16px/1.4 var(--sans);overflow-wrap:anywhere}
+.rw,.ro{display:none}
+.row.open .rw{display:block;margin:8px 0;font-size:14px;color:#3a3028;overflow-wrap:anywhere}
+.row.open .ro{display:inline-flex;align-items:center;min-height:44px;color:var(--hi)}
+.blog-tag{display:inline-block;margin-left:6px;padding:2px 7px;background:var(--hi);color:#fff8f2;font:750 12px/1 var(--sans);letter-spacing:.12em;vertical-align:middle}
+.foot{margin:26px 16px 0;font:12px/1.65 var(--mono);color:var(--mut)}
+.orig:focus-visible,.heard:focus-visible,.chip:focus-visible,.nav:focus-visible,.rhit:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
+@media (min-width:700px){.disc{flex-basis:88%}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in oklch,var(--hi) 45%,transparent)}70%{box-shadow:0 0 0 10px transparent}to{box-shadow:0 0 0 0 transparent}}
+@keyframes pop{0%{transform:scale(.4)}to{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important}
+ .sleeve{filter:none;opacity:1;transform:none}
+ .track{scroll-behavior:auto}
+}
+</style></head><body>
+<div class="wrap">
+<header class="head">
+ <h1>叼报</h1>
+ <span class="cap" id="cap">试听 01 / 11</span>
+ <p class="m">11月9日 · 周一试听间 · NO.1109 · 精选 11 / 共 30</p>
+</header>
+<p class="how">今天怎么玩：这是周一回档后的<b>试听隔间</b>。<b>左右滑</b>或点下面的曲号，一次只听一张。封面大小按价值分了大中小，三根小条是价值电平。博客封套书脊贴了「博客」贴纸。听完点<b>听过</b>。下面木箱里是没进试听的全部条目。</p>
+<p class="cut">今天从 30 条里（X 10 · 社区 20）挑了 11 条，筛掉 19 条：近7天已推 2 / 同事件或未证实 2 / 灰产脚本 1 / 旧闻 4 / 论文 4 / 无新信息或偏窄 6。</p>
+<div class="stage" id="stage"><div class="track" id="track"><article class="disc szL" id="s1" data-n="1" data-z="side" style="--k:0;--ev:1.00" data-sig-id="x:2119390650923917696" data-sig-url="https://x.com/InfiCheesy/status/2119390650923917696" data-sig-title="日区Hy2跑不过Reality" data-sig-author="InfiCheesy" data-sig-topic="实测" data-sig-tags="topic:实测,src:x">
+ <div class="sleeve">
+  
+  <div class="spine"><span class="zn">头条</span><span class="no">01</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>01</b><em>5.0</em></span></span></div>
+  <p class="meta"><span class="src">@InfiCheesy</span></p>
+  <h2 class="ttl">日区 Hy2 跑不过 Reality</h2>
+  <p class="why">同机对比 Reality <mark>950 Mbps</mark>、Hysteria2 只有<mark>466 Mbps</mark>；UDP 缓冲到 32MiB 也没明显改善，高端线路直接上 Reality。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:5"><i></i><em>信息差</em></span><span class="vu" style="--v:5"><i></i><em>干货</em></span><span class="vu" style="--v:5"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://x.com/InfiCheesy/status/2119390650923917696" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article><article class="disc szM" id="s2" data-n="2" data-z="side" style="--k:1;--ev:1.00" data-sig-id="x:2119431066507502016" data-sig-url="https://x.com/wanluo54/status/2119431066507502016" data-sig-title="设备限制和下周新规" data-sig-author="wanluo54" data-sig-topic="教程" data-sig-tags="topic:教程,src:x">
+ <div class="sleeve">
+  
+  <div class="spine"><span class="zn">头条</span><span class="no">02</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>02</b><em>5.0</em></span></span></div>
+  <p class="meta"><span class="src">@wanluo54</span></p>
+  <h2 class="ttl">设备限制和下周新规</h2>
+  <p class="why">同卡同机绑太多付费号会报 Device limit；<mark>11月12日</mark>Anthropic、<mark>11月20日</mark>OpenAI 新规生效。先导出对话——订阅能重开，记录没有导出键。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:5"><i></i><em>信息差</em></span><span class="vu" style="--v:5"><i></i><em>干货</em></span><span class="vu" style="--v:5"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://x.com/wanluo54/status/2119431066507502016" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article><article class="disc szS" id="s3" data-n="3" data-z="side" style="--k:2;--ev:0.93" data-sig-id="x:2119376570829697274" data-sig-url="https://x.com/gaven4/status/2119376570829697274" data-sig-title="十月Agent吃掉七成" data-sig-author="gaven4" data-sig-topic="行业" data-sig-tags="topic:行业,src:x">
+ <div class="sleeve">
+  
+  <div class="spine"><span class="zn">头条</span><span class="no">03</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>03</b><em>4.7</em></span></span></div>
+  <p class="meta"><span class="src">@gaven4</span></p>
+  <h2 class="ttl">十月 Agent 吃掉七成</h2>
+  <p class="why">OpenRouter 10 月处理<mark>790 万亿</mark>token，Agent 占<mark>76%</mark>；闭源有效价从 $1.21 降到 $0.52，缓存命中中位超过<mark>90%</mark>。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:5"><i></i><em>信息差</em></span><span class="vu" style="--v:5"><i></i><em>干货</em></span><span class="vu" style="--v:4"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://x.com/gaven4/status/2119376570829697274" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article><article class="disc sz" id="s4" data-n="4" data-z="tool" style="--k:3;--ev:0.87" data-sig-id="x:2119304398870626346" data-sig-url="https://x.com/okz_mo/status/2119304398870626346" data-sig-title="tmux能接回AI对话" data-sig-author="okz_mo" data-sig-topic="工具" data-sig-tags="topic:工具,src:x">
+ <div class="sleeve">
+  
+  <div class="spine"><span class="zn">工具</span><span class="no">04</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>04</b><em>4.3</em></span></span></div>
+  <p class="meta"><span class="src">@okz_mo</span></p>
+  <h2 class="ttl">tmux 能接回 AI 对话</h2>
+  <p class="why">重启或 WSL 崩溃后可恢复窗口并接回 Claude Code / Codex；它会把终端画面写入本地硬盘，屏幕上出现过的密钥也会留下。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:4"><i></i><em>信息差</em></span><span class="vu" style="--v:5"><i></i><em>干货</em></span><span class="vu" style="--v:4"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://x.com/okz_mo/status/2119304398870626346" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article><article class="disc sz" id="s5" data-n="5" data-z="tool" style="--k:4;--ev:0.87" data-sig-id="x:2119371424637030565" data-sig-url="https://x.com/PickMyVPS/status/2119371424637030565" data-sig-title="VPS探针站已上线" data-sig-author="PickMyVPS" data-sig-topic="工具" data-sig-tags="topic:工具,src:x">
+ <div class="sleeve">
+  
+  <div class="spine"><span class="zn">工具</span><span class="no">05</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>05</b><em>4.3</em></span></span></div>
+  <p class="meta"><span class="src">@PickMyVPS</span></p>
+  <h2 class="ttl">VPS 探针站已上线</h2>
+  <p class="why">PickMyVPS.com 只收录自购机器，把三网延迟、晚高峰、回程路由和 IP 质量放在一起比，已有搬瓦工、DMIT 等。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:4"><i></i><em>信息差</em></span><span class="vu" style="--v:4"><i></i><em>干货</em></span><span class="vu" style="--v:5"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://x.com/PickMyVPS/status/2119371424637030565" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article><article class="disc sz" id="s6" data-n="6" data-z="wire" style="--k:5;--ev:0.87" data-sig-id="x:2119317018281476402" data-sig-url="https://x.com/bebuu_ai/status/2119317018281476402" data-sig-title="LiteLLM别名虚惊" data-sig-author="bebuu_ai" data-sig-topic="行业" data-sig-tags="topic:行业,src:x">
+ <div class="sleeve">
+  
+  <div class="spine"><span class="zn">行业</span><span class="no">06</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>06</b><em>4.3</em></span></span></div>
+  <p class="meta"><span class="src">@bebuu_ai</span></p>
+  <h2 class="ttl">LiteLLM 别名虚惊</h2>
+  <p class="why">路由表里的 gpt-sol-latest 等只是指向 GPT-6 / 6.1 的别名；「GPT-6.2 Bel 跑分 72、定价 $20/$100」的截图是伪造的。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:5"><i></i><em>信息差</em></span><span class="vu" style="--v:4"><i></i><em>干货</em></span><span class="vu" style="--v:4"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://x.com/bebuu_ai/status/2119317018281476402" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article><article class="disc sz" id="s7" data-n="7" data-z="wire" style="--k:6;--ev:0.73" data-sig-id="x:2119612045440291111" data-sig-url="https://x.com/LanzhiAI/status/2119612045440291111" data-sig-title="Opus暗测有实验ID" data-sig-author="LanzhiAI" data-sig-topic="行业" data-sig-tags="topic:行业,src:x">
+ <div class="sleeve">
+  
+  <div class="spine"><span class="zn">行业</span><span class="no">07</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>07</b><em>3.7</em></span></span></div>
+  <p class="meta"><span class="src">@LanzhiAI</span></p>
+  <h2 class="ttl">Opus 暗测有实验 ID</h2>
+  <p class="why">Reddit 有人从客户端返回里抓到官方 experiment ID，判断 Anthropic 在付费用户身上做未公告的 A/B；这还不等于已经全员暗砍。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:4"><i></i><em>信息差</em></span><span class="vu" style="--v:3"><i></i><em>干货</em></span><span class="vu" style="--v:4"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://x.com/LanzhiAI/status/2119612045440291111" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article><article class="disc sz" id="s8" data-n="8" data-z="long" style="--k:7;--ev:0.80" data-sig-id="blog:fomoxx/waline-vps-sqlite" data-sig-url="https://fomoxx.com/posts/waline-vps-sqlite/" data-sig-title="我为什么把评论系统部署在 VPS + SQLite" data-sig-author="fomoxx" data-sig-topic="ai-agents" data-sig-tags="topic:ai-agents,src:blog,pick:exploit">
+ <div class="sleeve">
+  <span class="sticker" aria-label="博客">博客</span>
+  <div class="spine"><span class="zn">长读</span><span class="no">08</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>08</b><em>4.0</em></span></span></div>
+  <p class="meta"><span class="src">Blog · fomoxx</span></p>
+  <h2 class="ttl">评论放到 VPS + SQLite</h2>
+  <p class="why">作者把评论从一堆云服务里抽出来，落到自己的 VPS + SQLite：数据在自己手里，能备份也能迁。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:3"><i></i><em>信息差</em></span><span class="vu" style="--v:4"><i></i><em>干货</em></span><span class="vu" style="--v:5"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://fomoxx.com/posts/waline-vps-sqlite/" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article><article class="disc sz" id="s9" data-n="9" data-z="long" style="--k:8;--ev:0.67" data-sig-id="blog:joway/deep-into-llm" data-sig-url="https://blog.joway.io/posts/deep-into-llm/" data-sig-title="LLM 训练与推理的基本理解" data-sig-author="Joway" data-sig-topic="ai-agents" data-sig-tags="topic:ai-agents,src:blog,pick:exploit">
+ <div class="sleeve">
+  <span class="sticker" aria-label="博客">博客</span>
+  <div class="spine"><span class="zn">长读</span><span class="no">09</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>09</b><em>3.3</em></span></span></div>
+  <p class="meta"><span class="src">Blog · Joway</span></p>
+  <h2 class="ttl">LLM 训练与推理的基本理解</h2>
+  <p class="why">把读书和与 Claude Code 讨论的笔记整理成训练与推理的原理讲解，用来把基础概念一次理顺。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:3"><i></i><em>信息差</em></span><span class="vu" style="--v:4"><i></i><em>干货</em></span><span class="vu" style="--v:3"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://blog.joway.io/posts/deep-into-llm/" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article><article class="disc sz" id="s10" data-n="10" data-z="long" style="--k:9;--ev:0.73" data-sig-id="hn:50410107" data-sig-url="https://caleb.software/posts/claude-to-pi.html" data-sig-title="Goodbye Claude, hello Pi" data-sig-author="karagenit" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit">
+ <div class="sleeve">
+  
+  <div class="spine"><span class="zn">长读</span><span class="no">10</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>10</b><em>3.7</em></span></span></div>
+  <p class="meta"><span class="src">Hacker News · karagenit</span></p>
+  <h2 class="ttl">告别 Claude，改用开源 Pi</h2>
+  <p class="why">作者受够 Claude Code 一年<mark>244</mark>次发布、系统提示频繁改动，改用更精简、可自己写扩展的开源助手 Pi。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:4"><i></i><em>信息差</em></span><span class="vu" style="--v:3"><i></i><em>干货</em></span><span class="vu" style="--v:4"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://caleb.software/posts/claude-to-pi.html" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article><article class="disc sz" id="s11" data-n="11" data-z="long" style="--k:10;--ev:0.80" data-sig-id="hn:50416363" data-sig-url="https://sergeykuhne.com/blog/fighting-ai-brain-fry" data-sig-title="How I Fight AI Brain Fry" data-sig-author="kyunez" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit">
+ <div class="sleeve">
+  
+  <div class="spine"><span class="zn">长读</span><span class="no">11</span></div>
+  <div class="platter" aria-hidden="true"><span class="vinyl"><span class="label"><b>11</b><em>4.0</em></span></span></div>
+  <p class="meta"><span class="src">Hacker News · kyunez</span></p>
+  <h2 class="ttl">用队列对抗 AI 脑力耗尽</h2>
+  <p class="why">把待办写进仓库里的队列，一次只处理一件等自己拍板的事，用来对抗同时开二十个 Agent 对话的脑力耗尽。</p>
+  <div class="meter" aria-label="价值电平（编辑判断）"><span class="vu" style="--v:4"><i></i><em>信息差</em></span><span class="vu" style="--v:4"><i></i><em>干货</em></span><span class="vu" style="--v:4"><i></i><em>相关</em></span></div>
+  <div class="acts">
+   <a class="orig" href="https://sergeykuhne.com/blog/fighting-ai-brain-fry" target="_blank" rel="noopener">看原文</a>
+   <button type="button" class="heard"><i class="chk" aria-hidden="true"></i><span>听过</span></button>
+  </div>
+ </div>
+</article></div></div>
+<div class="ctrl"><button type="button" class="nav" id="prev" aria-label="上一首">‹</button><div class="arm" aria-hidden="true"><i class="groove"></i><i class="needle" id="needle"></i></div><span class="pn" id="pn">01 / 11</span><button type="button" class="nav" id="next" aria-label="下一首">›</button></div>
+<nav class="tray" id="tray" aria-label="曲目编号"><button type="button" class="chip" data-go="1" aria-label="第 1 首 头条 日区 Hy2 跑不过 Reality"><small>头条</small><b>01</b></button><button type="button" class="chip" data-go="2" aria-label="第 2 首 头条 设备限制和下周新规"><small>头条</small><b>02</b></button><button type="button" class="chip" data-go="3" aria-label="第 3 首 头条 十月 Agent 吃掉七成"><small>头条</small><b>03</b></button><button type="button" class="chip" data-go="4" aria-label="第 4 首 工具 tmux 能接回 AI 对话"><small>工具</small><b>04</b></button><button type="button" class="chip" data-go="5" aria-label="第 5 首 工具 VPS 探针站已上线"><small>工具</small><b>05</b></button><button type="button" class="chip" data-go="6" aria-label="第 6 首 行业 LiteLLM 别名虚惊"><small>行业</small><b>06</b></button><button type="button" class="chip" data-go="7" aria-label="第 7 首 行业 Opus 暗测有实验 ID"><small>行业</small><b>07</b></button><button type="button" class="chip" data-go="8" aria-label="第 8 首 长读 评论放到 VPS + SQLite"><small>长读</small><b>08</b></button><button type="button" class="chip" data-go="9" aria-label="第 9 首 长读 LLM 训练与推理的基本理解"><small>长读</small><b>09</b></button><button type="button" class="chip" data-go="10" aria-label="第 10 首 长读 告别 Claude，改用开源 Pi"><small>长读</small><b>10</b></button><button type="button" class="chip" data-go="11" aria-label="第 11 首 长读 用队列对抗 AI 脑力耗尽"><small>长读</small><b>11</b></button></nav>
+<details class="box"><summary>没进试听间的库藏<span>19 条</span></summary>
+<p class="bnote">近几天推过的仓库、未证实的 6.2 传闻、十月旧闻、论文和偏窄条目都在这，想翻也能翻。</p>
+<article class="row" data-sig-id="x:2119395930805879165" data-sig-url="https://x.com/TokenGremlin/status/2119395930805879165" data-sig-title="用户称路由到6.2Sol" data-sig-author="TokenGremlin" data-sig-topic="实测" data-sig-tags="topic:实测,src:x"><button type="button" class="rhit"><span class="rs">@TokenGremlin</span><span class="rt">用户称路由到6.2Sol</span></button><p class="rw">作者称自己已被路由到尚未官宣的 GPT-6.2 Sol，一轮提示就生成了单文件 Three.js 黑洞场景，并说在他的 one-shot 设计和 3D 测试里胜过 Opus 5.5。OpenAI 没有发布说明或日期，社区里也有人认为只是 6.1 Sol。这是用户体验，未证实。</p><a class="ro" href="https://x.com/TokenGremlin/status/2119395930805879165" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="x:2119355695237857281" data-sig-url="https://x.com/lzuren2001/status/2119355695237857281" data-sig-title="Qwen4榜要看档位" data-sig-author="lzuren2001" data-sig-topic="研究" data-sig-tags="topic:研究,src:x"><button type="button" class="rhit"><span class="rs">@lzuren2001</span><span class="rt">Qwen4榜要看档位</span></button><p class="rw">还没正式发布的 Qwen-4-Flash-Early（代号 hawk）在开发者自建的 GameFeel Bench 上得 49.9，图上 Opus 5.5 是 47.2，花费约 0.40 美元对 2.60 美元。作者指出同一张图里 Opus 5.5 开 XHigh 是 47.2、开 Medium 只有 42.3，档位一换就差 4.9 分，比它和 Qwen 的 2.7 分差距更大；27B 版本的音效分原作者还改错过一次。阿里仍称 Qwen 4 在训练中，这是私人榜、早期接口结果，单项高分不能当成全面反超。</p><a class="ro" href="https://x.com/lzuren2001/status/2119355695237857281" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="x:2119334496382402877" data-sig-url="https://x.com/parkgo_dev/status/2119334496382402877" data-sig-title="同模型Chat更好读" data-sig-author="parkgo_dev" data-sig-topic="实测" data-sig-tags="topic:实测,src:x"><button type="button" class="rhit"><span class="rs">@parkgo_dev</span><span class="rt">同模型Chat更好读</span></button><p class="rw">作者用同一条写作提示分别交给 ChatGPT Chat、Codex 和 Work，模型都是 GPT-6：他自己读下来 Chat 明显更顺，再把三版交给 Claude Opus 5.5 从读者角度挑，对方也选了 Chat。他怀疑差距来自系统提示词还是底座不同，并担心接下来整合 Chat 与 Work 时把 Chat 的文风也改掉。这是单人样本。</p><a class="ro" href="https://x.com/parkgo_dev/status/2119334496382402877" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="gh:repo/JosssphZhou/poki" data-sig-url="https://github.com/JosssphZhou/poki" data-sig-title="JosssphZhou/poki" data-sig-author="JosssphZhou" data-sig-topic="JavaScript" data-sig-tags="topic:JavaScript,src:github,pick:exploit"><button type="button" class="rhit"><span class="rs">GitHub · JosssphZhou</span><span class="rt">JosssphZhou/poki</span></button><p class="rw">本地 MCP 让 AI Agent 直接操作真实 iPhone，不用越狱，也不用额外硬件。</p><a class="ro" href="https://github.com/JosssphZhou/poki" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="gh:repo/KKKKhazix/agent-autoloop" data-sig-url="https://github.com/KKKKhazix/agent-autoloop" data-sig-title="KKKKhazix/agent-autoloop" data-sig-author="KKKKhazix" data-sig-topic="TypeScript" data-sig-tags="topic:TypeScript,src:github,pick:exploit"><button type="button" class="rhit"><span class="rs">GitHub · KKKKhazix</span><span class="rt">KKKKhazix/agent-autoloop</span></button><p class="rw">让命令行 Agent 在后台自己接活、跟进到底；平时不烦你，拿不准才发卡片找你拍板。</p><a class="ro" href="https://github.com/KKKKhazix/agent-autoloop" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="gh:repo/worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto" data-sig-url="https://github.com/worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto" data-sig-title="worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto" data-sig-author="worldonlyu" data-sig-topic="Python" data-sig-tags="topic:Python,src:github,pick:exploit"><button type="button" class="rhit"><span class="rs">GitHub · worldonlyu</span><span class="rt">worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto</span></button><p class="rw">仓库名表明想自动续上两年 Google AI Pro，页面没有更多说明。</p><a class="ro" href="https://github.com/worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="gh:repo/sarpstar/cinecode" data-sig-url="https://github.com/sarpstar/cinecode" data-sig-title="sarpstar/cinecode" data-sig-author="sarpstar" data-sig-topic="Python" data-sig-tags="topic:Python,src:github,pick:exploit"><button type="button" class="rhit"><span class="rs">GitHub · sarpstar</span><span class="rt">sarpstar/cinecode</span></button><p class="rw">AI 编程 Agent 写剧本、用代码生成每一帧并配上声音，最后交给你一份 MP4。</p><a class="ro" href="https://github.com/sarpstar/cinecode" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:model/deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-url="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-title="deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-author="deepseek-ai" data-sig-topic="image-text-to-text" data-sig-tags="topic:image-text-to-text,src:hf,pick:exploit"><button type="button" class="rhit"><span class="rs">Hugging Face · deepseek-ai</span><span class="rt">deepseek-ai/DeepSeek-V4.1-Flash-1017</span></button><p class="rw">Hugging Face 上的 DeepSeek-V4.1-Flash-1017 权重，支持图文输入、文本输出。</p><a class="ro" href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:paper/2611.05376" data-sig-url="https://huggingface.co/papers/2611.05376" data-sig-title="From Autonomous Agents to Cognitive Symbionts: Toward AI-Augmented Human Intelligence" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:exploit"><button type="button" class="rhit"><span class="rs">Hugging Face</span><span class="rt">From Autonomous Agents to Cognitive Symbionts: Toward AI-Augmented Human Intelligence</span></button><p class="rw">论文主张别再只衡量机器能单独做什么，而是把 AI 设计成增强人类智能的认知共生体。</p><a class="ro" href="https://huggingface.co/papers/2611.05376" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:paper/2611.08483" data-sig-url="https://huggingface.co/papers/2611.08483" data-sig-title="SwarmEvolve: Latent Agent Swarms for Evolutionary Discovery and Optimization" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:exploit"><button type="button" class="rhit"><span class="rs">Hugging Face</span><span class="rt">SwarmEvolve: Latent Agent Swarms for Evolutionary Discovery and Optimization</span></button><p class="rw">论文提出用潜空间里的 Agent 群体做进化搜索，用来发现和优化程序。</p><a class="ro" href="https://huggingface.co/papers/2611.08483" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:paper/2610.40119" data-sig-url="https://huggingface.co/papers/2610.40119" data-sig-title="SynthFaces: Balanced Large Scale Human Dataset" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:exploit"><button type="button" class="rhit"><span class="rs">Hugging Face</span><span class="rt">SynthFaces: Balanced Large Scale Human Dataset</span></button><p class="rw">论文发布更均衡的大规模合成人脸数据集，用来减轻真实人脸数据里的偏见和隐私风险。</p><a class="ro" href="https://huggingface.co/papers/2610.40119" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hf:paper/2611.03743" data-sig-url="https://huggingface.co/papers/2611.03743" data-sig-title="EvoMemState: Evolving Memory State for Personal Agents" data-sig-author="" data-sig-topic="paper" data-sig-tags="topic:paper,src:hf,pick:explore"><button type="button" class="rhit"><span class="rs">Hugging Face</span><span class="rt">EvoMemState: Evolving Memory State for Personal Agents</span></button><p class="rw">论文提出让个人 Agent 的长期记忆状态随对话演化，而不是只做静态存储。</p><a class="ro" href="https://huggingface.co/papers/2611.03743" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hn:50418975" data-sig-url="https://matteoraso.github.io/im-not-convinced-the-ai-bubble-exists.html#im-not-convinced-the-ai-bubble-exists" data-sig-title="I&#39;m Not Convinced the AI Bubble Exists" data-sig-author="matteoraso" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit"><button type="button" class="rhit"><span class="rs">Hacker News · matteoraso</span><span class="rt">I&#39;m Not Convinced the AI Bubble Exists</span></button><p class="rw">作者从公开数据出发，说明自己为什么还不相信存在所谓的 AI 泡沫。</p><a class="ro" href="https://matteoraso.github.io/im-not-convinced-the-ai-bubble-exists.html#im-not-convinced-the-ai-bubble-exists" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="hn:50415135" data-sig-url="https://packethound.app/" data-sig-title="A Little Snitch for Windows" data-sig-author="BadBoyBubby" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:explore"><button type="button" class="rhit"><span class="rs">Hacker News · BadBoyBubby</span><span class="rt">A Little Snitch for Windows</span></button><p class="rw">Windows 上的免费出站防火墙，应用首次联网时询问允许或拦截，规则写进系统自带防火墙。</p><a class="ro" href="https://packethound.app/" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="dcr:57d1bcd80443459b87684b47" data-sig-url="https://didcodexreset.com/zh/news/57d1bcd80443459b87684b47.html" data-sig-title="Vipul Ved Prakash 称 Together 在 OpenRouter 的 Token 处理量位居供应商首位" data-sig-author="" data-sig-topic="Together AI" data-sig-tags="topic:Together AI,src:dcr,pick:exploit"><button type="button" class="rhit"><span class="rs">DidCodexReset</span><span class="rt">Vipul Ved Prakash 称 Together 在 OpenRouter 的 Token 处理量位居供应商首位</span></button><p class="rw">Vipul 称 Together 在 OpenRouter 上的综合 Token 处理量已升至供应商首位。</p><a class="ro" href="https://didcodexreset.com/zh/news/57d1bcd80443459b87684b47.html" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="dcr:f37d751491a64ac5a3847135" data-sig-url="https://didcodexreset.com/zh/news/f37d751491a64ac5a3847135.html" data-sig-title="DeepLearning.AI 在 The Batch 中详解 DeepSeek 缓存缩减与 Flash 基准测试表现" data-sig-author="" data-sig-topic="DeepLearning.AI" data-sig-tags="topic:DeepLearning.AI,src:dcr,pick:exploit"><button type="button" class="rhit"><span class="rs">DidCodexReset</span><span class="rt">DeepLearning.AI 在 The Batch 中详解 DeepSeek 缓存缩减与 Flash 基准测试表现</span></button><p class="rw">分析称 DeepSeek 每 token 缓存降至 890 字节，Flash 在 AA Index 上超过 V4-Pro。</p><a class="ro" href="https://didcodexreset.com/zh/news/f37d751491a64ac5a3847135.html" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="dcr:4e9d0d5042cb4c1d9236e2ec" data-sig-url="https://didcodexreset.com/zh/news/4e9d0d5042cb4c1d9236e2ec.html" data-sig-title="Anthropic 研究显示 AI 与机器人可胜任覆盖美国 81% 就业岗位的任务" data-sig-author="" data-sig-topic="Anthropic" data-sig-tags="topic:Anthropic,src:dcr,pick:exploit"><button type="button" class="rhit"><span class="rs">DidCodexReset</span><span class="rt">Anthropic 研究显示 AI 与机器人可胜任覆盖美国 81% 就业岗位的任务</span></button><p class="rw">Polymarket 报道称，Anthropic 研究发现 AI 加机器人已能覆盖美国 81% 就业岗位的任务。</p><a class="ro" href="https://didcodexreset.com/zh/news/4e9d0d5042cb4c1d9236e2ec.html" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="dcr:cf918a32c1cf40839c80d8be" data-sig-url="https://didcodexreset.com/zh/news/cf918a32c1cf40839c80d8be.html" data-sig-title="SambaNova 在 SambaCloud 上为 MiniMax M3 推出提示词缓存" data-sig-author="" data-sig-topic="SambaNova" data-sig-tags="topic:SambaNova,src:dcr,pick:explore"><button type="button" class="rhit"><span class="rs">DidCodexReset</span><span class="rt">SambaNova 在 SambaCloud 上为 MiniMax M3 推出提示词缓存</span></button><p class="rw">MiniMax M3 上线提示词缓存，缓存输入约 $0.06/百万 token，首字延迟改善 35% 到 88%。</p><a class="ro" href="https://didcodexreset.com/zh/news/cf918a32c1cf40839c80d8be.html" target="_blank" rel="noopener">看原文</a></article><article class="row" data-sig-id="dcr:f959bea2f08f427caf143ff0" data-sig-url="https://didcodexreset.com/zh/news/f959bea2f08f427caf143ff0.html" data-sig-title="Claude Haiku 5.5 现已上线 OpenRouter 并支持推理功能" data-sig-author="" data-sig-topic="OpenRouter" data-sig-tags="topic:OpenRouter,src:dcr,pick:explore"><button type="button" class="rhit"><span class="rs">DidCodexReset</span><span class="rt">Claude Haiku 5.5 现已上线 OpenRouter 并支持推理功能</span></button><p class="rw">OpenRouter 上线带推理的 Claude Haiku 5.5，称成本低约 75%，每秒超过 100 token。</p><a class="ro" href="https://didcodexreset.com/zh/news/f959bea2f08f427caf143ff0.html" target="_blank" rel="noopener">看原文</a></article>
+</details>
+<footer class="foot">叼报 · 11月9日<br>主题：把今天的精选摆进周一回档后的试听隔间：一次只上一张封套，头条三张封面分大中小，听完打勾。<br>形式：一次一条型 · 周一回档试听间<br>灵感来源：ChatLab、DigVPS、Cash App、Ollama、Lthero、Family、Loom、Amie；唱针进度与博客侧标贴纸为自创。</footer>
+</div>
+<script>
+(function(){
+var tr=document.getElementById('track'),sl=[].slice.call(tr.querySelectorAll('.disc')),ch=[].slice.call(document.querySelectorAll('.chip')),needle=document.getElementById('needle'),pn=document.getElementById('pn'),cap=document.getElementById('cap'),N=sl.length,cur=0,seen={};
+function pad(n){return (n<10?'0':'')+n}
+function go(i){i=Math.max(0,Math.min(N-1,i));sl[i].scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest',inline:'center'})}
+function set(i){
+  if(i===cur&&sl[i].classList.contains('on'))return;
+  cur=i;
+  sl.forEach(function(s,k){s.classList.toggle('on',k===i)});
+  ch.forEach(function(c,k){c.classList.toggle('on',k===i)});
+  needle.style.left=((i+0.5)/N*100)+'%';
+  pn.textContent=pad(i+1)+' / '+pad(N);
+  cap.textContent='试听 '+pad(i+1)+' / '+pad(N);
+  if(!seen[i]){seen[i]=1;ch[i].classList.add('seen')}
+  var c=ch[i];if(c)c.scrollIntoView({block:'nearest',inline:'center'});
+}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&e.intersectionRatio>.6)set(sl.indexOf(e.target))})},{root:tr,threshold:[.6]});
+sl.forEach(function(s){io.observe(s)});
+ch.forEach(function(c){c.addEventListener('click',function(){go(+c.dataset.go-1)})});
+document.getElementById('prev').addEventListener('click',function(){go(cur-1)});
+document.getElementById('next').addEventListener('click',function(){go(cur+1)});
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
+[].forEach.call(document.querySelectorAll('.heard'),function(b){
+  b.addEventListener('click',function(e){e.stopPropagation();b.closest('.disc').classList.add('ok');});
+});
+[].forEach.call(document.querySelectorAll('.row'),function(r){r.querySelector('.rhit').addEventListener('click',function(){r.classList.toggle('open')})});
+set(0);window.__ready=true;
+})();
+</script><!-- news-signal: 叼报互动。短评已启用 action=comment / meta.note≤200 / meta.vote=like|dislike（勿改 daily-portal 脚本；embed 现读）。门户链接 https://daily.jidadiao.fun/go/x/YYYY-MM-DD ；github.io 作备份。 -->
+<style id="dd-sig-mobile">
+/* news-signal 按钮：扁平 SVG、≥44px；按下态由脚本自带（实心底+图标反白） */
+body .dd-sig{flex-wrap:wrap;gap:8px;margin-top:10px;position:relative;z-index:2}
+body .dd-sig button[data-a]{width:44px;height:44px;min-width:44px;min-height:44px;box-sizing:border-box;touch-action:manipulation;padding:0}
+body .dd-sig button[data-a] svg{width:20px;height:20px;display:block}
+</style>
+<script id="dd-news-signal" data-date="2026-11-09" data-source="news">
+/* DiaoDaily 叼报 · news-signal.js — 日报条目轻互动（喜欢/不感兴趣/收藏 + 已读 + 可选短评）→ POST /api/signal
+ * 嵌入：<script src="news-signal.js" defer data-date="2026-10-26" data-source="news"><\/script>
+ * 条目标记：<article data-sig-id="x:1849xxxxxxxx" data-sig-url="https://x.com/u/status/..." data-sig-title="标题"
+ *                    data-sig-author="u" data-sig-topic="AI" data-sig-tags="topic:ai,format:thread"> … </article>
+ * 脚本自动在每个 [data-sig-id] 末尾插入一行按钮（或放进其内的 [data-sig-bar] 容器）。不加载任何图片/外部资源。
+ * 同站（daily.jidadiao.fun）走相对路径；github.io 走 https://daily.jidadiao.fun/api/signal（CORS 白名单）。
+ * 去重：localStorage 记住每条状态，同一动作不重复上报；喜欢/不感兴趣 互斥（切换时先报相反动作）；收藏再点 = unfav。
+ * 喜欢/不感兴趣 后弹出可选一行短评（可不写）；有字再发 action=comment（meta.note≤200，meta.vote=like|dislike）。
+ * 已读：条目在视口停留 ≥2s 自动报 read（每条一次），点原文链接报 open。离线/失败排队，下次打开页面重试。
+ * 图标：内联扁平 SVG（拇指上/下/星），默认描边圆半透明；[aria-pressed=true] 实心底 + 图标反白。 */
+(function () {
+  "use strict";
+  var S = document.currentScript || {}, ds = (S.dataset || {});
+  var DATE = ds.date || (location.pathname.match(/(\d{4}-\d{2}-\d{2})/) || [])[1] || "";
+  var SRC = ds.source === "design" ? "design" : "news";
+  var API = ds.endpoint || (location.host === "daily.jidadiao.fun" ? "/api/signal" : "https://daily.jidadiao.fun/api/signal");
+  var KEY = "dd-sig:" + DATE, QK = "dd-sig-queue";
+  function ld(k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } }
+  function sv(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  var state = ld(KEY, {});
+  function payload(el, action) {
+    var d = el.dataset, tags = (d.sigTags || "").split(/[,，\s]+/).filter(Boolean).slice(0, 20);
+    var o = { source_type: SRC, action: action, item_id: d.sigId, title: (d.sigTitle || "").slice(0, 300),
+              tags: tags, meta: { date: DATE, page: location.pathname.slice(-80) } };
+    if (/^https?:\/\//.test(d.sigUrl || "")) o.item_url = d.sigUrl;
+    if (d.sigAuthor) o.author = d.sigAuthor.slice(0, 120);
+    if (d.sigTopic) o.topic = d.sigTopic.slice(0, 80);
+    return o;
+  }
+  function post(o) {
+    // text/plain = CORS simple request (no preflight); server parses JSON body regardless.
+    return fetch(API, { method: "POST", mode: "cors", credentials: "omit", keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" }, body: JSON.stringify(o) })
+      .then(function (r) {
+        if (r.status >= 200 && r.status < 300) return r.status;
+        var err = new Error("http " + r.status); err.status = r.status; throw err;
+      });
+  }
+  var MAX_TRY = 5, MAX_TRY_403 = 3, MAX_Q = 50;
+  function enqueue(o, err) {
+    var st = err && err.status, n = (o._try || 0) + 1, lim = st === 403 ? MAX_TRY_403 : MAX_TRY;
+    if (st && st >= 400 && st < 500 && st !== 403 && st !== 408 && st !== 429) {
+      try { console.warn("[news-signal] dropped (HTTP " + st + ")", o.item_id); } catch (e) {} return;
+    }
+    if (n >= lim) { try { console.warn("[news-signal] dropped after " + n + " tries (" + (st || "network") + ")", o.item_id); } catch (e) {} return; }
+    o._try = n; var q = ld(QK, []); q.push(o); sv(QK, q.slice(-MAX_Q));
+  }
+  function send(o) {
+    var t = o._try; delete o._try;
+    return post(o).catch(function (err) { o._try = t; enqueue(o, err); });
+  }
+  function flush() { var q = ld(QK, []); if (!q.length) return; sv(QK, []); q.forEach(send); }
+  function mark(id, k, v) { var s = state[id] || (state[id] = {}); s[k] = v; sv(KEY, state); }
+  /* 扁平 2D SVG：拇指上 / 拇指下 / 星；fill=currentColor，按下态由 CSS 反白 */
+  var SVG_LIKE = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>';
+  var SVG_DISLIKE = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg>';
+  var SVG_FAV = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+  var BTN = [["like", SVG_LIKE, "喜欢"], ["dislike", SVG_DISLIKE, "不感兴趣"], ["fav", SVG_FAV, "收藏"]];
+  function paint(bar, id) {
+    var s = state[id] || {};
+    Array.prototype.forEach.call(bar.querySelectorAll("button[data-a]"), function (b) {
+      var on = b.dataset.a === "fav" ? !!s.fav : s.vote === b.dataset.a;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    var r = bar.querySelector(".dd-read"); if (r) r.textContent = s.read ? "已读" : "";
+  }
+  function closeNote(bar) {
+    var n = bar.querySelector(".dd-note"); if (n) n.remove();
+  }
+  function askNote(el, bar, vote) {
+    closeNote(bar);
+    var wrap = document.createElement("div");
+    wrap.className = "dd-note";
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", "可选短评");
+    var inp = document.createElement("input");
+    inp.type = "text"; inp.maxLength = 200; inp.placeholder = "为什么？（可不写）";
+    inp.setAttribute("aria-label", "为什么（可不写）");
+    inp.autocomplete = "off";
+    var ok = document.createElement("button");
+    ok.type = "button"; ok.textContent = "发送"; ok.title = "发送短评（空则跳过）";
+    ok.setAttribute("aria-label", "发送短评");
+    function submit() {
+      var note = (inp.value || "").trim().slice(0, 200);
+      if (note) {
+        var o = payload(el, "comment");
+        o.meta = o.meta || {};
+        o.meta.note = note;
+        o.meta.vote = vote;
+        o.note = note;
+        send(o);
+        mark(el.dataset.sigId, "noted", 1);
+      }
+      closeNote(bar);
+    }
+    ok.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); submit(); });
+    inp.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter") { ev.preventDefault(); submit(); }
+      else if (ev.key === "Escape") { ev.preventDefault(); closeNote(bar); }
+    });
+    wrap.addEventListener("click", function (ev) { ev.stopPropagation(); });
+    wrap.appendChild(inp); wrap.appendChild(ok);
+    bar.appendChild(wrap);
+    /* 不自动聚焦：iOS 会放大页面并弹键盘，用户点输入框才输入 */
+  }
+  function click(el, bar, a) {
+    var id = el.dataset.sigId, s = state[id] || {};
+    if (a === "fav") { send(payload(el, s.fav ? "unfav" : "fav")); mark(id, "fav", !s.fav); paint(bar, id); }
+    else if (s.vote === a) { /* 已投同票：不重复上报 */ }
+    else { send(payload(el, a)); mark(id, "vote", a); paint(bar, id); askNote(el, bar, a); }
+  }
+  function css() {
+    if (document.getElementById("dd-sig-css")) return;
+    var st = document.createElement("style"); st.id = "dd-sig-css";
+    st.textContent = ".dd-sig{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px;font:13px/1.2 system-ui,sans-serif;position:relative;z-index:2}" +
+      ".dd-sig button[data-a]{all:unset;cursor:pointer;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;" +
+      "width:44px;height:44px;min-width:44px;min-height:44px;padding:0;border:1.5px solid currentColor;border-radius:999px;" +
+      "background:transparent;opacity:.5;color:inherit;touch-action:manipulation;-webkit-tap-highlight-color:transparent}" +
+      ".dd-sig button[data-a] svg{display:block;width:20px;height:20px;pointer-events:none}" +
+      ".dd-sig button[data-a][aria-pressed=true]{opacity:1;background:currentColor;border-color:currentColor}" +
+      ".dd-sig button[data-a][aria-pressed=true] svg,.dd-sig button[data-a][aria-pressed=true] svg path{fill:#fff;color:#fff}" +
+      ".dd-sig button:focus-visible{outline:2px solid currentColor;outline-offset:2px}" +
+      ".dd-sig .dd-read{opacity:.5;font-size:12px;margin-left:4px}" +
+      ".dd-sig .dd-note{display:flex;flex:1 1 100%;gap:6px;align-items:center;margin-top:2px;max-width:100%}" +
+      ".dd-sig .dd-note input{flex:1 1 auto;min-width:0;min-height:44px;box-sizing:border-box;padding:8px 10px;border:1px solid currentColor;border-radius:8px;" +
+      "background:transparent;color:inherit;font:16px/1.3 system-ui,sans-serif}" +
+      ".dd-sig .dd-note button{all:unset;cursor:pointer;min-width:44px;min-height:44px;padding:0 12px;border:1px solid currentColor;border-radius:8px;opacity:.8;" +
+      "display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;flex:0 0 auto}" +
+      "@media (max-width:480px){.dd-sig{gap:8px}}";
+    document.head.appendChild(st);
+  }
+  function init() {
+    css(); flush();
+    var els = document.querySelectorAll("[data-sig-id]");
+    var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var el = e.target;
+        if (e.isIntersecting) el._t = setTimeout(function () {
+          var id = el.dataset.sigId;
+          if (!(state[id] || {}).read) { send(payload(el, "read")); mark(id, "read", 1); paint(el._bar, id); }
+          io.unobserve(el);
+        }, 2000); else clearTimeout(el._t);
+      });
+    }, { threshold: 0.6 }) : null;
+    Array.prototype.forEach.call(els, function (el) {
+      var id = el.dataset.sigId; if (!/^[A-Za-z0-9][A-Za-z0-9._:\/@#+\-]{0,199}$/.test(id)) return;
+      var bar = el.querySelector("[data-sig-bar]") || el.appendChild(document.createElement("div"));
+      bar.classList.add("dd-sig"); bar.setAttribute("role", "group"); bar.setAttribute("aria-label", "反馈");
+      BTN.forEach(function (x) {
+        var b = document.createElement("button"); b.type = "button"; b.dataset.a = x[0];
+        b.innerHTML = x[1]; b.title = x[2];
+        b.setAttribute("aria-label", x[2]);
+        b.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); click(el, bar, x[0]); });
+        bar.appendChild(b);
+      });
+      var r = document.createElement("span"); r.className = "dd-read"; bar.appendChild(r);
+      el._bar = bar; paint(bar, id);
+      Array.prototype.forEach.call(el.querySelectorAll("a[href^='http']"), function (a) {
+        a.addEventListener("click", function () { if (!(state[id] || {}).open) { send(payload(el, "open")); mark(id, "open", 1); } });
+      });
+      if (io) io.observe(el);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+})();
+
+</script>
+</body></html>
