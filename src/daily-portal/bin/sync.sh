@@ -1,6 +1,7 @@
 #!/bin/bash
 # pull gh-pages mirror (GitHub is slow from this VPS: try mirror proxy, then direct, then codeload tarball), then rebuild portal
 # 2026-10-25: errors logged (not discarded), timestamps in CST (UTC+8), FAIL recorded; >=2 consecutive fails -> data/sync-alert.json
+# 2026-10-31: after sync, force site dirs 755 / files 644 so nginx (www-data) can read (site/ was 700 → /x /design 403)
 set -u
 exec 9>/tmp/daily-sync.lock; flock -n 9 || exit 0
 D=/srv/daily/data; ST=$D/sync-state.json; AL=$D/sync-alert.json
@@ -32,5 +33,9 @@ if s.get("fails", 0) >= 2:
 elif os.path.exists(al): os.remove(al)
 PY
 if [ $ok = 1 ]; then echo "$(ts) sync ok=1 head=$(git rev-parse --short HEAD 2>/dev/null)"; else echo "$(ts) sync ok=0 FAIL (keeping old mirror): $errs"; fi
+# nginx alias /x /design → /srv/daily/site; keep world-traversable after git/rsync
+chmod 755 /srv/daily/site
+find /srv/daily/site -type d -exec chmod 755 {} +
+find /srv/daily/site -type f -exec chmod 644 {} +
 /usr/bin/python3 /srv/daily/bin/ghratings.py
 /usr/bin/python3 /srv/daily/bin/build.py
