@@ -11,18 +11,51 @@
 3. **和他有关**：他自己踩过的坑（如 GFW 封 VPS，他「中招了」）、他在用的工具链。
 4. 再参考偏好库（只作加分，不作硬依据）。
 
+## 确定性打分（2026-11-01 起，第二步）
+- 实现：`lib/score.py`（借鉴 newsp `generate.py` 的 score / TOPIC_CAP / dedupe / stale）。
+- 底分 = 信息差×0.35 + 干货×0.30 + 相关×0.20 + 热度×0.15，再乘新鲜度衰减；最后 × **钥匙 factor**（`prefs.item_factor` / `apply_key_factors`）。
+- **同事件**只留 1 条最好的（其余进 `also`）；**TOPIC_CAP=2**（同一 topic_key）；类目封顶：VPS/机场≤2、AI 榜单/基准≤1、模型发布≤2、副业≤3。
+- URL 归一化 + 标题相似（Jaccard≥0.72 或 SequenceMatcher≥0.86）去重。
+- 条目早于出刊日 **>3 天**标旧闻，分数 ×0.6。
+- 例程入口（出文案前先跑）：
+  ```bash
+  PREFS_DB=/srv/daily/data/prefs.db \
+    python3 /workspace/digests/lib/score.py --date YYYY-MM-DD --json -o /tmp/pick-YYYY-MM-DD.json
+  ```
+  选 `selected`（≤15）；`excluded` 供结尾「今天筛掉 N 条」统计。
+
+## 文案（2026-11-01 起）
+- 完整提示词：`lib/copy-prompt.md`（借鉴 newsp `config/llm/prompt.md`）。
+- 标题 ≤28 字；一句话 30–50 字写清「新在哪 / 数字 / 对他有什么用」。
+- 禁止：「重磅」「值得关注」「未披露」「标志着」「一文看懂」等空话。
+- 拿不出这句话的条目就不推。
+
 ## 同一话题去重（按「事件」不是按帖子）
 - 同一事件/同一话题只留 1 条最好的（如 VPS 被封只留 1 条，其余合并成一句「另有 N 条同类」）。
 - 同一天 VPS/机场类最多 2 条；AI 榜单/基准/指数类最多 1 条；模型发布最多 2 条。
+- 以上由 `score.py` 自动执行；人工复审时仍按本条核对。
 
 ## 直接排除（用户亲口说过）
 - 动画/ACG/二次元/声优/周边：整类不推（「以后不要给我推动画了」）。
 - 安卓去广告类、Rust 项目、族谱/历史研究类。
 - AI 凑出来的科普/小文章/listicle（「10 项设置」「入门指南」「路线图」）、只有一张榜单图的帖子、泛泛讨论没有结论的帖子（「没干货内容」）。
-- 他已点过 dislike 的同作者/同类内容。
-- 已在近 7 天推送过的同一事件（除非有重大进展）。
+- 他已点过 dislike 的同作者/同类内容（钥匙 factor 地板）。
+- 已在近 7 天推送过的同一事件（除非有重大进展；可选写入 `lib/recent-pushed.json`）。
+
+
+## 白名单个人实践博客（2026-11-02 起）
+- 允许：`feeds-blog.json` 白名单站上的真人踩坑/复盘长文（source=`blog`）；拒绝 AI 拼凑 listicle。
+- 每日推送消息里 blog 最多 **1–2** 条（采集精选上限 2）；新鲜度半衰期 7 天（更新慢，不硬滤「仅今日」）。
+- 加下一站：只改 `daily-portal/collectors/feeds-blog.json`，勿散落硬编码。
 
 ## 写法
 - 每条一行：标题链接 + 一句话说清「新在哪、对他有什么用」（带数字）。拿不出这句话的条目就不推。
 - 按价值排序，不分来源；探索项最多 1 条，标 🔭。
-- 结尾一行：「今天筛掉 N 条（动画 a / 重复 b / 无新信息 c…）」，让他知道筛了什么。
+- 结尾一行：「今天筛掉 N 条（动画 a / 重复 b / 无新信息 c…）」，让他知道筛了什么。统计直接用 `score.py` 的 `excluded`。
+
+## 钥匙级偏好（2026-11-01 起）
+- 排序分要乘 `prefs.item_factor` / `apply_key_factors` 的 factor（少推 −25%/次、多推 +8%/次、30 天半衰期；地板 0.4，多推帽 +30%）。
+- 钥匙是 `repo:` / `x:@` / `sub:` / `feed:` / `site:` / `kw:`，**不是**「AI」「VPS」这种大话题。
+- `dismiss`（收起）不算负反馈；只有 dislike/unfav/低星才少推。
+- manual 记忆优先（如 anime-hard / android 直接地板）。
+- 查：`prefs.py learned`；撤销：`prefs.py clear-key 'x:@foo'`；试算：`prefs.py factor --url … --author …`。

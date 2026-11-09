@@ -142,3 +142,11 @@
   3. 用 user-GitHub-xai 的 `push_files` 推到 owner=JidaDiao、repo=x-daily-digest、**branch=gh-pages**，文件包括 `index.html` 和 `YYYY-MM-DD.html`（往期页面已经在线上的，不需要重推）。文件很大时，先用 python 生成 files 数组 json，再以 `"files": "$file:/workspace/agent-tools/files.json"` 的方式传入。
   4. 等约 1 分钟后，用 WebFetch 或 `curl -I` 检查新链接（WebFetch 可能返回缓存，404 时以 curl 的结果为准）。
 - 不要往页面里放任何密钥或 token。
+
+## 叼报公开源 blog（2026-11-03 更新）
+- 白名单：`/workspace/daily-portal/collectors/feeds-blog.json`，首批 9 站：fomoxx、ROYWANG、WuSiYu、Joway、oldj、MouT.me、puppylpg、rxliuli、piglei。
+- 选文标准：作者有独立思考、能引发读者思考；真人非 AI；实操只加分；近 180 天即可。
+- collect.py 解析 RSS 与 Atom；每站可配 include_paths/exclude_paths；每站每天最多 1 条，blog 总计 1–2 条；已推 URL 不重复入选。
+- 思考深度粗筛 think_score：篇幅（≥1200/≥3000 字）、第一人称密度、结论/取舍/反思/教训/复盘等词加分；数字、截图小加分；标题像 listicle/周刊/教程扣 3，近半年 >30 篇扣 2。
+- 加站流程：每周跑候选池（blog-pool-YYYY-MM-DD.tsv，来源 chinese-independent-blogs、友链、GitHub Pages）→ 每周挑 3 个候选给用户 →「收」才进白名单，「不要」记入黑名单。
+- 2026-11-03 二次优化：blog 不参加其他来源的轮转，先每站取 think_score 最高的一篇，再按 blog_rank = think_score × 画像系数（0.8–1.2）跨站取前 2；feed 正文太短时抓原文补算（每站最新 3 篇，1s 限速，失败回退摘要）；教程/指南/清单类如果缺少反思取舍词就扣 2.5，标题里带取舍/反思类词加 1。
