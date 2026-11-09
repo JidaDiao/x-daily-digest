@@ -1,0 +1,27 @@
+# secrets and local runtime — never commit
+.env
+.env.*
+!.env.example
+**/.secrets/
+**/*.pem
+**/*.key
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+prefs.db*
+
+# python / editor
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+
+# backups and logs
+*.bak
+*.bak-*
+collectors/logs/
+*.log
+
+# generated daily artifacts (live on the box / gh-pages, not source)
+# do not add items-*.json dumps, media/, shots/, or dated HTML pages to main
