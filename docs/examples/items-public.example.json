@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-09",
+  "issue": "社区精选 2026-11-09",
+  "source": "公开来源抓取",
+  "generated": "2026-11-09T10:35:44+08:00",
+  "profile_used": true,
+  "status": {
+    "github": {"ok": true, "fetched": 39, "picked": 4, "secs": 4.9},
+    "hf": {"ok": true, "fetched": 50, "picked": 5, "secs": 0.1},
+    "hn": {"ok": true, "fetched": 30, "picked": 4, "secs": 1.4},
+    "linuxdo": {"ok": false, "skipped": true, "error": "linux.do RSS 不可用（多为 Cloudflare 挑战）", "picked": 0, "secs": 0.1},
+    "reddit": {"ok": false, "skipped": true, "error": "SSL handshake timed out", "picked": 0, "secs": 201.9},
+    "dcr": {"ok": true, "fetched": 50, "picked": 5, "secs": 0.4},
+    "blog": {"ok": true, "fetched": 7, "picked": 2, "secs": 19.0}
+  },
+  "items": [
+    {
+      "source": "blog",
+      "id": "blog:example/a-post",
+      "site": "example",
+      "title": "示例博客：我为什么把评论系统放回 VPS",
+      "url": "https://example.com/posts/a-post/",
+      "author": "example",
+      "summary": "English excerpt if the feed is English.",
+      "summary_en": "English excerpt if the feed is English.",
+      "summary_zh": "作者把评论从一堆云服务里抽出来，落到自己的 VPS 和 SQLite。",
+      "tags": ["selfhost"],
+      "published_at": "2026-11-08T00:00:00+08:00",
+      "pick": "exploit",
+      "match": [],
+      "via": "rss",
+      "think_score": 8.5,
+      "think_why": "第一人称复盘 + 取舍",
+      "blog_rank": 9.2
+    },
+    {
+      "source": "github",
+      "id": "github:owner/name",
+      "title": "owner/name",
+      "url": "https://github.com/owner/name",
+      "author": "owner",
+      "summary": "A CLI that does one job well.",
+      "summary_en": "A CLI that does one job well.",
+      "summary_zh": "一个把某件运维小事自动化的命令行工具。",
+      "tags": ["cli"],
+      "stars": 128,
+      "pick": "exploit",
+      "match": [],
+      "via": "trending"
+    }
+  ]
+}
