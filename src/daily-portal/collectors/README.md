@@ -1,6 +1,6 @@
 # DiaoDaily 公开来源抓取器
 
-命令：`/workspace/daily-portal/collectors/run.sh`（每天 08:20 Asia/Shanghai；在 box 上跑；退出码 0=至少一个来源成功，2=全部失败）
+命令：`/workspace/daily-portal/collectors/run.sh`（每天 10:20 Asia/Shanghai；在 box 上跑；退出码 0=至少一个来源成功，2=全部失败）
 参数：`--no-push`（不写 VPS），`--date YYYY-MM-DD`，`--out-dir DIR`。日志：`collectors/logs/collect-DATE.log`。
 
 ## 来源（全部无账号公开数据）
@@ -18,6 +18,6 @@
 1. 每源按 id（`<source>:<id>`）去重。
 2. 经 SSH 在 VPS 本机调 `GET /api/profile`，取 `recommend.exploit/explore`；按 lang/author 精确匹配、topic 词边界匹配累加 weight，热度做极小加分。
 3. 来源轮转取 exploit 共 16 条，再取 4 条 explore（先命中探索兴趣，再从画像外随机补）；每源 ≤5（blog ≤2），总数 ≤20。
-4. 输出 `/workspace/digests/items-public-YYYY-MM-DD.json`：`{date, issue, source, generated, profile_used, status{源:{ok,fetched,picked,error}}, items[{source,id,title,url,summary,tags,author,pick,match,...}]}`。`summary` 为原文简介（英文），中文一句话由 9:18 推送时撰写。
+4. 输出 `/workspace/digests/items-public-YYYY-MM-DD.json`：`{date, issue, source, generated, profile_used, status{源:{ok,fetched,picked,error}}, items[{source,id,title,url,summary,tags,author,pick,match,...}]}`。`summary` 为原文简介（英文），中文一句话写在 summary_zh，供出页和 12:00 推送使用。
 5. 写入 VPS：经 SSH 在 VPS 端读 `/etc/daily/api.env` 调 `POST /api/signals/batch`，每条 `action=read` + `meta.candidate=true, weight_factor=0`（只进 items 表/全文检索，不影响偏好分），dedup_key=`<src>:read:cand-DATE-<id>`，同日重跑幂等。token 不出 VPS、不落盘。
 依赖：python3、paramiko、~/.ssh/vps_jidadiao。

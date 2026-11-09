@@ -5,7 +5,7 @@ import json, re, sys, os, html, time, datetime, random, urllib.request, urllib.p
 from email.utils import parsedate_to_datetime
 SH = datetime.timezone(datetime.timedelta(hours=8))
 UA = "Mozilla/5.0 (X11; Linux x86_64) DiaoDaily/1.0 (+https://daily.jidadiao.fun)"
-VPS, KEY = "110.42.109.168", os.path.expanduser("~/.ssh/vps_jidadiao")
+VPS, KEY = os.environ.get("DAILY_VPS") or "", os.path.expanduser("~/.ssh/vps_jidadiao")
 PER_SRC, TOTAL, EXPLORE = 5, 20, 0.2
 PER_SRC_CAP = {"blog": 2}  # 个人实践博客每日精选上限
 HERE = os.path.dirname(os.path.abspath(__file__))

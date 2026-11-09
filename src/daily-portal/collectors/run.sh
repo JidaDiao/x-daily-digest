@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# DiaoDaily 公开来源抓取，每天 08:20 Asia/Shanghai
+# DiaoDaily 公开来源抓取，每天 10:20 Asia/Shanghai
 set -o pipefail
 cd "$(dirname "$0")"
 mkdir -p logs
