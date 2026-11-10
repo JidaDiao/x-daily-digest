@@ -31,7 +31,7 @@
 ## C. 浏览器 / 写作 / 笔记
 | 站 | URL | 可取的 1 个元素 |
 |---|---|---|
-| Craft（2026-10-26） | https://www.craft.do | 块拖拽排序 |
+| ~~Craft（2026-11-10）~~ | https://www.craft.do | 块拖拽排序 · 已推 |
 | Reflect（2026-10-31 curl 无响应，先跳过） | https://reflect.app | 双向链接悬浮预览 |
 | Tana（2026-11-01，超级标签已移到 outliner.tana.inc；tana.inc 首页现为会议 agent） | https://outliner.tana.inc | 节点 `#标签` 补全 |
 | Capacities（2026-10-31） | https://capacities.io | 对象卡片翻面 |
@@ -67,6 +67,9 @@
 - **Arc**：2026-10-31 检查，arc.net 已是「A farewell to Arc」告别页（宣布 2026-12-22 停服），排除。
 
 ## 池外用过
+| 2026-11-10 | Granola | https://granola.ai | 底部胶囊原地变形：Transcribing → Generate notes → My notes |
+| 2026-11-10 | DigVPS | https://digvps.com | 模糊上浮依次进场 + 淡网格光晕 |
+| 2026-11-10 | gpt888.vip | https://gpt888.vip | 间歇扫光浮动黑卡（按 10-14 收藏 token 复刻） |
 | 2026-11-09 | Heptabase | https://heptabase.com | 点一行浮出书名预览卡 |
 | 2026-11-09 | iA Writer | https://ia.net/writer | 点一段其余淡去 |
 | 2026-11-09 | Amie | https://amie.so | 会议纪要时间线 |
