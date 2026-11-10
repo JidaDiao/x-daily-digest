@@ -1,0 +1,265 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>叼报 · 11月10日 · 深夜剪报墙</title><style>
+:root{--wall:#141d2b;--wall2:#0e1520;--paper:#f7f2e7;--paper2:#efe7d3;--ink:#1d1a16;--mut:#6f6a5e;
+--hi:#e8a33d;--line:#d8cdb4;--sans:"PingFang SC","Noto Sans SC","Helvetica Neue",Arial,sans-serif;
+--serif:"Noto Serif SC","Songti SC",serif;--mono:ui-monospace,"SF Mono",Menlo,monospace;
+--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box;margin:0}html{-webkit-text-size-adjust:100%;overflow-x:hidden;max-width:100%}
+body{margin:0;background:var(--wall);color:var(--paper);font:16px/1.6 var(--sans);min-height:100vh;min-height:100dvh;overflow-x:hidden;max-width:100%;
+background-image:radial-gradient(rgba(232,163,61,.10) 1px,transparent 1px),linear-gradient(180deg,#182437,var(--wall) 140px);background-size:26px 26px,100% 100%}
+.wrap{position:relative;max-width:760px;width:100%;margin:0 auto;padding:16px 16px calc(40px + env(safe-area-inset-bottom))}
+.mast{padding:10px 2px 4px;border-bottom:2px solid var(--hi)}
+.mast h1{font:600 44px/1.05 var(--serif);letter-spacing:.06em}
+.mast h1 .ch{display:inline-block;animation:lr .7s var(--ease) both}
+.mast h1 .ch:nth-child(2){animation-delay:.08s}
+.mast .m{margin-top:8px;font:13px/1.7 var(--mono);color:#b9c2cf}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.stats div{background:#1d2a3d;border:1px solid #2b3a4f;border-radius:12px;padding:10px 6px;text-align:center}
+.stats b{display:block;font:600 26px/1.1 var(--mono);color:var(--hi);animation:din .5s var(--ease) both}
+.stats span{font-size:11px;color:#9fb0c3;letter-spacing:.08em}
+.timeline{display:flex;gap:0;margin:6px 0 14px;border:1px solid #2b3a4f;border-radius:12px;overflow:hidden}
+.timeline div{flex:1;padding:9px 8px;font-size:12px;color:#c7d2de;background:#182437;border-right:1px solid #2b3a4f}
+.timeline div:last-child{border-right:none}
+.timeline b{display:block;font:600 12px var(--mono);color:var(--hi)}
+.how,.cut{font-size:14px;line-height:1.75;color:#d5dde7;background:#1a2637;border:1px solid #2b3a4f;border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.how b,.cut b{color:var(--hi)}
+.idx{position:sticky;top:0;z-index:50;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:4px -16px 14px;padding:10px 16px;
+background:rgba(20,29,43,.88);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.idx::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:44px;display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;border:1px solid #3a4c63;
+background:#1d2a3d;color:#e8eef5;text-decoration:none;font-size:13px;animation:chin .45s var(--ease) both}
+.chip:nth-child(2){animation-delay:.06s}.chip:nth-child(3){animation-delay:.12s}.chip:nth-child(4){animation-delay:.18s}
+.chip:nth-child(5){animation-delay:.24s}.chip:nth-child(6){animation-delay:.3s}.chip:nth-child(7){animation-delay:.36s}
+.sec{margin:0 0 8px;scroll-margin-top:64px}
+.sec-t{display:flex;align-items:baseline;gap:12px;margin:18px 2px 12px;font:600 24px/1.2 var(--serif);color:var(--paper)}
+.sec-t em{font:12px var(--mono);color:#9fb0c3;font-style:normal;letter-spacing:.1em}
+.card{position:relative;background:var(--paper);color:var(--ink);border-radius:6px;padding:20px 18px 14px;margin:0 0 14px;
+box-shadow:0 10px 30px rgba(0,0,0,.45);transform:rotate(-.35deg);animation:pin .55s var(--ease) both;animation-delay:var(--d,0ms)}
+.card:nth-child(even){transform:rotate(.3deg)}
+.card::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:8px;
+background:var(--paper);clip-path:polygon(0 0,4% 100%,9% 0,14% 100%,19% 0,25% 100%,30% 0,36% 100%,41% 0,47% 100%,52% 0,58% 100%,63% 0,69% 100%,74% 0,80% 100%,85% 0,91% 100%,96% 0,100% 100%)}
+.pin{position:absolute;top:-7px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;
+background:radial-gradient(circle at 35% 30%,#ffd98a,var(--hi) 55%,#9a6a1c);box-shadow:0 2px 4px rgba(0,0,0,.5)}
+.tag{display:inline-block;font:600 11px/1 var(--mono);letter-spacing:.14em;color:#8a6a1c;background:#f3dfae;
+border-radius:4px;padding:5px 8px;margin-bottom:10px}
+.blog-sticker{position:absolute;top:12px;right:12px;transform:rotate(6deg);background:var(--hi);color:#241a05;
+font:700 12px/1 var(--sans);padding:6px 9px;border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.card h2{font:600 21px/1.4 var(--serif);letter-spacing:.01em;margin:2px 0 8px;animation:tblur .6s var(--ease) both}
+.szL h2{font-size:27px;line-height:1.35}.szM h2{font-size:23px}.szS h2{font-size:20px}
+.why{font-size:15px;line-height:1.75;color:#3d382e}
+.meter{display:flex;gap:14px;margin:12px 0 10px}
+.vu{flex:1}.vu i{display:block;height:5px;border-radius:3px;background:var(--line);position:relative;overflow:hidden}
+.vu i::after{content:"";position:absolute;inset:0;width:calc(var(--v)/5*100%);background:var(--hi);border-radius:3px}
+.vu em{display:block;font:11px var(--mono);font-style:normal;color:#8a8375;margin-top:5px}
+.acts{display:flex;align-items:center;gap:12px;border-top:1px dashed var(--line);padding-top:11px;flex-wrap:wrap}
+.orig{min-height:44px;display:inline-flex;align-items:center;padding:8px 16px;border-radius:999px;background:var(--ink);color:var(--paper);
+text-decoration:none;font-size:13px;font-weight:600}
+.orig:active{transform:scale(.94)}
+.src,.site,.val{font:12px var(--mono);color:#8a8375}
+.blog-sec .card{background:#fdf6d8}
+.box{margin:18px 0 8px;background:#1a2637;border:1px solid #2b3a4f;border-radius:12px;padding:6px 14px 12px}
+.box summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font:600 15px var(--sans);color:#e8eef5;padding:8px 0}
+.row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:baseline;padding:12px 0;border-top:1px solid #2b3a4f;animation:rowin .4s var(--ease) both}
+.rno{font:600 13px var(--mono);color:var(--hi)}
+.rt{color:#e8eef5;text-decoration:none;font-size:14px;line-height:1.5}
+.rs{font:11px var(--mono);color:#9fb0c3}
+.foot{margin-top:22px;border-top:1px solid #2b3a4f;padding-top:14px;font:12px/1.8 var(--mono);color:#9fb0c3}
+.foot b{color:var(--hi)}
+@keyframes pin{from{opacity:0;transform:translateY(16px) rotate(0)}to{opacity:1;transform:translateY(0) rotate(-.35deg)}}
+@keyframes tblur{from{opacity:0;filter:blur(6px)}to{opacity:1;filter:blur(0)}}
+@keyframes lr{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes din{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes chin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes rowin{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+@media (max-width:380px){.stats{grid-template-columns:repeat(2,1fr)}.mast h1{font-size:38px}.row{grid-template-columns:28px 1fr}.rs{display:none}}
+</style></head><body><div class="wrap">
+<header class="mast"><h1><span class="ch">叼</span><span class="ch">报</span></h1>
+<p class="m">11月10日 · 深夜剪报墙 · NO.1110 · 精选 13 / 共 30 · X 10 · 社区 20</p></header>
+<div class="stats"><div><b>30</b><span>今日条目</span></div><div><b>13</b><span>精选</span></div>
+<div><b>2</b><span>博客</span></div><div><b>15</b><span>木箱</span></div></div>
+<div class="timeline"><div><b>10:20</b>公开来源抓取</div><div><b>10:30</b>X 素材到达</div><div><b>12:00</b>叼报推送</div></div>
+<p class="how">今天怎么玩：这是<b>深夜剪报墙</b>。30 条剪下来按话题钉在墙上，<b>头条三张大报</b>先看；点顶部索引跳到分区；博客贴在<b>黄色便签栏</b>；没进精选的收在下面木箱里。读完点卡片右下角的 👍 / 👎。</p>
+<p class="cut">今天从 30 条里（X 10 · 社区 20）挑了 15 条，人工再剔 2 条（游戏 DLSS 注入器、信息过薄的 TwIL-8B），精选 <b>13</b> 条；另有 2 篇博客单贴；其余 15 条在木箱里。</p>
+<nav class="idx"><a class="chip" href="#top">头条</a><a class="chip" href="#g-AI 模型与价格">AI 模型与价格</a><a class="chip" href="#g-中转站/VPS/网络封锁">中转站/VPS/网络封锁</a><a class="chip" href="#g-开源工具">开源工具</a><a class="chip" href="#blog">📝 今日博客</a><a class="chip" href="#all">全部条目</a></nav>
+<section id="top" class="sec"><h2 class="sec-t"><span>头条</span><em>先看这三张</em></h2><article class="card szL" data-sig-id="x:2119954082677067877" data-sig-url="https://x.com/KOF97AI/status/2119954082677067877" data-sig-title="Colab CLI给Agent用" data-sig-author="KOF97AI" data-sig-topic="开源工具" data-sig-tags="topic:开源工具,src:x" style="--d:70ms"><span class="pin" aria-hidden="true"></span><span class="tag">头条 · 01</span><h2>Colab CLI给Agent用</h2><p class="why">作者称 Google 开源了 google-colab-cli，让 Claude Code、Codex、Antigravity 在本地终端调度 Colab GPU（免费 T4，…</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:4.2"><i></i><em>信息差</em></span><span class="vu" style="--v:3.5"><i></i><em>干货</em></span><span class="vu" style="--v:3.5"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://x.com/KOF97AI/status/2119954082677067877" target="_blank" rel="noopener">看原文 ↗</a><span class="src">@KOF97AI</span><span class="val">价值 66.57</span></div></article><article class="card szM" data-sig-id="x:2119693825564410249" data-sig-url="https://x.com/daqiyun/status/2119693825564410249" data-sig-title="Codeburn拆Token账" data-sig-author="daqiyun" data-sig-topic="开源工具" data-sig-tags="topic:开源工具,src:x" style="--d:140ms"><span class="pin" aria-hidden="true"></span><span class="tag">头条 · 02</span><h2>Codeburn拆Token账</h2><p class="why">开源工具 Codeburn 在本地读取 Claude Code、Cursor、Codex 等 37 个工具的会话文件，按项目、模型、任务拆出花费，找出最贵的会话。`npx co…</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:4.2"><i></i><em>信息差</em></span><span class="vu" style="--v:3.5"><i></i><em>干货</em></span><span class="vu" style="--v:3.5"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://x.com/daqiyun/status/2119693825564410249" target="_blank" rel="noopener">看原文 ↗</a><span class="src">@daqiyun</span><span class="val">价值 64.54</span></div></article><article class="card szS" data-sig-id="x:2119795936742293872" data-sig-url="https://x.com/Syquboj/status/2119795936742293872" data-sig-title="530人Agent组合统计" data-sig-author="Syquboj" data-sig-topic="一手实测" data-sig-tags="topic:一手实测,src:x" style="--d:210ms"><span class="pin" aria-hidden="true"></span><span class="tag">头条 · 03</span><h2>530人Agent组合统计</h2><p class="why">11/4 的 Ask HN 统计 530 位开发者：Claude Code 180 人、Codex 103 人、OpenCode 69 人、Pi 67 人，148 人在用 De…</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:4.2"><i></i><em>信息差</em></span><span class="vu" style="--v:3.5"><i></i><em>干货</em></span><span class="vu" style="--v:3.5"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://x.com/Syquboj/status/2119795936742293872" target="_blank" rel="noopener">看原文 ↗</a><span class="src">@Syquboj</span><span class="val">价值 58.03</span></div></article></section><section id="g-AI 模型与价格" class="sec"><h2 class="sec-t"><span>AI 模型与价格</span></h2><article class="card szN" data-sig-id="x:2119911942227959883" data-sig-url="https://x.com/superalesha/status/2119911942227959883" data-sig-title="Fable训练时限内核优化" data-sig-author="superalesha" data-sig-topic="AI 模型与价格" data-sig-tags="topic:AI 模型与价格,src:x" style="--d:280ms"><span class="pin" aria-hidden="true"></span><span class="tag">AI 模型与价格 · 04</span><h2>Fable训练时限内核优化</h2><p class="why">作者指出 Fable 5.2 发布文里把『加速器内核优化』『改进 LLM 架构』列入 Safeguards，训练时就限制了这类能力，称其水平停在 Opus 5.5 左右，用户看…</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:4.2"><i></i><em>信息差</em></span><span class="vu" style="--v:1.5"><i></i><em>干货</em></span><span class="vu" style="--v:3.5"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://x.com/superalesha/status/2119911942227959883" target="_blank" rel="noopener">看原文 ↗</a><span class="src">@superalesha</span><span class="val">价值 56.84</span></div></article><article class="card szN" data-sig-id="hf:model/Lightricks/LTX-2.5" data-sig-url="https://huggingface.co/Lightricks/LTX-2.5" data-sig-title="Lightricks/LTX-2.5" data-sig-author="Lightricks" data-sig-topic="image-to-video" data-sig-tags="topic:image-to-video,src:hf,pick:exploit" style="--d:350ms"><span class="pin" aria-hidden="true"></span><span class="tag">AI 模型与价格 · 05</span><h2>Lightricks/LTX-2.5</h2><p class="why">Lightricks 的图生视频模型 2.5，支持文生、图生与视频生视频。</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:3.0"><i></i><em>信息差</em></span><span class="vu" style="--v:2.8"><i></i><em>干货</em></span><span class="vu" style="--v:1.0"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noopener">看原文 ↗</a><span class="src">Hugging Face</span><span class="val">价值 56.8</span></div></article><article class="card szN" data-sig-id="hn:50429068" data-sig-url="https://www.anthropic.com/claude-fable-and-mythos-5-2" data-sig-title="Claude Fable 5.2 and Mythos 5.2" data-sig-author="lairv" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:explore" style="--d:0ms"><span class="pin" aria-hidden="true"></span><span class="tag">AI 模型与价格 · 06</span><h2>Claude Fable 5.2 and Mythos 5.2</h2><p class="why">Anthropic 发布 Claude Fable 5.2 与 Mythos 5.2，HN 286 分、648 条评论。</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:3.0"><i></i><em>信息差</em></span><span class="vu" style="--v:1.5"><i></i><em>干货</em></span><span class="vu" style="--v:3.5"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://www.anthropic.com/claude-fable-and-mythos-5-2" target="_blank" rel="noopener">看原文 ↗</a><span class="src">Hacker News</span><span class="val">价值 55.31</span></div></article><article class="card szN" data-sig-id="hf:model/facebook/sam3" data-sig-url="https://huggingface.co/facebook/sam3" data-sig-title="facebook/sam3" data-sig-author="facebook" data-sig-topic="mask-generation" data-sig-tags="topic:mask-generation,src:hf,pick:exploit" style="--d:70ms"><span class="pin" aria-hidden="true"></span><span class="tag">AI 模型与价格 · 07</span><h2>facebook/sam3</h2><p class="why">Meta SAM 3 分割模型：图片与视频的掩码生成，支持 transformers。</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:3.0"><i></i><em>信息差</em></span><span class="vu" style="--v:2.8"><i></i><em>干货</em></span><span class="vu" style="--v:1.0"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://huggingface.co/facebook/sam3" target="_blank" rel="noopener">看原文 ↗</a><span class="src">Hugging Face</span><span class="val">价值 52.21</span></div></article><article class="card szN" data-sig-id="dcr:f37d751491a64ac5a3847135" data-sig-url="https://didcodexreset.com/zh/news/f37d751491a64ac5a3847135.html" data-sig-title="DeepLearning.AI 在 The Batch 中详解 DeepSeek 缓存缩减与 Flash 基准测试表现" data-sig-author="" data-sig-topic="DeepLearning.AI" data-sig-tags="topic:DeepLearning.AI,src:dcr,pick:exploit" style="--d:140ms"><span class="pin" aria-hidden="true"></span><span class="tag">AI 模型与价格 · 08</span><h2>DeepLearning.AI 在 The Batch 中详解 DeepSeek 缓存缩减与 Flash 基准测试表现</h2><p class="why">DeepSeek 每 token 缓存降至 890 字节，较 V1 缩小 437 倍；输入扩至 1M 算力增 25%。</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:3.0"><i></i><em>信息差</em></span><span class="vu" style="--v:1.5"><i></i><em>干货</em></span><span class="vu" style="--v:3.5"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://didcodexreset.com/zh/news/f37d751491a64ac5a3847135.html" target="_blank" rel="noopener">看原文 ↗</a><span class="src">Did Codex Reset</span><span class="val">价值 41.36</span></div></article><article class="card szN" data-sig-id="hn:50435660" data-sig-url="https://www.cnbc.com/2026/11/06/coreweave-bond-yield-tops-16percent-as-ai-credit-stress-rises.html" data-sig-title="CoreWeave bond yield tops 16% as AI credit stress rises" data-sig-author="lxm" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit" style="--d:210ms"><span class="pin" aria-hidden="true"></span><span class="tag">AI 模型与价格 · 09</span><h2>CoreWeave bond yield tops 16% as AI credit stress rises</h2><p class="why">CNBC 报道：CoreWeave 债券收益率突破 16%，AI 信贷压力上升。</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:3.0"><i></i><em>信息差</em></span><span class="vu" style="--v:1.5"><i></i><em>干货</em></span><span class="vu" style="--v:1.0"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://www.cnbc.com/2026/11/06/coreweave-bond-yield-tops-16percent-as-ai-credit-stress-rises.html" target="_blank" rel="noopener">看原文 ↗</a><span class="src">Hacker News</span><span class="val">价值 37.61</span></div></article><article class="card szN" data-sig-id="dcr:57d1bcd80443459b87684b47" data-sig-url="https://didcodexreset.com/zh/news/57d1bcd80443459b87684b47.html" data-sig-title="Vipul Ved Prakash 称 Together 在 OpenRouter 的 Token 处理量位居供应商首位" data-sig-author="" data-sig-topic="Together AI" data-sig-tags="topic:Together AI,src:dcr,pick:exploit" style="--d:280ms"><span class="pin" aria-hidden="true"></span><span class="tag">AI 模型与价格 · 10</span><h2>Vipul Ved Prakash 称 Together 在 OpenRouter 的 Token 处理量位居供应商首位</h2><p class="why">Together 在 OpenRouter 闭源与开源端点的综合 Token 处理量已升至首位。</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:2.5"><i></i><em>信息差</em></span><span class="vu" style="--v:2.8"><i></i><em>干货</em></span><span class="vu" style="--v:1.0"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://didcodexreset.com/zh/news/57d1bcd80443459b87684b47.html" target="_blank" rel="noopener">看原文 ↗</a><span class="src">Did Codex Reset</span><span class="val">价值 35.72</span></div></article></section><section id="g-中转站/VPS/网络封锁" class="sec"><h2 class="sec-t"><span>中转站/VPS/网络封锁</span></h2><article class="card szN" data-sig-id="x:2119757091703566609" data-sig-url="https://x.com/piazzzzzz/status/2119757091703566609" data-sig-title="OpenAI封号波及Pro" data-sig-author="piazzzzzz" data-sig-topic="中转站/VPS/网络封锁" data-sig-tags="topic:中转站/VPS/网络封锁,src:x" style="--d:350ms"><span class="pin" aria-hidden="true"></span><span class="tag">中转站/VPS/网络封锁 · 11</span><h2>OpenAI封号波及Pro</h2><p class="why">社区反馈 11/7 起一批 ChatGPT 和 Codex 账号被停，不少没有邮件通知，200 美元 Pro 也有人中招；重灾区是低价区代充、拼车 Team、反代中转，官方未解…</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:2.5"><i></i><em>信息差</em></span><span class="vu" style="--v:3.5"><i></i><em>干货</em></span><span class="vu" style="--v:5.0"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://x.com/piazzzzzz/status/2119757091703566609" target="_blank" rel="noopener">看原文 ↗</a><span class="src">@piazzzzzz</span><span class="val">价值 55.24</span></div></article><article class="card szN" data-sig-id="x:2119669749953032558" data-sig-url="https://x.com/CryptoJHK/status/2119669749953032558" data-sig-title="11.09中转行情" data-sig-author="CryptoJHK" data-sig-topic="中转站/VPS/网络封锁" data-sig-tags="topic:中转站/VPS/网络封锁,src:x" style="--d:0ms"><span class="pin" aria-hidden="true"></span><span class="tag">中转站/VPS/网络封锁 · 12</span><h2>11.09中转行情</h2><p class="why">群聊报价整理：OpenAI 全模型中转约 2.8×、GPT 号池低至 0.13×；CCMAX 0 注入 Coding 1.4–1.8×、Claude 官转 3.4×；Gemin…</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:3.0"><i></i><em>信息差</em></span><span class="vu" style="--v:1.5"><i></i><em>干货</em></span><span class="vu" style="--v:4.8"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://x.com/CryptoJHK/status/2119669749953032558" target="_blank" rel="noopener">看原文 ↗</a><span class="src">@CryptoJHK</span><span class="val">价值 51.9</span></div></article></section><section id="g-开源工具" class="sec"><h2 class="sec-t"><span>开源工具</span></h2><article class="card szN" data-sig-id="gh:repo/voyager-so/vork" data-sig-url="https://github.com/voyager-so/vork" data-sig-title="voyager-so/vork" data-sig-author="voyager-so" data-sig-topic="Rust" data-sig-tags="topic:Rust,src:github,pick:exploit" style="--d:70ms"><span class="pin" aria-hidden="true"></span><span class="tag">开源工具 · 13</span><h2>voyager-so/vork</h2><p class="why">给 Agent 用的无头 3D 与 VFX 引擎，研究预览版。</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:3.0"><i></i><em>信息差</em></span><span class="vu" style="--v:2.8"><i></i><em>干货</em></span><span class="vu" style="--v:1.0"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://github.com/voyager-so/vork" target="_blank" rel="noopener">看原文 ↗</a><span class="src">GitHub</span><span class="val">价值 51.39</span></div></article></section><section id="blog" class="sec blog-sec"><h2 class="sec-t"><span>📝 今日博客</span><em>白名单个人实践博客</em></h2><article class="card szN" data-sig-id="blog:joway/ai-coding-principle" data-sig-url="https://blog.joway.io/posts/ai-coding-principle/" data-sig-title="关于 AI Coding 的一些个人技巧" data-sig-author="Joway" data-sig-topic="ai-agents" data-sig-tags="topic:ai-agents,src:blog,pick:exploit" style="--d:70ms"><span class="pin" aria-hidden="true"></span><span class="tag">博客 · 01</span><span class="blog-sticker">博客</span><h2>关于 AI Coding 的一些个人技巧</h2><p class="why">继谈态度的上篇之后，这篇分享 AI Coding 的实操技巧：作者认为纠结工具和模型意义不大。</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:2.5"><i></i><em>信息差</em></span><span class="vu" style="--v:2.5"><i></i><em>干货</em></span><span class="vu" style="--v:2.5"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://blog.joway.io/posts/ai-coding-principle/" target="_blank" rel="noopener">看原文 ↗</a><span class="src">实践博客</span><span class="site">Joway</span></div></article><article class="card szN" data-sig-id="blog:fomoxx/apple-id-chatgpt-pro-72h-review" data-sig-url="https://fomoxx.com/posts/apple-id-chatgpt-pro-72h-review/" data-sig-title="美区 Apple ID 升级 ChatGPT Pro 反复触发 72 小时审核：Plus 成功，Pro 多次失败" data-sig-author="fomoxx" data-sig-topic="ai-agents" data-sig-tags="topic:ai-agents,src:blog,pick:exploit" style="--d:140ms"><span class="pin" aria-hidden="true"></span><span class="tag">博客 · 02</span><span class="blog-sticker">博客</span><h2>美区 Apple ID 升级 ChatGPT Pro 反复触发 72 小时审核：Plus 成功，Pro 多次失败</h2><p class="why">新注册美区 Apple ID 用礼品卡买 ChatGPT：Plus 一次审核成功，升级 Pro 反复触发 72 小时审核失败。</p><div class="meter" aria-label="价值电平"><span class="vu" style="--v:2.5"><i></i><em>信息差</em></span><span class="vu" style="--v:2.5"><i></i><em>干货</em></span><span class="vu" style="--v:2.5"><i></i><em>相关</em></span></div><div class="acts"><a class="orig" href="https://fomoxx.com/posts/apple-id-chatgpt-pro-72h-review/" target="_blank" rel="noopener">看原文 ↗</a><span class="src">实践博客</span><span class="site">fomoxx</span></div></article></section><details id="all" class="box"><summary>🗄️ 木箱 · 全部条目（15 条，没进精选的都在这）</summary><article class="row" data-sig-id="x:2119869919991112174" data-sig-url="https://x.com/dotey/status/2119869919991112174" data-sig-title="Fable 5.2发布降价两成" data-sig-author="dotey" data-sig-topic="AI 模型与价格" data-sig-tags="topic:AI 模型与价格,src:x"><span class="rno">01</span><a class="rt" href="https://x.com/dotey/status/2119869919991112174" target="_blank" rel="noopener">Fable 5.2发布降价两成</a><span class="rs">@dotey</span></article><article class="row" data-sig-id="x:2119978519795056642" data-sig-url="https://x.com/JY960516/status/2119978519795056642" data-sig-title="Pro各档倍数对齐" data-sig-author="JY960516" data-sig-topic="AI 模型与价格" data-sig-tags="topic:AI 模型与价格,src:x"><span class="rno">02</span><a class="rt" href="https://x.com/JY960516/status/2119978519795056642" target="_blank" rel="noopener">Pro各档倍数对齐</a><span class="rs">@JY960516</span></article><article class="row" data-sig-id="x:2119936630727577958" data-sig-url="https://x.com/dmithost/status/2119936630727577958" data-sig-title="DMIT提醒设登录密码" data-sig-author="dmithost" data-sig-topic="中转站/VPS/网络封锁" data-sig-tags="topic:中转站/VPS/网络封锁,src:x"><span class="rno">03</span><a class="rt" href="https://x.com/dmithost/status/2119936630727577958" target="_blank" rel="noopener">DMIT提醒设登录密码</a><span class="rs">@dmithost</span></article><article class="row" data-sig-id="x:2119680316772405739" data-sig-url="https://x.com/GeekCatX/status/2119680316772405739" data-sig-title="Qoder白送Qoduck" data-sig-author="GeekCatX" data-sig-topic="AI 模型与价格" data-sig-tags="topic:AI 模型与价格,src:x"><span class="rno">04</span><a class="rt" href="https://x.com/GeekCatX/status/2119680316772405739" target="_blank" rel="noopener">Qoder白送Qoduck</a><span class="rs">@GeekCatX</span></article><article class="row" data-sig-id="gh:repo/DIYgod/pinky" data-sig-url="https://github.com/DIYgod/pinky" data-sig-title="DIYgod/pinky" data-sig-author="DIYgod" data-sig-topic="Go" data-sig-tags="topic:Go,src:github,pick:exploit"><span class="rno">05</span><a class="rt" href="https://github.com/DIYgod/pinky" target="_blank" rel="noopener">DIYgod/pinky</a><span class="rs">GitHub</span></article><article class="row" data-sig-id="gh:repo/vercel-labs/agent-browser" data-sig-url="https://github.com/vercel-labs/agent-browser" data-sig-title="vercel-labs/agent-browser" data-sig-author="vercel-labs" data-sig-topic="Rust" data-sig-tags="topic:Rust,src:github,pick:exploit"><span class="rno">06</span><a class="rt" href="https://github.com/vercel-labs/agent-browser" target="_blank" rel="noopener">vercel-labs/agent-browser</a><span class="rs">GitHub</span></article><article class="row" data-sig-id="gh:repo/JosssphZhou/poki" data-sig-url="https://github.com/JosssphZhou/poki" data-sig-title="JosssphZhou/poki" data-sig-author="JosssphZhou" data-sig-topic="Swift" data-sig-tags="topic:Swift,src:github,pick:exploit"><span class="rno">07</span><a class="rt" href="https://github.com/JosssphZhou/poki" target="_blank" rel="noopener">JosssphZhou/poki</a><span class="rs">GitHub</span></article><article class="row" data-sig-id="gh:repo/shammahcharumbira/universal-neural-injector-center" data-sig-url="https://github.com/shammahcharumbira/universal-neural-injector-center" data-sig-title="shammahcharumbira/universal-neural-injector-center" data-sig-author="shammahcharumbira" data-sig-topic="HTML" data-sig-tags="topic:HTML,src:github,pick:explore"><span class="rno">08</span><a class="rt" href="https://github.com/shammahcharumbira/universal-neural-injector-center" target="_blank" rel="noopener">shammahcharumbira/universal-neural-injector-center</a><span class="rs">GitHub</span></article><article class="row" data-sig-id="hf:model/deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-url="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-title="deepseek-ai/DeepSeek-V4.1-Flash-1017" data-sig-author="deepseek-ai" data-sig-topic="image-text-to-text" data-sig-tags="topic:image-text-to-text,src:hf,pick:exploit"><span class="rno">09</span><a class="rt" href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" target="_blank" rel="noopener">deepseek-ai/DeepSeek-V4.1-Flash-1017</a><span class="rs">Hugging Face</span></article><article class="row" data-sig-id="hf:model/Qwen/Qwen3.8-27B" data-sig-url="https://huggingface.co/Qwen/Qwen3.8-27B" data-sig-title="Qwen/Qwen3.8-27B" data-sig-author="Qwen" data-sig-topic="image-text-to-text" data-sig-tags="topic:image-text-to-text,src:hf,pick:exploit"><span class="rno">10</span><a class="rt" href="https://huggingface.co/Qwen/Qwen3.8-27B" target="_blank" rel="noopener">Qwen/Qwen3.8-27B</a><span class="rs">Hugging Face</span></article><article class="row" data-sig-id="hf:model/webAI-Official/TwIL-8B" data-sig-url="https://huggingface.co/webAI-Official/TwIL-8B" data-sig-title="webAI-Official/TwIL-8B" data-sig-author="webAI-Official" data-sig-topic="text-generation" data-sig-tags="topic:text-generation,src:hf,pick:explore"><span class="rno">11</span><a class="rt" href="https://huggingface.co/webAI-Official/TwIL-8B" target="_blank" rel="noopener">webAI-Official/TwIL-8B</a><span class="rs">Hugging Face</span></article><article class="row" data-sig-id="hn:50425847" data-sig-url="https://spectrum.ieee.org/find-my-ai-chip" data-sig-title="The Race to Build a &#34;Find My&#34; for AI Chips" data-sig-author="oldnetguy" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit"><span class="rno">12</span><a class="rt" href="https://spectrum.ieee.org/find-my-ai-chip" target="_blank" rel="noopener">The Race to Build a &quot;Find My&quot; for AI Chips</a><span class="rs">Hacker News</span></article><article class="row" data-sig-id="hn:50424581" data-sig-url="https://www.foldableflight.com" data-sig-title="Foldable Flight: The Best Paper Airplanes" data-sig-author="vismit2000" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:exploit"><span class="rno">13</span><a class="rt" href="https://www.foldableflight.com" target="_blank" rel="noopener">Foldable Flight: The Best Paper Airplanes</a><span class="rs">Hacker News</span></article><article class="row" data-sig-id="hn:50434310" data-sig-url="https://simonwillison.net/2026/Nov/9/mysterious-beeps/" data-sig-title="Locating the source of a mysterious beep" data-sig-author="bigwheels" data-sig-topic="hn" data-sig-tags="topic:hn,src:hn,pick:explore"><span class="rno">14</span><a class="rt" href="https://simonwillison.net/2026/Nov/9/mysterious-beeps/" target="_blank" rel="noopener">Locating the source of a mysterious beep</a><span class="rs">Hacker News</span></article><article class="row" data-sig-id="dcr:4e9d0d5042cb4c1d9236e2ec" data-sig-url="https://didcodexreset.com/zh/news/4e9d0d5042cb4c1d9236e2ec.html" data-sig-title="Anthropic 研究显示 AI 与机器人可胜任覆盖美国 81% 就业岗位的任务" data-sig-author="" data-sig-topic="Anthropic" data-sig-tags="topic:Anthropic,src:dcr,pick:exploit"><span class="rno">15</span><a class="rt" href="https://didcodexreset.com/zh/news/4e9d0d5042cb4c1d9236e2ec.html" target="_blank" rel="noopener">Anthropic 研究显示 AI 与机器人可胜任覆盖美国 81% 就业岗位的任务</a><span class="rs">Did Codex Reset</span></article></details>
+<footer class="foot"><p>设计立场：深夜剪报墙——30 条按价值钉成平面墙，博客另贴一栏；舍弃横滑试听，改成一眼扫完。</p>
+<p>灵感来源：<b>Amie</b> · <b>Cursor</b> · <b>Supabase</b> · <b>Plain</b> · <b>Paper</b> · <b>Ollama</b> · <b>Mintlify</b> · <b>Clerk</b> · <b>Loom</b> · 图钉剪报（自创）</p>
+<p>叼报 · 每天 12:00 · 内容来自 X 与 GitHub / Hugging Face / Hacker News 等公开来源</p></footer>
+</div><!-- news-signal: 叼报互动。短评已启用 action=comment / meta.note≤200 / meta.vote=like|dislike（勿改 daily-portal 脚本；embed 现读）。门户链接 https://daily.jidadiao.fun/go/x/YYYY-MM-DD ；github.io 作备份。 -->
+<style id="dd-sig-mobile">
+/* news-signal 按钮：扁平 SVG、≥44px；按下态由脚本自带（实心底+图标反白） */
+body .dd-sig{flex-wrap:wrap;gap:8px;margin-top:10px;position:relative;z-index:2}
+body .dd-sig button[data-a]{width:44px;height:44px;min-width:44px;min-height:44px;box-sizing:border-box;touch-action:manipulation;padding:0}
+body .dd-sig button[data-a] svg{width:20px;height:20px;display:block}
+</style>
+<script id="dd-news-signal" data-date="2026-11-10" data-source="news">
+/* DiaoDaily 叼报 · news-signal.js — 日报条目轻互动（喜欢/不感兴趣/收藏 + 已读 + 可选短评）→ POST /api/signal
+ * 嵌入：<script src="news-signal.js" defer data-date="2026-10-26" data-source="news"><\/script>
+ * 条目标记：<article data-sig-id="x:1849xxxxxxxx" data-sig-url="https://x.com/u/status/..." data-sig-title="标题"
+ *                    data-sig-author="u" data-sig-topic="AI" data-sig-tags="topic:ai,format:thread"> … </article>
+ * 脚本自动在每个 [data-sig-id] 末尾插入一行按钮（或放进其内的 [data-sig-bar] 容器）。不加载任何图片/外部资源。
+ * 同站（daily.jidadiao.fun）走相对路径；github.io 走 https://daily.jidadiao.fun/api/signal（CORS 白名单）。
+ * 去重：localStorage 记住每条状态，同一动作不重复上报；喜欢/不感兴趣 互斥（切换时先报相反动作）；收藏再点 = unfav。
+ * 喜欢/不感兴趣 后弹出可选一行短评（可不写）；有字再发 action=comment（meta.note≤200，meta.vote=like|dislike）。
+ * 已读：条目在视口停留 ≥2s 自动报 read（每条一次），点原文链接报 open。离线/失败排队，下次打开页面重试。
+ * 图标：内联扁平 SVG（拇指上/下/星），默认描边圆半透明；[aria-pressed=true] 实心底 + 图标反白。 */
+(function () {
+  "use strict";
+  var S = document.currentScript || {}, ds = (S.dataset || {});
+  var DATE = ds.date || (location.pathname.match(/(\d{4}-\d{2}-\d{2})/) || [])[1] || "";
+  var SRC = ds.source === "design" ? "design" : "news";
+  var API = ds.endpoint || (location.host === "daily.jidadiao.fun" ? "/api/signal" : "https://daily.jidadiao.fun/api/signal");
+  var KEY = "dd-sig:" + DATE, QK = "dd-sig-queue";
+  function ld(k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } }
+  function sv(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  var state = ld(KEY, {});
+  function payload(el, action) {
+    var d = el.dataset, tags = (d.sigTags || "").split(/[,，\s]+/).filter(Boolean).slice(0, 20);
+    var o = { source_type: SRC, action: action, item_id: d.sigId, title: (d.sigTitle || "").slice(0, 300),
+              tags: tags, meta: { date: DATE, page: location.pathname.slice(-80) } };
+    if (/^https?:\/\//.test(d.sigUrl || "")) o.item_url = d.sigUrl;
+    if (d.sigAuthor) o.author = d.sigAuthor.slice(0, 120);
+    if (d.sigTopic) o.topic = d.sigTopic.slice(0, 80);
+    return o;
+  }
+  function post(o) {
+    // text/plain = CORS simple request (no preflight); server parses JSON body regardless.
+    return fetch(API, { method: "POST", mode: "cors", credentials: "omit", keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" }, body: JSON.stringify(o) })
+      .then(function (r) {
+        if (r.status >= 200 && r.status < 300) return r.status;
+        var err = new Error("http " + r.status); err.status = r.status; throw err;
+      });
+  }
+  var MAX_TRY = 5, MAX_TRY_403 = 3, MAX_Q = 50;
+  function enqueue(o, err) {
+    var st = err && err.status, n = (o._try || 0) + 1, lim = st === 403 ? MAX_TRY_403 : MAX_TRY;
+    if (st && st >= 400 && st < 500 && st !== 403 && st !== 408 && st !== 429) {
+      try { console.warn("[news-signal] dropped (HTTP " + st + ")", o.item_id); } catch (e) {} return;
+    }
+    if (n >= lim) { try { console.warn("[news-signal] dropped after " + n + " tries (" + (st || "network") + ")", o.item_id); } catch (e) {} return; }
+    o._try = n; var q = ld(QK, []); q.push(o); sv(QK, q.slice(-MAX_Q));
+  }
+  function send(o) {
+    var t = o._try; delete o._try;
+    return post(o).catch(function (err) { o._try = t; enqueue(o, err); });
+  }
+  function flush() { var q = ld(QK, []); if (!q.length) return; sv(QK, []); q.forEach(send); }
+  function mark(id, k, v) { var s = state[id] || (state[id] = {}); s[k] = v; sv(KEY, state); }
+  /* 扁平 2D SVG：拇指上 / 拇指下 / 星；fill=currentColor，按下态由 CSS 反白 */
+  var SVG_LIKE = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>';
+  var SVG_DISLIKE = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg>';
+  var SVG_FAV = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+  var BTN = [["like", SVG_LIKE, "喜欢"], ["dislike", SVG_DISLIKE, "不感兴趣"], ["fav", SVG_FAV, "收藏"]];
+  function paint(bar, id) {
+    var s = state[id] || {};
+    Array.prototype.forEach.call(bar.querySelectorAll("button[data-a]"), function (b) {
+      var on = b.dataset.a === "fav" ? !!s.fav : s.vote === b.dataset.a;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    var r = bar.querySelector(".dd-read"); if (r) r.textContent = s.read ? "已读" : "";
+  }
+  function closeNote(bar) {
+    var n = bar.querySelector(".dd-note"); if (n) n.remove();
+  }
+  function askNote(el, bar, vote) {
+    closeNote(bar);
+    var wrap = document.createElement("div");
+    wrap.className = "dd-note";
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", "可选短评");
+    var inp = document.createElement("input");
+    inp.type = "text"; inp.maxLength = 200; inp.placeholder = "为什么？（可不写）";
+    inp.setAttribute("aria-label", "为什么（可不写）");
+    inp.autocomplete = "off";
+    var ok = document.createElement("button");
+    ok.type = "button"; ok.textContent = "发送"; ok.title = "发送短评（空则跳过）";
+    ok.setAttribute("aria-label", "发送短评");
+    function submit() {
+      var note = (inp.value || "").trim().slice(0, 200);
+      if (note) {
+        var o = payload(el, "comment");
+        o.meta = o.meta || {};
+        o.meta.note = note;
+        o.meta.vote = vote;
+        o.note = note;
+        send(o);
+        mark(el.dataset.sigId, "noted", 1);
+      }
+      closeNote(bar);
+    }
+    ok.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); submit(); });
+    inp.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter") { ev.preventDefault(); submit(); }
+      else if (ev.key === "Escape") { ev.preventDefault(); closeNote(bar); }
+    });
+    wrap.addEventListener("click", function (ev) { ev.stopPropagation(); });
+    wrap.appendChild(inp); wrap.appendChild(ok);
+    bar.appendChild(wrap);
+    /* 不自动聚焦：iOS 会放大页面并弹键盘，用户点输入框才输入 */
+  }
+  function click(el, bar, a) {
+    var id = el.dataset.sigId, s = state[id] || {};
+    if (a === "fav") { send(payload(el, s.fav ? "unfav" : "fav")); mark(id, "fav", !s.fav); paint(bar, id); }
+    else if (s.vote === a) { /* 已投同票：不重复上报 */ }
+    else { send(payload(el, a)); mark(id, "vote", a); paint(bar, id); askNote(el, bar, a); }
+  }
+  function css() {
+    if (document.getElementById("dd-sig-css")) return;
+    var st = document.createElement("style"); st.id = "dd-sig-css";
+    st.textContent = ".dd-sig{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px;font:13px/1.2 system-ui,sans-serif;position:relative;z-index:2}" +
+      ".dd-sig button[data-a]{all:unset;cursor:pointer;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;" +
+      "width:44px;height:44px;min-width:44px;min-height:44px;padding:0;border:1.5px solid currentColor;border-radius:999px;" +
+      "background:transparent;opacity:.5;color:inherit;touch-action:manipulation;-webkit-tap-highlight-color:transparent}" +
+      ".dd-sig button[data-a] svg{display:block;width:20px;height:20px;pointer-events:none}" +
+      ".dd-sig button[data-a][aria-pressed=true]{opacity:1;background:currentColor;border-color:currentColor}" +
+      ".dd-sig button[data-a][aria-pressed=true] svg,.dd-sig button[data-a][aria-pressed=true] svg path{fill:#fff;color:#fff}" +
+      ".dd-sig button:focus-visible{outline:2px solid currentColor;outline-offset:2px}" +
+      ".dd-sig .dd-read{opacity:.5;font-size:12px;margin-left:4px}" +
+      ".dd-sig .dd-note{display:flex;flex:1 1 100%;gap:6px;align-items:center;margin-top:2px;max-width:100%}" +
+      ".dd-sig .dd-note input{flex:1 1 auto;min-width:0;min-height:44px;box-sizing:border-box;padding:8px 10px;border:1px solid currentColor;border-radius:8px;" +
+      "background:transparent;color:inherit;font:16px/1.3 system-ui,sans-serif}" +
+      ".dd-sig .dd-note button{all:unset;cursor:pointer;min-width:44px;min-height:44px;padding:0 12px;border:1px solid currentColor;border-radius:8px;opacity:.8;" +
+      "display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;flex:0 0 auto}" +
+      "@media (max-width:480px){.dd-sig{gap:8px}}";
+    document.head.appendChild(st);
+  }
+  function init() {
+    css(); flush();
+    var els = document.querySelectorAll("[data-sig-id]");
+    var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var el = e.target;
+        if (e.isIntersecting) el._t = setTimeout(function () {
+          var id = el.dataset.sigId;
+          if (!(state[id] || {}).read) { send(payload(el, "read")); mark(id, "read", 1); paint(el._bar, id); }
+          io.unobserve(el);
+        }, 2000); else clearTimeout(el._t);
+      });
+    }, { threshold: 0.6 }) : null;
+    Array.prototype.forEach.call(els, function (el) {
+      var id = el.dataset.sigId; if (!/^[A-Za-z0-9][A-Za-z0-9._:\/@#+\-]{0,199}$/.test(id)) return;
+      var bar = el.querySelector("[data-sig-bar]") || el.appendChild(document.createElement("div"));
+      bar.classList.add("dd-sig"); bar.setAttribute("role", "group"); bar.setAttribute("aria-label", "反馈");
+      BTN.forEach(function (x) {
+        var b = document.createElement("button"); b.type = "button"; b.dataset.a = x[0];
+        b.innerHTML = x[1]; b.title = x[2];
+        b.setAttribute("aria-label", x[2]);
+        b.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); click(el, bar, x[0]); });
+        bar.appendChild(b);
+      });
+      var r = document.createElement("span"); r.className = "dd-read"; bar.appendChild(r);
+      el._bar = bar; paint(bar, id);
+      Array.prototype.forEach.call(el.querySelectorAll("a[href^='http']"), function (a) {
+        a.addEventListener("click", function () { if (!(state[id] || {}).open) { send(payload(el, "open")); mark(id, "open", 1); } });
+      });
+      if (io) io.observe(el);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+})();
+
+</script>
+</body></html>
