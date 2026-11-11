@@ -67,6 +67,10 @@
 - **Arc**：2026-10-31 检查，arc.net 已是「A farewell to Arc」告别页（宣布 2026-12-22 停服），排除。
 
 ## 池外用过
+| 2026-11-11 | Clerk | https://clerk.com | 逐字去模糊标题 + Auth 胶囊 tabs |
+| 2026-11-11 | Ollama | https://ollama.com | 黑胶囊 CTA + 三大证明数字 |
+| 2026-11-11 | Plain | https://www.plain.com | AI 回复逐词去模糊 + 工单时间线逐条浮现 |
+| 2026-11-11 | Supabase | https://supabase.com | 两行标题错峰上浮 + chip 依次淡入 |
 | 2026-11-10 | Granola | https://granola.ai | 底部胶囊原地变形：Transcribing → Generate notes → My notes |
 | 2026-11-10 | DigVPS | https://digvps.com | 模糊上浮依次进场 + 淡网格光晕 |
 | 2026-11-10 | gpt888.vip | https://gpt888.vip | 间歇扫光浮动黑卡（按 10-14 收藏 token 复刻） |
