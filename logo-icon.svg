@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <clipPath id="tile"><rect x="0" y="0" width="200" height="200" rx="46"/></clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect x="0" y="0" width="200" height="200" fill="#ffffff"/>
+    <rect x="18" y="18" width="164" height="34" rx="3" fill="#1a1a1a"/>
+    <text x="100" y="42" font-family="Noto Serif CJK SC, serif" font-weight="900" font-size="24" text-anchor="middle" fill="#f7f3ec">叼报</text>
+    <rect x="18" y="58" width="164" height="5" fill="#ffb000"/>
+    <rect x="18" y="70" width="164" height="16" rx="3" fill="#1a1a1a"/>
+    <rect x="18" y="92" width="120" height="9" rx="3" fill="#b9b2a4"/>
+    <rect x="18" y="108" width="76" height="56" rx="3" fill="#dcd6c8"/>
+    <rect x="102" y="108" width="80" height="7" rx="2" fill="#c9c2b2"/>
+    <rect x="102" y="122" width="80" height="7" rx="2" fill="#c9c2b2"/>
+    <rect x="102" y="136" width="56" height="7" rx="2" fill="#c9c2b2"/>
+    <rect x="18" y="172" width="120" height="7" rx="2" fill="#c9c2b2"/>
+    <polygon points="200,0 200,32 168,0" fill="#ffb000"/>
+    <line x1="168" y1="0" x2="200" y2="32" stroke="#000000" stroke-opacity="0.15" stroke-width="1.5"/>
+    <circle cx="176" cy="176" r="14" fill="#ffb000" stroke="#ffffff" stroke-width="2.5"/>
+  </g>
+  <rect x="0.5" y="0.5" width="199" height="199" rx="45.5" fill="none" stroke="#ddd6c6" stroke-width="1"/>
+</svg>
