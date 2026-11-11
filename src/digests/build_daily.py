@@ -189,6 +189,7 @@ cards=''.join(f'''<article class="item soft reveal" data-c="{E(x["cat"])}" data-
 </article>''' for k,x in enumerate(its))
 
 html=f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>X 每日 AI 推荐 · {DATE}</title><style>
 /* ===== 统一 token：纸白 + 墨黑 + 唯一强调 Cash 绿 / 14px 卡片 + 999px 胶囊 / 一条主缓动 ===== */
 :root{{
@@ -214,9 +215,9 @@ a{{color:inherit;text-decoration:none}}button{{font:inherit;color:inherit}}
 .bar.scrolled{{border-color:var(--line)}}
 .bar .in{{display:flex;align-items:center;justify-content:space-between;height:52px;font-size:var(--fs-s)}}
 .logo{{display:flex;align-items:center;gap:8px;font-weight:600;cursor:pointer;user-select:none;min-height:44px}}
-.logo i{{width:20px;height:20px;border-radius:50%;background:var(--fill);display:grid;place-items:center;transition:transform .5s var(--ease)}}
-.logo i:after{{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}}
-.logo:active i{{transform:scale(.86)}}
+.logo .logo-mark{{width:28px;height:28px;flex:none;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.18);transition:transform .5s var(--ease)}}
+.logo b{{font-family:"Noto Serif CJK SC","Songti SC",serif;font-weight:900;font-size:19px;letter-spacing:.06em}}
+.logo:active .logo-mark{{transform:scale(.86)}}
 .pos{{color:var(--muted);font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px}}
 .pos .ring{{width:18px;height:18px;transform:rotate(-90deg)}}.pos .ring circle{{fill:none;stroke-width:3}}
 .pos .ring .bg{{stroke:var(--wash)}}.pos .ring .fg{{stroke:var(--accent);stroke-dasharray:44;stroke-dashoffset:calc(44 - 44 * var(--p,0));transition:stroke-dashoffset .2s linear}}
@@ -322,7 +323,7 @@ button:focus-visible,a:focus-visible{{outline:2px solid var(--fill);outline-offs
 @media (min-width:900px){{.wrap{{max-width:760px}}.fan{{height:260px}}.fan-card{{width:190px;height:220px}}.fan-card img{{height:145px}}}}
 @media (prefers-reduced-motion:reduce){{*,*:before,*:after{{animation:none!important;transition:none!important}}.reveal{{opacity:1;transform:none}}.fan{{transform:none!important}}.heat i{{transform:none}}.stamp svg{{stroke-dashoffset:0}}.done-page .chk{{transform:none}}}}
 </style></head><body>
-<div class="bar" id="bar"><div class="wrap in"><span class="logo" id="logo" role="button" tabindex="0"><i></i>X 日报</span><span class="pos"><span id="pos">{E(items.get("issue",""))}</span><svg class="ring" viewBox="0 0 18 18" aria-hidden="true"><circle class="bg" cx="9" cy="9" r="7"/><circle class="fg" id="ring" cx="9" cy="9" r="7"/></svg></span></div><div class="prog" id="prog"></div></div>
+<div class="bar" id="bar"><div class="wrap in"><span class="logo" id="logo" role="button" tabindex="0"><svg class="logo-mark" viewBox="0 0 200 200" aria-hidden="true"><rect x="16" y="12" width="168" height="176" rx="10" fill="#ffffff" stroke="#ddd6c6"/><rect x="28" y="24" width="144" height="30" rx="3" fill="#1a1a1a"/><text x="100" y="46" font-family="Noto Serif CJK SC, serif" font-weight="900" font-size="20" text-anchor="middle" fill="#f7f3ec">叼报</text><rect x="28" y="60" width="144" height="5" fill="#ffb000"/><rect x="28" y="72" width="144" height="14" rx="2" fill="#1a1a1a"/><rect x="28" y="92" width="144" height="7" rx="2" fill="#c9c2b2"/><rect x="28" y="104" width="144" height="7" rx="2" fill="#c9c2b2"/><rect x="28" y="116" width="100" height="7" rx="2" fill="#c9c2b2"/><rect x="28" y="128" width="60" height="40" rx="2" fill="#dcd6c8"/><rect x="96" y="128" width="76" height="7" rx="2" fill="#c9c2b2"/><rect x="96" y="140" width="76" height="7" rx="2" fill="#c9c2b2"/><rect x="96" y="152" width="54" height="7" rx="2" fill="#c9c2b2"/><rect x="28" y="176" width="100" height="7" rx="2" fill="#c9c2b2"/><polygon points="184,12 184,40 156,12" fill="#ffb000"/><circle cx="168" cy="176" r="11" fill="#ffb000" stroke="#ffffff" stroke-width="2"/></svg><b>叼报</b></span><span class="pos"><span id="pos">{E(items.get("issue",""))}</span><svg class="ring" viewBox="0 0 18 18" aria-hidden="true"><circle class="bg" cx="9" cy="9" r="7"/><circle class="fg" id="ring" cx="9" cy="9" r="7"/></svg></span></div><div class="prog" id="prog"></div></div>
 <div class="wrap">
 <section class="hero">
  <div class="chk stamp" id="stamp" role="button" tabindex="0" aria-label="绿对勾">{CHK}</div>
@@ -399,7 +400,7 @@ const st=$('#stamp');st.addEventListener('click',()=>{{st.classList.remove('agai
 // 彩蛋：点头像弹一下
 $$('.av').forEach(a=>a.addEventListener('click',()=>{{a.classList.add('boing');setTimeout(()=>a.classList.remove('boing'),380)}}));
 // 彩蛋：连点 logo 五次
-let lc=0,lt;$('#logo').addEventListener('click',e=>{{lc++;clearTimeout(lt);lt=setTimeout(()=>lc=0,900);const i=e.currentTarget.querySelector('i');i.style.transform=`rotate(${{lc*72}}deg)`;if(lc>=5){{lc=0;toast('你发现了日报的小秘密');const r=i.getBoundingClientRect();burst(r.left+10,r.top+10)}}}});
+let lc=0,lt;$('#logo').addEventListener('click',e=>{{lc++;clearTimeout(lt);lt=setTimeout(()=>lc=0,900);const i=e.currentTarget.querySelector('.logo-mark');i.style.transform=`rotate(${{lc*72}}deg)`;if(lc>=5){{lc=0;toast('你发现了日报的小秘密');const r=i.getBoundingClientRect();burst(r.left+14,r.top+14)}}}});
 }})();
 </script></body></html>'''
 bad=re.findall(r'&(?:amp|lt|gt|quot|apos|nbsp);',html); assert not bad,bad
