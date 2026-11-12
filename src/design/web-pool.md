@@ -67,6 +67,10 @@
 - **Arc**：2026-10-31 检查，arc.net 已是「A farewell to Arc」告别页（宣布 2026-12-22 停服），排除。
 
 ## 池外用过
+| 2026-11-12 | Dub | https://dub.co | Logo 模糊缩放切换 + 链接卡扇形展开 |
+| 2026-11-12 | ChatLab | https://chatlab.fun/cn/ | 叠层倾斜评论轮播 + easeOutBack 回弹 |
+| 2026-11-12 | Things | https://culturedcode.com/things/ | 三层柔影卡片 + 选中蓝 #3c84f3 |
+| 2026-11-12 | Loom | https://www.loom.com | 圆角视频卡 blur 上浮 + 录制点脉冲 |
 | 2026-11-11 | Clerk | https://clerk.com | 逐字去模糊标题 + Auth 胶囊 tabs |
 | 2026-11-11 | Ollama | https://ollama.com | 黑胶囊 CTA + 三大证明数字 |
 | 2026-11-11 | Plain | https://www.plain.com | AI 回复逐词去模糊 + 工单时间线逐条浮现 |
