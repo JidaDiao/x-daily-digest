@@ -175,19 +175,31 @@ body[data-layout=index] .block{scroll-margin-top:16px}
 .layout-deck,.layout-wall,.layout-magazine,.layout-timeline,.layout-workbench,.layout-index,.layout-index-wall{max-width:100%}
 body[data-layout] .block{max-width:100%}
 
-</style></head><body data-layout="list" data-diffs="style:|motion:|ui:|ux:|card:"><div class="bgfx"></div>
+
+/* ---- 开场轮换：strip 横条（2026-11-12） ---- */
+.collage.strip{padding:14px 16px}
+.collage.strip .c-stage{display:none}
+.collage.strip .c-strip{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:4px 0 10px}
+.collage.strip .c-strip::-webkit-scrollbar{display:none}
+.collage.strip .c-chip{flex:none;font-size:12px;padding:6px 11px;border-radius:999px;background:var(--accent);color:var(--fg);border:1px solid var(--border);white-space:nowrap}
+.collage.strip .c-chip b{font-weight:600}
+.collage.strip .c-chip .src{color:var(--muted);font-family:ui-monospace,Menlo,monospace;font-size:10px;margin-left:5px}
+.collage.strip .c-chip.fav{outline:1px dashed rgba(198,255,61,.6)}
+.collage.strip .c-chip.own{outline:1px dashed rgba(255,91,46,.6)}
+.collage.strip .c-why{margin:0 0 4px}
+.collage.strip .c-note{display:none}
+</style></head><body data-layout="list" data-opening="strip" data-diffs="style:|motion:|ui:|ux:|card:"><div class="bgfx"></div>
 <div class="wrap">
 <div class="top in"><b>每日设计灵感</b><span>2026-11-12</span></div>
 <section class="hero"><div class="eyebrow in" style="animation-delay:.08s">Web demo + App 原视频 · 8 个</div>
 <h1 class="in" style="animation-delay:.14s">把好设计<br>拆开来玩</h1>
 <p class="lead in" style="animation-delay:.22s">顶部是「今日拼接」：当天设计立场 + 收藏/自创元素拼在一起。Web 块可重播；关键参数、可调参数、代码默认折叠，点开再看。App 块放 Mobbin 原视频。打星、收藏会自动同步。</p></section>
-<section class="collage in" style="animation-delay:.18s" aria-label="今日拼接">
+<section class="collage strip in" style="animation-delay:.18s" aria-label="今日拼接">
 <div class="c-eye">今日拼接</div>
 <p class="c-stance">今天不追花哨：一个翻面、一张卡、一颗对勾——好设计都是克制的。</p>
-<p class="c-why">八条里每条只取一个动作：翻面、散开、切卡、上浮、留白、打勾、图钉、分组。没有大字报，没有渐变词。</p>
-<div class="c-stage" style="--c-bg:#fafafa;--c-fg:#1d1d1f"><div class="c-bits"><div class="bit fav" style="--r:-3deg"><b>翻面</b><span class="src">Dub · 收藏</span><div>blur 再清晰</div></div><div class="bit fav" style="--r:2deg"><b>三层柔影卡</b><span class="src">Things · 收藏</span><div>本期卡片条</div></div><div class="bit fav" style="--r:-2deg"><b>小云朵空状态</b><span class="src">Abode · 收藏</span><div>空着也好看</div></div><div class="bit fav" style="--r:3deg"><b>绿对勾</b><span class="src">Cash App · 收藏</span><div>成功页只说一句</div></div><div class="bit fav" style="--r:-4deg"><b>照片图钉</b><span class="src">corner · 收藏</span><div>地图上成簇冒出</div></div><div class="bit fav" style="--r:2deg"><b>Today / Yesterday</b><span class="src">Neuecast · 收藏</span><div>大标题分组</div></div></div></div>
+<div class="c-strip"><span class="c-chip fav"><b>翻面</b><span class="src">Dub · 收藏</span></span><span class="c-chip fav"><b>三层柔影卡</b><span class="src">Things · 收藏</span></span><span class="c-chip fav"><b>小云朵空状态</b><span class="src">Abode · 收藏</span></span><span class="c-chip fav"><b>绿对勾</b><span class="src">Cash App · 收藏</span></span><span class="c-chip fav"><b>照片图钉</b><span class="src">corner · 收藏</span></span><span class="c-chip fav"><b>Today / Yesterday</b><span class="src">Neuecast · 收藏</span></span></div>
 <div class="c-tags"><span>收藏≥3</span><span>交互 4 · 界面 4</span><span>按一下有回弹，扫一眼有留白</span></div>
-<p class="c-note">收藏虚线绿框 · 自创虚线橙框 · 不是卡片墙，是当天立场的拼贴</p>
+<p class="c-why">八条里每条只取一个动作：翻面、散开、切卡、上浮、留白、打勾、图钉、分组。没有大字报，没有渐变词。</p>
 </section>
 <nav class="nav" aria-label="目录"><a href="#b-dub" class="chip">Dub</a><a href="#b-chatlab" class="chip">ChatLab</a><a href="#b-things" class="chip">Things</a><a href="#b-loom" class="chip">Loom</a><a href="#b-abode" class="chip app">Abode</a><a href="#b-cashapp" class="chip app">Cash App</a><a href="#b-corner" class="chip app">corner</a><a href="#b-neuecast" class="chip app">Neuecast</a></nav>
 
