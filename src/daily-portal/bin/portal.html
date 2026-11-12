@@ -124,7 +124,7 @@ const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const byD=Object.fromEntries(D.days.map(d=>[d.date,d]));let ST=D.status||{};
 const nowSH=new Date(Date.now()+8*3600e3).toISOString().slice(0,10);
 const months=[...new Set(D.days.map(d=>d.date.slice(0,7)).concat([nowSH.slice(0,7)]))].sort();
-let mi=months.indexOf(nowSH.slice(0,7));let sel=null;
+let mi=months.indexOf(nowSH.slice(0,7));let sel=null;let shown=null;
 const AC="var(--ac)",OFF="#e4e4e0",R=18,CC=2*Math.PI*R,GAP=7,SEG=CC/3-GAP;
 function ring(on,size){/* 3 equal arcs, equal gaps, starting at 12 o'clock: X read · design read · rated */
  return `<svg viewBox="0 0 44 44" aria-hidden="true">${on.map((o,i)=>`<circle cx="22" cy="22" r="${R}" stroke="${o?AC:OFF}" stroke-dasharray="${SEG} ${CC-SEG}" stroke-dashoffset="${-(i*CC/3+GAP/2)}"/>`).join("")}</svg>`}
@@ -138,7 +138,7 @@ $("#archive").innerHTML=`<div class="cal"><div class="ch"><b id="mt"></b><span><
 document.querySelectorAll(".lg svg").forEach(v=>v.setAttribute("viewBox","0 0 44 44"));
 function tags(d){const b=byD[d]||{},[x,dr,rt]=flags(d),t=(on,l)=>`<span class="tag ${on?"on":""}"><i></i>${l}</span>`;
  return (b.x?t(x,x?"叼报已读":"叼报未读"):"")+(b.design?t(dr,dr?"设计已读":"设计未读")+t(rt,rt?"已打分":"未打分"):"")}
-function preview(d){const b=byD[d],pv=$("#pv"),isT=d===nowSH;
+function preview(d){const b=byD[d],pv=$("#pv"),isT=d===nowSH;if(d===shown)return;shown=d;
  if(!d){pv.innerHTML="";return}
  if(!b&&!isT){pv.innerHTML=`<div class="pi"><div class="pd">${d} ${wk(d)}</div><h4>这天没有推送</h4></div>`;return}
  const bb=b||{};const xt=bb.x?((bb.xtitle||"").replace(/X ?(日报|每日 ?AI ?推荐)|X Daily/g,"叼报")||"叼报"):(isT?"叼报午间发布":"这天没有 叼报");
