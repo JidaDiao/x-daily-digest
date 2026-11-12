@@ -83,6 +83,27 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #4c
 .collage .c-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .collage .c-tags span{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--accent);color:var(--muted)}
 .collage .c-note{margin-top:10px;font-size:12px;color:var(--muted)}
+/* ---- 开场轮换（2026-11-12 起）：strip 横条 / fold 折叠，解决“每天开头都一样” ---- */
+.collage.strip{padding:14px 16px}
+.collage.strip .c-stage{display:none}
+.collage.strip .c-strip{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:4px 0 10px}
+.collage.strip .c-strip::-webkit-scrollbar{display:none}
+.collage.strip .c-chip{flex:none;font-size:12px;padding:6px 11px;border-radius:999px;background:var(--accent);color:var(--fg);border:1px solid var(--border);white-space:nowrap}
+.collage.strip .c-chip b{font-weight:600}
+.collage.strip .c-chip .src{color:var(--muted);font-family:ui-monospace,Menlo,monospace;font-size:10px;margin-left:5px}
+.collage.strip .c-chip.fav{outline:1px dashed rgba(198,255,61,.6)}
+.collage.strip .c-chip.own{outline:1px dashed rgba(255,91,46,.6)}
+.collage.strip .c-why{margin:0 0 4px}
+.collage.strip .c-note{display:none}
+details.collage.fold{padding:0;border:1px solid var(--border);border-radius:24px;background:var(--card);overflow:hidden}
+details.collage.fold summary{list-style:none;display:flex;gap:10px;align-items:baseline;padding:14px 16px;min-height:44px;cursor:pointer}
+details.collage.fold summary::-webkit-details-marker{display:none}
+details.collage.fold summary:after{content:"+";font-size:18px;color:var(--muted);margin-left:auto;flex:none}
+details.collage.fold[open ] summary:after{transform:rotate(45deg)}
+details.collage.fold .c-eye{flex:none}
+details.collage.fold .c-stance{font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.35;margin:0;flex:1;min-width:0}
+details.collage.fold .c-body{padding:0 16px 14px}
+details.collage.fold .c-body .c-why{margin:0 0 12px}
 /* ---- Web demo 调参条 + 复制 ---- */
 .knobs{display:flex;flex-wrap:wrap;gap:10px 14px;padding:10px 12px;border-top:1px solid var(--border);background:color-mix(in oklch,var(--accent) 70%,transparent);font-size:12px}
 .knobs label{display:flex;flex-direction:column;gap:4px;min-width:120px;flex:1 1 140px;color:var(--muted)}
@@ -175,7 +196,7 @@ body[data-layout=index] .block{scroll-margin-top:16px}
 .layout-deck,.layout-wall,.layout-magazine,.layout-timeline,.layout-workbench,.layout-index,.layout-index-wall{max-width:100%}
 body[data-layout] .block{max-width:100%}
 
-</style></head><body data-layout="{{LAYOUT}}" data-diffs="{{DIFFS_ATTR}}"><div class="bgfx"></div>
+</style></head><body data-layout="{{LAYOUT}}" data-diffs="{{DIFFS_ATTR}}" data-opening="{{OPENING}}"><div class="bgfx"></div>
 <div class="wrap">
 <div class="top in"><b>每日设计灵感</b><span>{{DATE}}</span></div>
 <section class="hero"><div class="eyebrow in" style="animation-delay:.08s">Web demo + App 原视频 · {{COUNT}} 个</div>

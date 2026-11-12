@@ -17,6 +17,9 @@ ap.add_argument('--recommended',default='/workspace/inspo/recommended.md')
 A=ap.parse_args();date=A.date;NEW=date>='2026-11-01'
 ERR=[];WARN=[]
 LAYOUTS=('magazine','workbench','wall','timeline','deck','index')
+# 开场轮换（2026-11-12 起）：「今日拼接」每天换一种展示方式，避免开头总是一个样。
+# collage=整块拼贴（现版）/ strip=横条 chips / fold=折叠（默认收起，点开看拼贴）。按日期序数轮换，同一天固定。
+OPENINGS=('collage','fold','strip')
 DIM_KEYS=('carrier','nav','axis','chrome')
 DIFF_KEYS=('style','motion','ui','ux','card')
 CARD_LIKE=frozenset(('wall','magazine'))
@@ -78,6 +81,12 @@ for f in files:
 def die():
     print('[build] 不生成页面，校验未通过：');[print('  ✗',e) for e in ERR];sys.exit(2)
 LAYOUT=load_layout(A.blocks, date)
+# 开场按日期轮换（collage/strip/fold），同一天固定
+import datetime as _dt
+try:
+    opening=OPENINGS[_dt.date.fromisoformat(date).toordinal()%len(OPENINGS)]
+except Exception:
+    opening='collage'
 kinds=[]
 for f,s,m in blocks:
     k=m.get('kind')
@@ -184,7 +193,7 @@ def render_knobs(meta):
         else:
             bits.append(f'<label><strong>{label}</strong><input data-var="{var}" data-unit="{unit}" value="{esc_txt(val)}"><span class="kv">{val}{unit}</span></label>')
     return f'<details><summary>可调参数</summary><div class="knobs" aria-label="可调参数">{''.join(bits)}</div></details>' if bits else ''
-def render_collage(path):
+def render_collage(path, variant='collage'):
     if not os.path.exists(path): return ''
     c=json.load(open(path))
     stance=esc_txt(c.get('stance') or '')
@@ -199,17 +208,41 @@ def render_collage(path):
         title=esc_txt(b.get('title') or b.get('id') or '元素')
         src=esc_txt(b.get('source') or b.get('from') or '')
         note=esc_txt(b.get('note') or '')
-        bits.append(f'<div class="{cls}" style="--r:{r}deg"><b>{title}</b><span class="src">{src}</span>{("<div>"+note+"</div>") if note else ""}</div>')
+        bits.append({'cls':cls,'r':r,'title':title,'src':src,'note':note})
     tags=''.join(f'<span>{esc_txt(t)}</span>' for t in (c.get('tags') or []))
     note=esc_txt(c.get('note') or '收藏元素虚线绿框 · 自创虚线橙框 · 不是卡片墙，是当天立场的拼贴')
     if not stance or not bits:
         return ''
+    bits_html=''.join(f'<div class="{b["cls"]}" style="--r:{b["r"]}deg"><b>{b["title"]}</b><span class="src">{b["src"]}</span>{("<div>"+b["note"]+"</div>") if b["note"] else ""}</div>' for b in bits)
+    tags_html=f'<div class="c-tags">{tags}</div>' if tags else ''
+    if variant=='strip':
+        chip_list=[]
+        for b in bits:
+            extra=(' fav' if ' fav' in b['cls'] else '')+(' own' if ' own' in b['cls'] else '')
+            s2=f'<span class="src">{b["src"]}</span>' if b['src'] else ''
+            chip_list.append(f'<span class="c-chip{extra}"><b>{b["title"]}</b>{s2}</span>')
+        chips=''.join(chip_list)
+        return f'''<section class="collage strip in" style="animation-delay:.18s" aria-label="今日拼接">
+<div class="c-eye">今日拼接</div>
+<p class="c-stance">{stance}</p>
+<div class="c-strip">{chips}</div>
+{tags_html}
+<p class="c-why">{why}</p>
+</section>'''
+    if variant=='fold':
+        return f'''<details class="collage fold in" style="animation-delay:.18s" aria-label="今日拼接">
+<summary><span class="c-eye">今日拼接</span><span class="c-stance">{stance}</span></summary>
+<div class="c-body"><p class="c-why">{why}</p>
+<div class="c-stage" style="--c-bg:{bg};--c-fg:{fg}"><div class="c-bits">{bits_html}</div></div>
+{tags_html}
+<p class="c-note">{note}</p></div>
+</details>'''
     return f'''<section class="collage in" style="animation-delay:.18s" aria-label="今日拼接">
 <div class="c-eye">今日拼接</div>
 <p class="c-stance">{stance}</p>
 <p class="c-why">{why}</p>
-<div class="c-stage" style="--c-bg:{bg};--c-fg:{fg}"><div class="c-bits">{"".join(bits)}</div></div>
-{f'<div class="c-tags">{tags}</div>' if tags else ''}
+<div class="c-stage" style="--c-bg:{bg};--c-fg:{fg}"><div class="c-bits">{bits_html}</div></div>
+{tags_html}
 <p class="c-note">{note}</p>
 </section>'''
 # 校验：2026-11-02 起 Web 应有 code 与（建议）knobs；缺 code 警告，缺 collage 文件警告
@@ -261,7 +294,7 @@ if NEW and len(blocks)<8:
     rs=[m.get('short_reason') for _,_,m in blocks if m.get('short_reason')]
     if os.path.exists(os.path.join(A.blocks,'_short.json')): rs.append(json.load(open(os.path.join(A.blocks,'_short.json'))).get('short_reason'))
     shortnote=f'<p class="short in">本期 {len(blocks)} 条（目标 8 条）：{rs[-1]}</p>'
-collage=render_collage(os.path.join(A.blocks,'_collage.json'))
+collage=render_collage(os.path.join(A.blocks,'_collage.json'), opening)
 lay=(LAYOUT or {}).get('layout') or 'list'
 dims=(LAYOUT or {}).get('dims') or {}
 diffs=(LAYOUT or {}).get('diffs') or {}
@@ -307,7 +340,7 @@ blocks_html=shortnote+chr(10).join(cards)
 diffs_attr='|'.join(f'{k}:{esc_txt(diffs.get(k,""))}' for k in DIFF_KEYS)
 t=open('template.html').read()
 t=t.replace('{{DATE}}',date).replace('{{NAV}}',''.join(nav)).replace('{{BLOCKS}}',blocks_html).replace('{{COUNT}}',str(len([c for c in cards if "<article" in c]) or len(blocks))).replace('{{COLLAGE}}',collage)
-t=t.replace('{{LAYOUT}}',lay).replace('{{INDEX_WALL}}',index_wall).replace('{{DECK_DOTS}}',deck_dots).replace('{{DIFFS_ATTR}}',diffs_attr)
+t=t.replace('{{LAYOUT}}',lay).replace('{{INDEX_WALL}}',index_wall).replace('{{DECK_DOTS}}',deck_dots).replace('{{DIFFS_ATTR}}',diffs_attr).replace('{{OPENING}}',opening)
 bad=re.findall(r'&(?:amp|lt|gt|quot|apos|nbsp|#\d+|#x[0-9a-f]+);',t,re.I)
 assert not bad, f'HTML 实体会被连接器还原: {set(bad)}'
 # layout must have been valid; if >=11-04 and ERR still pending somehow
@@ -326,7 +359,7 @@ if LAYOUT and lay in LAYOUTS and not ERR:
     note=(LAYOUT.get('why') or LAYOUT.get('note') or '')
     # 仅当输出是正式日页或明确要求时记录；测试 html 用 --out *layout-test* 仍可记便于演练——按 date 去重
     if A.out is None or os.path.abspath(A.out)==os.path.abspath(f'{date}.html'):
-        append_used({'date':date,'layout':lay,'dims':dims,'diffs':diffs,'stance':LAYOUT.get('stance') or '','note':note})
+        append_used({'date':date,'layout':lay,'dims':dims,'diffs':diffs,'stance':LAYOUT.get('stance') or '','note':note,'opening':opening})
         print(f'[build] 已记入 {USED_PATH}: {date} → {lay}')
     else:
         print(f'[build] 非正式输出（--out）跳过写入 {USED_PATH}')
