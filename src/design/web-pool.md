@@ -42,15 +42,15 @@
 ## D. 日程 / 专注
 | 站 | URL | 可取的 1 个元素 |
 |---|---|---|
-| Sunsama（2026-10-28） | https://www.sunsama.com | 任务拖进日程时间轴 |
+| ~~Sunsama（2026-11-13）~~ | https://www.sunsama.com | 任务拖进日程时间轴 · 已推 |
 | Notion Calendar（原 Cron，2026-11-01） | https://www.notion.com/product/calendar | 时间块拉伸 |
-| Flighty（2026-10-27） | https://flighty.com | 航班进度条 + 倒计时翻牌 |
+| ~~Flighty（2026-11-13）~~ | https://flighty.com | 航班进度条 + 倒计时翻牌 · 已推 |
 | Amie（2026-11-09） | https://amie.so | 会议纪要时间线 · 已推（10-18 为按下回弹 / 荧光笔 / 上手路径卡） |
 
 ## E. 收藏 / 灵感 / 演示
 | 站 | URL | 可取的 1 个元素 |
 |---|---|---|
-| Mymind（2026-10-28） | https://mymind.com | 瀑布流卡片淡入 + 搜索高亮 |
+| ~~Mymind（2026-11-13）~~ | https://mymind.com | 瀑布流卡片淡入 + 搜索高亮 · 已推 |
 | ~~Are.na（2026-11-06）~~ | https://www.are.na | 块网格悬停露标题 · 已推 |
 | Raindrop（2026-11-01） | https://raindrop.io | 书签卡片收藏动效 |
 | Readwise Reader（2026-11-02） | https://readwise.io | 划线高亮扫过 |
@@ -67,6 +67,10 @@
 - **Arc**：2026-10-31 检查，arc.net 已是「A farewell to Arc」告别页（宣布 2026-12-22 停服），排除。
 
 ## 池外用过
+| 2026-11-13 | Sunsama | https://www.sunsama.com | 任务拖进日程时间轴 |
+| 2026-11-13 | Flighty | https://flighty.com | 航班进度条 + 倒计时翻牌 |
+| 2026-11-13 | Mymind | https://mymind.com | 瀑布流卡片淡入 + 搜索高亮 |
+| 2026-11-13 | Typefully | https://typefully.com | 点一张功能卡，它演一段小动画 |
 | 2026-11-12 | Dub | https://dub.co | Logo 模糊缩放切换 + 链接卡扇形展开 |
 | 2026-11-12 | ChatLab | https://chatlab.fun/cn/ | 叠层倾斜评论轮播 + easeOutBack 回弹 |
 | 2026-11-12 | Things | https://culturedcode.com/things/ | 三层柔影卡片 + 选中蓝 #3c84f3 |
