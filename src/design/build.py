@@ -225,7 +225,7 @@ def render_collage(path, variant='collage'):
         return f'''<section class="collage strip in" style="animation-delay:.18s" aria-label="今日拼接">
 <div class="c-eye">今日拼接</div>
 <p class="c-stance">{stance}</p>
-<div class="c-strip">{chips}</div>
+<div class="c-strip" data-scroll-x>{chips}</div>
 {tags_html}
 <p class="c-why">{why}</p>
 </section>'''

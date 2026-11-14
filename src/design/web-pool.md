@@ -34,7 +34,7 @@
 | ~~Craft（2026-11-10）~~ | https://www.craft.do | 块拖拽排序 · 已推 |
 | Reflect（2026-10-31 curl 无响应，先跳过） | https://reflect.app | 双向链接悬浮预览 |
 | Tana（2026-11-01，超级标签已移到 outliner.tana.inc；tana.inc 首页现为会议 agent） | https://outliner.tana.inc | 节点 `#标签` 补全 |
-| Capacities（2026-10-31） | https://capacities.io | 对象卡片翻面 |
+| ~~Capacities（2026-11-14）~~ | https://capacities.io | 对象卡片翻面 · 已推 |
 | Obsidian | https://obsidian.md | 图谱节点轻漂浮；**2026-11-05 已用：点节点聚焦邻居** |
 | Heptabase（2026-11-09） | https://heptabase.com | 点一行浮出书名预览卡 · 已推（池外新站） |
 | iA Writer（2026-11-09） | https://ia.net/writer | 点一段其余淡去 · 已推（池外新站） |
@@ -56,7 +56,7 @@
 | Readwise Reader（2026-11-02） | https://readwise.io | 划线高亮扫过 |
 | ~~Pitch（2026-11-03）~~ | https://pitch.com | 幻灯片缩略图切换 |
 | ~~Warp（2026-11-07）~~ | https://www.warp.dev | 终端命令块折叠 · 已推 |
-| tldraw（2026-10-27） | https://www.tldraw.com | 手绘线条平滑 |
+| ~~tldraw（2026-11-14）~~ | https://www.tldraw.com | 手绘线条平滑 · 已推 |
 | ~~Rows（2026-11-08）~~ | https://rows.com | 单元格公式补全 · 已推 |
 | HEY（2026-11-01） | https://www.hey.com | 邮件分拣按钮（Screen in/out） |
 | ~~Family~~ | https://family.co | 钱包卡片弹性展开 · 已推 2026-11-04 |
@@ -67,6 +67,8 @@
 - **Arc**：2026-10-31 检查，arc.net 已是「A farewell to Arc」告别页（宣布 2026-12-22 停服），排除。
 
 ## 池外用过
+| 2026-11-14 | Bear | https://bear.app | 设备切换手绘圈注 |
+| 2026-11-14 | Tally | https://tally.so | 斜杠命令菜单 |
 | 2026-11-13 | Sunsama | https://www.sunsama.com | 任务拖进日程时间轴 |
 | 2026-11-13 | Flighty | https://flighty.com | 航班进度条 + 倒计时翻牌 |
 | 2026-11-13 | Mymind | https://mymind.com | 瀑布流卡片淡入 + 搜索高亮 |
