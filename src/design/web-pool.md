@@ -15,7 +15,7 @@
 | ~~Linear（2026-11-08）~~ | https://linear.app | 命令面板展开 + 列表 stagger · 已推 |
 | ~~Raycast（2026-11-08）~~ | https://www.raycast.com | 快捷键 kbd 按下回弹 · 已推 |
 | ~~Vercel（2026-11-03）~~ | https://vercel.com | 部署状态点的脉冲 + 进度条 |
-| Attio（2026-10-31） | https://attio.com | 表格行 hover 高亮 + 内联编辑 |
+| ~~Attio（2026-11-15）~~ | https://attio.com | 表格行 hover 高亮 + 内联编辑 · 已推 |
 | Superhuman（2026-11-02） | https://superhuman.com | 键盘提示 toast 浮起 |
 | Mintlify（2026-11-09） | https://www.mintlify.com | 文档侧栏薄荷绿选中 · 已推（10-14 为 digit-in / logo 走马灯 / scaleIn 文档卡） |
 
@@ -68,6 +68,10 @@
 
 ## 池外用过
 | 2026-11-14 | Bear | https://bear.app | 设备切换手绘圈注 |
+| 2026-11-15 | Attio | https://attio.com | 表格行 hover 高亮 + 内联编辑 |
+| 2026-11-15 | Amie | https://amie.so | 四层淡影白卡（回访，11-09 用过会议纪要时间线） |
+| 2026-11-15 | gpt888 | https://gpt888.vip | grid 0fr→1fr 展开（回访，11-10 用过扫光黑卡） |
+| 2026-11-15 | DigVPS | https://digvps.com | float-soft 漂浮标签（回访，11-10 用过模糊上浮） |
 | 2026-11-14 | Tally | https://tally.so | 斜杠命令菜单 |
 | 2026-11-13 | Sunsama | https://www.sunsama.com | 任务拖进日程时间轴 |
 | 2026-11-13 | Flighty | https://flighty.com | 航班进度条 + 倒计时翻牌 |
