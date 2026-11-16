@@ -72,6 +72,10 @@
 | 2026-11-15 | Amie | https://amie.so | 四层淡影白卡（回访，11-09 用过会议纪要时间线） |
 | 2026-11-15 | gpt888 | https://gpt888.vip | grid 0fr→1fr 展开（回访，11-10 用过扫光黑卡） |
 | 2026-11-15 | DigVPS | https://digvps.com | float-soft 漂浮标签（回访，11-10 用过模糊上浮） |
+| 2026-11-16 | Raindrop | https://raindrop.io | 书签卡拖进收藏夹，被一口吸进去（回访，11-01 用过书签卡拖拽） |
+| 2026-11-16 | Notion Calendar | https://www.notion.com/product/calendar | 拽住日程底边，时长跟着手指长（回访，11-01 用过） |
+| 2026-11-16 | Tana | https://outliner.tana.inc | 打个 #，这一行就变成带字段的对象（回访，11-01 用过） |
+| 2026-11-16 | HEY | https://www.hey.com | Screen in / out 分拣按钮（回访，11-01 用过） |
 | 2026-11-14 | Tally | https://tally.so | 斜杠命令菜单 |
 | 2026-11-13 | Sunsama | https://www.sunsama.com | 任务拖进日程时间轴 |
 | 2026-11-13 | Flighty | https://flighty.com | 航班进度条 + 倒计时翻牌 |
