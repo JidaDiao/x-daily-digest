@@ -16,7 +16,7 @@
 | ~~Raycast（2026-11-08）~~ | https://www.raycast.com | 快捷键 kbd 按下回弹 · 已推 |
 | ~~Vercel（2026-11-03）~~ | https://vercel.com | 部署状态点的脉冲 + 进度条 |
 | ~~Attio（2026-11-15）~~ | https://attio.com | 表格行 hover 高亮 + 内联编辑 · 已推 |
-| Superhuman（2026-11-02） | https://superhuman.com | 键盘提示 toast 浮起 |
+| ~~Superhuman（2026-11-17）~~ | https://superhuman.com | 键盘提示 toast 浮起 · 已推 |
 | Mintlify（2026-11-09） | https://www.mintlify.com | 文档侧栏薄荷绿选中 · 已推（10-14 为 digit-in / logo 走马灯 / scaleIn 文档卡） |
 
 ## B. 建站 / 动效工具
@@ -24,7 +24,7 @@
 |---|---|---|
 | ~~Framer（2026-11-06）~~ | https://www.framer.com | 卡片指针倾斜 · 已推 |
 | ~~Rive（2026-11-06）~~ | https://rive.app | 状态机按钮 · 已推 |
-| Spline | https://spline.design | 轻量 3D 卡片倾斜跟随指针；**2026-11-05 已用：标题词→头像叠片 + 3D 选框** |
+| Spline | https://spline.design | 轻量 3D 卡片倾斜跟随指针；**2026-11-05 已用：标题词→头像叠片 + 3D 选框；2026-11-17 已用：3D 卡片倾斜** |
 | ~~Lottielab（2026-11-07）~~ | https://www.lottielab.com | 时间轴滑块拖动预览 · 已推 |
 | ~~mmm.page~~ | https://mmm.page | 自由摆放的贴纸拖拽 · 已推 2026-11-04 |
 
@@ -53,7 +53,7 @@
 | ~~Mymind（2026-11-13）~~ | https://mymind.com | 瀑布流卡片淡入 + 搜索高亮 · 已推 |
 | ~~Are.na（2026-11-06）~~ | https://www.are.na | 块网格悬停露标题 · 已推 |
 | Raindrop（2026-11-01） | https://raindrop.io | 书签卡片收藏动效 |
-| Readwise Reader（2026-11-02） | https://readwise.io | 划线高亮扫过 |
+| ~~Readwise Reader（2026-11-17）~~ | https://readwise.io | 划线高亮扫过 · 已推 |
 | ~~Pitch（2026-11-03）~~ | https://pitch.com | 幻灯片缩略图切换 |
 | ~~Warp（2026-11-07）~~ | https://www.warp.dev | 终端命令块折叠 · 已推 |
 | ~~tldraw（2026-11-14）~~ | https://www.tldraw.com | 手绘线条平滑 · 已推 |
@@ -76,6 +76,14 @@
 | 2026-11-16 | Notion Calendar | https://www.notion.com/product/calendar | 拽住日程底边，时长跟着手指长（回访，11-01 用过） |
 | 2026-11-16 | Tana | https://outliner.tana.inc | 打个 #，这一行就变成带字段的对象（回访，11-01 用过） |
 | 2026-11-16 | HEY | https://www.hey.com | Screen in / out 分拣按钮（回访，11-01 用过） |
+| 2026-11-17 | Superhuman | https://superhuman.com | 键盘提示 toast 浮起（回访，11-02 用过同元素） |
+| 2026-11-17 | Readwise Reader | https://readwise.io | 划线高亮扫过（回访，11-02 用过同元素） |
+| 2026-11-17 | Cursor | https://cursor.com | 文字扫光逐词淡入 |
+| 2026-11-17 | Spline | https://spline.design | 3D 卡片倾斜跟随指针（回访，11-05 用过标题词→头像叠片） |
+| 2026-11-17 | Atoms | https://mobbin.com/screens/dbea283b-d518-414d-b415-6045f675f428 | 按住圆盘，记一次习惯 |
+| 2026-11-17 | Cosmos | https://mobbin.com/screens/fab82c51-acb8-4db3-967d-a432a38f853d | 按住一张图，收进合集 |
+| 2026-11-17 | Joi | https://mobbin.com/screens/e4af1986-54d5-444a-ac5d-c2d44bd19a5a | 点开习惯，底栏卡片给出连续天数 |
+| 2026-11-17 | Lapse | https://mobbin.com/screens/fac4276e-0cb2-42b3-96d6-63ff34379eaf | 冲印式 snaps 一点点显影 |
 | 2026-11-14 | Tally | https://tally.so | 斜杠命令菜单 |
 | 2026-11-13 | Sunsama | https://www.sunsama.com | 任务拖进日程时间轴 |
 | 2026-11-13 | Flighty | https://flighty.com | 航班进度条 + 倒计时翻牌 |
