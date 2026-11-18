@@ -54,7 +54,7 @@
 | ~~Are.na（2026-11-06）~~ | https://www.are.na | 块网格悬停露标题 · 已推 |
 | Raindrop（2026-11-01） | https://raindrop.io | 书签卡片收藏动效 |
 | ~~Readwise Reader（2026-11-17）~~ | https://readwise.io | 划线高亮扫过 · 已推 |
-| ~~Pitch（2026-11-03）~~ | https://pitch.com | 幻灯片缩略图切换 |
+| ~~Pitch（2026-11-03）~~ | https://pitch.com | 幻灯片缩略图切换；2026-11-18 回访 |
 | ~~Warp（2026-11-07）~~ | https://www.warp.dev | 终端命令块折叠 · 已推 |
 | ~~tldraw（2026-11-14）~~ | https://www.tldraw.com | 手绘线条平滑 · 已推 |
 | ~~Rows（2026-11-08）~~ | https://rows.com | 单元格公式补全 · 已推 |
@@ -84,6 +84,14 @@
 | 2026-11-17 | Cosmos | https://mobbin.com/screens/fab82c51-acb8-4db3-967d-a432a38f853d | 按住一张图，收进合集 |
 | 2026-11-17 | Joi | https://mobbin.com/screens/e4af1986-54d5-444a-ac5d-c2d44bd19a5a | 点开习惯，底栏卡片给出连续天数 |
 | 2026-11-17 | Lapse | https://mobbin.com/screens/fac4276e-0cb2-42b3-96d6-63ff34379eaf | 冲印式 snaps 一点点显影 |
+| 2026-11-18 | Pitch | https://pitch.com | 幻灯缩略图条，选中那页会放大（回访，11-03 用过同元素） |
+| 2026-11-18 | Fathom | https://usefathom.com | 柱状图填满进场（回访，10-26 用过同元素） |
+| 2026-11-18 | Lthero · 散桌 | https://lthero.com/scatter | 拆开后，物件散落成桌（回访，11-02 用过同元素） |
+| 2026-11-18 | Lthero · 卡片墙 | https://lthero.com/cards | 三种好看的卡：游戏盒 / 仓库标签 / 拍立得（回访，11-03 用过同元素；本期卡片条） |
+| 2026-11-18 | Ultrahuman | https://mobbin.com/screens/b133ced3-d3a3-46bf-8065-e3cd246829db | 给活动贴一枚彩色标签（回访，11-03 用过同元素） |
+| 2026-11-18 | Meetup | https://mobbin.com/screens/427c632f-e3ad-471e-8652-1d95b622e4f3 | 顶部带月牙缺口的白色门票卡（回访，11-04 用过同元素） |
+| 2026-11-18 | On | https://mobbin.com/screens/826ef23a-3c83-44fd-9fcf-c231635deeb9 | 选好尺码，「已加入购物袋」从底部托上来（回访，11-04 用过同元素） |
+| 2026-11-18 | Placify | https://mobbin.com/screens/fff18356-b92a-448b-89ae-e71441b2c377 | 搜一个地方，勾上就进地图（回访，10-27 用过同元素） |
 | 2026-11-14 | Tally | https://tally.so | 斜杠命令菜单 |
 | 2026-11-13 | Sunsama | https://www.sunsama.com | 任务拖进日程时间轴 |
 | 2026-11-13 | Flighty | https://flighty.com | 航班进度条 + 倒计时翻牌 |
@@ -114,8 +122,8 @@
 | 建议日期 | key | focus | 元素 id | 一句话 |
 |---|---|---|---|---|
 | ~~11-02~~ | ~~lthero-unpack~~ | 交互 | lthero-hold-to-unpack + lthero-flap-open | 已推 2026-11-02 |
-| ~~11-02~~ | ~~lthero-scatter~~ | 交互 | lthero-desk-scatter | 已推 2026-11-02 |
-| ~~11-03~~ | ~~lthero-cards~~ | 界面 | … | 已推 2026-11-03 |
+| ~~11-02~~ | ~~lthero-scatter~~ | 交互 | lthero-desk-scatter | 已推 2026-11-02；2026-11-18 回访 |
+| ~~11-03~~ | ~~lthero-cards~~ | 界面 | … | 已推 2026-11-03；2026-11-18 回访 |
 | ~~11-03~~ | ~~lthero-labels~~ | 界面 | … | 已推 2026-11-03 |
 | ~~11-04~~ | ~~lthero-folder~~ | 交互 | lthero-folder-fan | 已推 2026-11-04 |
 | ~~11-04~~ | ~~lthero-paper~~ | 界面 | lthero-paper-detail | 已推 2026-11-04 |
