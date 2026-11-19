@@ -26,7 +26,7 @@
 | ~~Rive（2026-11-06）~~ | https://rive.app | 状态机按钮 · 已推 |
 | Spline | https://spline.design | 轻量 3D 卡片倾斜跟随指针；**2026-11-05 已用：标题词→头像叠片 + 3D 选框；2026-11-17 已用：3D 卡片倾斜** |
 | ~~Lottielab（2026-11-07）~~ | https://www.lottielab.com | 时间轴滑块拖动预览 · 已推 |
-| ~~mmm.page~~ | https://mmm.page | 自由摆放的贴纸拖拽 · 已推 2026-11-04 |
+| ~~mmm.page~~ | https://mmm.page | 自由摆放的贴纸拖拽 · 已推 2026-11-04；2026-11-19 回访 |
 
 ## C. 浏览器 / 写作 / 笔记
 | 站 | URL | 可取的 1 个元素 |
@@ -59,7 +59,7 @@
 | ~~tldraw（2026-11-14）~~ | https://www.tldraw.com | 手绘线条平滑 · 已推 |
 | ~~Rows（2026-11-08）~~ | https://rows.com | 单元格公式补全 · 已推 |
 | HEY（2026-11-01） | https://www.hey.com | 邮件分拣按钮（Screen in/out） |
-| ~~Family~~ | https://family.co | 钱包卡片弹性展开 · 已推 2026-11-04 |
+| ~~Family~~ | https://family.co | 钱包卡片弹性展开 · 已推 2026-11-04；2026-11-19 回访 |
 
 ## 已排除
 - **Read.cv**：返回 402，已停止服务（被 Perplexity 收购）。
@@ -92,6 +92,14 @@
 | 2026-11-18 | Meetup | https://mobbin.com/screens/427c632f-e3ad-471e-8652-1d95b622e4f3 | 顶部带月牙缺口的白色门票卡（回访，11-04 用过同元素） |
 | 2026-11-18 | On | https://mobbin.com/screens/826ef23a-3c83-44fd-9fcf-c231635deeb9 | 选好尺码，「已加入购物袋」从底部托上来（回访，11-04 用过同元素） |
 | 2026-11-18 | Placify | https://mobbin.com/screens/fff18356-b92a-448b-89ae-e71441b2c377 | 搜一个地方，勾上就进地图（回访，10-27 用过同元素） |
+| 2026-11-19 | mmm.page | https://mmm.page | 自由摆放的贴纸拖拽（回访，11-04 用过同元素） |
+| 2026-11-19 | Family | https://family.co | 钱包卡片弹性展开（回访，11-04 用过同元素） |
+| 2026-11-19 | Lthero · 印章/贴纸 | https://lthero.com/labels | 印章 / 警戒胶带 / 模切贴纸（回访，11-03 用过同元素；本期卡片条） |
+| 2026-11-19 | Lthero · 纸卡 | https://lthero.com/paper | 从桌上拿起一张纸卡来读（回访，11-04 用过同元素） |
+| 2026-11-19 | Cash App | https://mobbin.com/screens/f97a7fa0-5fd2-4045-94db-88910bcc09bb | 加钱成功，一颗绿勾弹出 |
+| 2026-11-19 | Neuecast | https://mobbin.com/screens/862116e9-8b0c-47a3-b7d2-d19b8affcb8c | 首页信息流 |
+| 2026-11-19 | Abode | https://mobbin.com/screens/9b635945-e2ce-48b8-ac91-5c12539eb067 | 打开实时位置 |
+| 2026-11-19 | Superlist | https://mobbin.com/screens/fd0af81a-cf3f-41e5-aa09-b7b9b46ddce3 | 勾掉一条任务 |
 | 2026-11-14 | Tally | https://tally.so | 斜杠命令菜单 |
 | 2026-11-13 | Sunsama | https://www.sunsama.com | 任务拖进日程时间轴 |
 | 2026-11-13 | Flighty | https://flighty.com | 航班进度条 + 倒计时翻牌 |
@@ -124,9 +132,9 @@
 | ~~11-02~~ | ~~lthero-unpack~~ | 交互 | lthero-hold-to-unpack + lthero-flap-open | 已推 2026-11-02 |
 | ~~11-02~~ | ~~lthero-scatter~~ | 交互 | lthero-desk-scatter | 已推 2026-11-02；2026-11-18 回访 |
 | ~~11-03~~ | ~~lthero-cards~~ | 界面 | … | 已推 2026-11-03；2026-11-18 回访 |
-| ~~11-03~~ | ~~lthero-labels~~ | 界面 | … | 已推 2026-11-03 |
+| ~~11-03~~ | ~~lthero-labels~~ | 界面 | … | 已推 2026-11-03；2026-11-19 回访 |
 | ~~11-04~~ | ~~lthero-folder~~ | 交互 | lthero-folder-fan | 已推 2026-11-04 |
-| ~~11-04~~ | ~~lthero-paper~~ | 界面 | lthero-paper-detail | 已推 2026-11-04 |
+| ~~11-04~~ | ~~lthero-paper~~ | 界面 | lthero-paper-detail | 已推 2026-11-04；2026-11-19 回访 |
 ~~| 11-05 | lthero-fling | 交互 | lthero-fling-drag + lthero-fling-toast | 拖甩物件 +「飞了 X cm」 |~~ 已推 11-05
 ~~| 11-05 | lthero-lightbox | 交互 | lthero-photo-lightbox | 拍立得灯箱弹入 + 左右翻 |~~ 已推 11-05
 | ~~机动~~ | ~~lthero-door（2026-11-06）~~ | 界面 | lthero-portal-door | 线描门牌 · 已推 |
