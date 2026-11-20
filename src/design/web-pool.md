@@ -22,8 +22,8 @@
 ## B. 建站 / 动效工具
 | 站 | URL | 可取的 1 个元素 |
 |---|---|---|
-| ~~Framer（2026-11-06）~~ | https://www.framer.com | 卡片指针倾斜 · 已推 |
-| ~~Rive（2026-11-06）~~ | https://rive.app | 状态机按钮 · 已推 |
+| Framer | https://www.framer.com | 卡片指针倾斜；2026-11-06 已推；2026-11-20 回访同元素 |
+| Rive | https://rive.app | 状态机按钮；2026-11-06 已推；2026-11-20 回访同元素 |
 | Spline | https://spline.design | 轻量 3D 卡片倾斜跟随指针；**2026-11-05 已用：标题词→头像叠片 + 3D 选框；2026-11-17 已用：3D 卡片倾斜** |
 | ~~Lottielab（2026-11-07）~~ | https://www.lottielab.com | 时间轴滑块拖动预览 · 已推 |
 | ~~mmm.page~~ | https://mmm.page | 自由摆放的贴纸拖拽 · 已推 2026-11-04；2026-11-19 回访 |
@@ -35,7 +35,7 @@
 | Reflect（2026-10-31 curl 无响应，先跳过） | https://reflect.app | 双向链接悬浮预览 |
 | Tana（2026-11-01，超级标签已移到 outliner.tana.inc；tana.inc 首页现为会议 agent） | https://outliner.tana.inc | 节点 `#标签` 补全 |
 | ~~Capacities（2026-11-14）~~ | https://capacities.io | 对象卡片翻面 · 已推 |
-| Obsidian | https://obsidian.md | 图谱节点轻漂浮；**2026-11-05 已用：点节点聚焦邻居** |
+| Obsidian | https://obsidian.md | 图谱节点轻漂浮；**2026-11-05 已用：点节点聚焦邻居；2026-11-20 已用：图谱节点轻漂浮** |
 | Heptabase（2026-11-09） | https://heptabase.com | 点一行浮出书名预览卡 · 已推（池外新站） |
 | iA Writer（2026-11-09） | https://ia.net/writer | 点一段其余淡去 · 已推（池外新站） |
 
@@ -51,7 +51,7 @@
 | 站 | URL | 可取的 1 个元素 |
 |---|---|---|
 | ~~Mymind（2026-11-13）~~ | https://mymind.com | 瀑布流卡片淡入 + 搜索高亮 · 已推 |
-| ~~Are.na（2026-11-06）~~ | https://www.are.na | 块网格悬停露标题 · 已推 |
+| Are.na | https://www.are.na | 块网格悬停露标题；2026-11-06 已推；2026-11-20 回访同元素 |
 | Raindrop（2026-11-01） | https://raindrop.io | 书签卡片收藏动效 |
 | ~~Readwise Reader（2026-11-17）~~ | https://readwise.io | 划线高亮扫过 · 已推 |
 | ~~Pitch（2026-11-03）~~ | https://pitch.com | 幻灯片缩略图切换；2026-11-18 回访 |
@@ -67,6 +67,14 @@
 - **Arc**：2026-10-31 检查，arc.net 已是「A farewell to Arc」告别页（宣布 2026-12-22 停服），排除。
 
 ## 池外用过
+| 2026-11-20 | Obsidian | https://obsidian.md | 图谱节点轻漂浮（回访，11-05 用过点节点聚焦邻居） |
+| 2026-11-20 | Framer | https://www.framer.com | 卡片跟着手指倾斜（回访，11-06 用过同元素） |
+| 2026-11-20 | Rive | https://rive.app | 按钮三态切换（回访，11-06 用过同元素） |
+| 2026-11-20 | Are.na | https://www.are.na | 块网格悬停露标题（回访，11-06 用过同元素） |
+| 2026-11-20 | Discord | https://mobbin.com/screens/3f0ab737-bd33-4206-92ab-6c4f544f506c | 底部弹层多选国家 |
+| 2026-11-20 | Brainly | https://mobbin.com/screens/44c327a4-ddef-4afa-a9e3-35f69b3073ef | 胶囊分段切换 Question/Answer/Chat |
+| 2026-11-20 | Citi Bike | https://mobbin.com/screens/2dc100d6-fc35-4f84-be2e-e29d6ce6208a | 引导页：找空车位 + 圆点指示 |
+| 2026-11-20 | OpenTable | https://mobbin.com/screens/9e81d00b-1b76-4349-bbb3-d017a4ea6971 | 会员进度卡片（本期卡片条） |
 | 2026-11-14 | Bear | https://bear.app | 设备切换手绘圈注 |
 | 2026-11-15 | Attio | https://attio.com | 表格行 hover 高亮 + 内联编辑 |
 | 2026-11-15 | Amie | https://amie.so | 四层淡影白卡（回访，11-09 用过会议纪要时间线） |
