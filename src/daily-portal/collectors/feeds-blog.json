@@ -1,5 +1,5 @@
 {
-  "comment": "个人博客 RSS/Atom 白名单（叼报公开源 blog）。标准：作者有独立思考、能引发读者思考，真人非 AI；实操加分。新站走 候选池→用户确认→白名单。可选 include_paths/exclude_paths（路径子串）。",
+  "comment": "个人博客 RSS/Atom 白名单（叼报公开源 blog）。2026-11-22 扩容 Phase 1：来源 timqian/chinese-independent-blogs，12 类中先上已验证存活且 180 天内有更新的站，每类最多 10 站 + 15 个人工精选，共 129 站（含原有 9 站，原样保留在前）。全量 578 站经实测不可行：约 33% 失效/被墙、143 站 180 天无更新，全量顺序抓约 70 分钟，会挤占 11:30 推送。后续按用户打分扩容（高权重保留、低权重剔除）。标准：作者有独立思考、能引发读者思考，真人非 AI；实操加分。定位：长文、经验分享/实战感悟（非最新消息），窗口 180 天。",
   "feeds": [
     {
       "id": "fomoxx",
@@ -108,6 +108,891 @@
       "topics": [
         "engineering",
         "thinking"
+      ]
+    },
+    {
+      "id": "notes",
+      "name": "AI Notes",
+      "rss": "https://notes.yachiyo.im/rss.xml",
+      "home": "https://notes.yachiyo.im/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "tech"
+      ]
+    },
+    {
+      "id": "aisurf",
+      "name": "AI 冲浪指南",
+      "rss": "https://aisurf.cc/rss.xml",
+      "home": "https://aisurf.cc",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "tutorials"
+      ]
+    },
+    {
+      "id": "iphysresearch",
+      "name": "IPhysResearch",
+      "rss": "https://iphysresearch.github.io/blog/post/index.xml",
+      "home": "https://iphysresearch.github.io/blog/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "open-source",
+        "research"
+      ]
+    },
+    {
+      "id": "youkaichao",
+      "name": "Kaichao You",
+      "rss": "https://youkaichao.github.io/feed.xml",
+      "home": "https://youkaichao.github.io/research",
+      "lang": "zh",
+      "topics": [
+        "ai"
+      ]
+    },
+    {
+      "id": "mukunjin",
+      "name": "MukunJin",
+      "rss": "https://mukunjin.com/posts/index.xml",
+      "home": "https://mukunjin.com",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "thinking",
+        "tutorials"
+      ]
+    },
+    {
+      "id": "ryanuo",
+      "name": "RYANUO的博客",
+      "rss": "https://ryanuo.cc/sitemap.xml",
+      "home": "https://ryanuo.cc",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "hardware",
+        "open-source"
+      ]
+    },
+    {
+      "id": "sagasu",
+      "name": "Sagasu",
+      "rss": "https://www.sagasu.art/rss.xml",
+      "home": "https://www.sagasu.art",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "indie-dev",
+        "product-design"
+      ]
+    },
+    {
+      "id": "surfing",
+      "name": "Surfing（Robin Min）",
+      "rss": "https://surfing.salty.vip/rss.xml",
+      "home": "https://surfing.salty.vip/zh",
+      "lang": "zh",
+      "topics": [
+        "ai"
+      ]
+    },
+    {
+      "id": "u1-lab",
+      "name": "Tony's Lab",
+      "rss": "https://u1-lab.xiaoxia.io/feed.xml",
+      "home": "https://u1-lab.xiaoxia.io/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "tools"
+      ]
+    },
+    {
+      "id": "victor42",
+      "name": "Victor42",
+      "rss": "https://victor42.eth.limo/index.xml",
+      "home": "https://victor42.eth.limo",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "product-design"
+      ]
+    },
+    {
+      "id": "warpnav",
+      "name": "WarpBlog · WarpNav 曲速导航",
+      "rss": "https://warpnav.com/feed",
+      "home": "https://warpnav.com/newsblog",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "open-source",
+        "tech",
+        "tools"
+      ]
+    },
+    {
+      "id": "xbstack",
+      "name": "XBSTACK",
+      "rss": "https://www.xbstack.com/rss.xml",
+      "home": "https://www.xbstack.com/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "indie-dev",
+        "product-design"
+      ]
+    },
+    {
+      "id": "crossoverjie",
+      "name": "crossoverJie's Blog",
+      "rss": "https://crossoverjie.top/atom.xml",
+      "home": "https://crossoverjie.top/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "open-source"
+      ]
+    },
+    {
+      "id": "mizore",
+      "name": "mizore / notes",
+      "rss": "https://mizore.blog/feed.xml",
+      "home": "https://mizore.blog/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "tools"
+      ]
+    },
+    {
+      "id": "nai",
+      "name": "obaby@mars",
+      "rss": "https://h4ck.org.cn/feed/",
+      "home": "http://nai.dog",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "hardware"
+      ]
+    },
+    {
+      "id": "anymesgs",
+      "name": "听说了吗？· AI 解读站",
+      "rss": "https://anymesgs.com/rss.xml",
+      "home": "https://anymesgs.com/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "tech"
+      ]
+    },
+    {
+      "id": "mingnify",
+      "name": "明立非(Mingnify)的博客",
+      "rss": "https://mingnify.com/zh/blog/atom.xml",
+      "home": "https://mingnify.com/zh/blog/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "indie-dev"
+      ]
+    },
+    {
+      "id": "iphyer",
+      "name": "桑弧蓬矢射四方",
+      "rss": "https://iphyer.github.io/feed.xml",
+      "home": "https://iphyer.github.io/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "research"
+      ]
+    },
+    {
+      "id": "shuijingwanwq",
+      "name": "永夜",
+      "rss": "https://www.shuijingwanwq.com/feed/",
+      "home": "https://www.shuijingwanwq.com/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "open-source"
+      ]
+    },
+    {
+      "id": "coderlog",
+      "name": "码录集（CoderLog）",
+      "rss": "https://www.coderlog.net/rss.xml",
+      "home": "https://www.coderlog.net/",
+      "lang": "zh",
+      "topics": [
+        "ai"
+      ]
+    },
+    {
+      "id": "lu",
+      "name": "迷鹿 MiLu · Leo Lu",
+      "rss": "https://lu.wiki/feed.xml",
+      "home": "https://lu.wiki/",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "product-design",
+        "tutorials"
+      ]
+    },
+    {
+      "id": "antonailog",
+      "name": "阿東的AI手记",
+      "rss": "https://antonailog.com/rss.xml",
+      "home": "https://antonailog.com",
+      "lang": "zh",
+      "topics": [
+        "ai",
+        "tools"
+      ]
+    },
+    {
+      "id": "yilinhut",
+      "name": "随轩",
+      "rss": "https://yilinhut.net/feed/",
+      "home": "https://yilinhut.net/",
+      "lang": "zh",
+      "topics": [
+        "ai"
+      ]
+    },
+    {
+      "id": "zjackie",
+      "name": "0x1 ZeroINK",
+      "rss": "https://blog.zjackie.ink/zh/index.xml",
+      "home": "https://blog.zjackie.ink",
+      "lang": "zh",
+      "topics": [
+        "blockchain",
+        "open-source"
+      ]
+    },
+    {
+      "id": "pseudoyu",
+      "name": "Pseudoyu",
+      "rss": "https://www.pseudoyu.com/zh/index.xml",
+      "home": "https://www.pseudoyu.com",
+      "lang": "zh",
+      "topics": [
+        "blockchain",
+        "tools"
+      ]
+    },
+    {
+      "id": "smallyu",
+      "name": "smallyu的博客",
+      "rss": "https://smallyu.net/atom.xml",
+      "home": "https://smallyu.net/",
+      "lang": "zh",
+      "topics": [
+        "blockchain"
+      ]
+    },
+    {
+      "id": "chenbozheng",
+      "name": "伯正博客",
+      "rss": "https://www.chenbozheng.com/feed",
+      "home": "https://www.chenbozheng.com/",
+      "lang": "zh",
+      "topics": [
+        "blockchain"
+      ]
+    },
+    {
+      "id": "wuwei",
+      "name": "臣卜木曹",
+      "rss": "https://wuwei.fun/feed/",
+      "home": "https://wuwei.fun",
+      "lang": "zh",
+      "topics": [
+        "blockchain",
+        "thinking"
+      ]
+    },
+    {
+      "id": "kingname",
+      "name": "谢乾坤-青南",
+      "rss": "https://www.kingname.info/atom.xml",
+      "home": "https://www.kingname.info/",
+      "lang": "zh",
+      "topics": [
+        "crawler"
+      ]
+    },
+    {
+      "id": "anotherdayu",
+      "name": "Another Dayu",
+      "rss": "https://anotherdayu.com/feed/",
+      "home": "https://anotherdayu.com/",
+      "lang": "zh",
+      "topics": [
+        "hardware",
+        "tech"
+      ]
+    },
+    {
+      "id": "fghrsh",
+      "name": "FGHRSH 的博客",
+      "rss": "https://www.fghrsh.net/feed.php",
+      "home": "https://www.fghrsh.net",
+      "lang": "zh",
+      "topics": [
+        "hardware",
+        "tech"
+      ]
+    },
+    {
+      "id": "zelikk",
+      "name": "ICDYCT我能你也行",
+      "rss": "https://zelikk.blogspot.com/rss.xml",
+      "home": "https://zelikk.blogspot.com/",
+      "lang": "zh",
+      "topics": [
+        "hardware"
+      ]
+    },
+    {
+      "id": "yourlai",
+      "name": "Yourlai's Blog",
+      "rss": "https://yourlai.com/feed/",
+      "home": "https://yourlai.com/",
+      "lang": "zh",
+      "topics": [
+        "hardware"
+      ]
+    },
+    {
+      "id": "elmagnifico",
+      "name": "elmagnifico",
+      "rss": "http://elmagnifico.tech/feed.xml",
+      "home": "http://elmagnifico.tech",
+      "lang": "zh",
+      "topics": [
+        "hardware"
+      ]
+    },
+    {
+      "id": "whyes",
+      "name": "whyes的博客",
+      "rss": "https://whyes.org/feed.xml",
+      "home": "https://whyes.org",
+      "lang": "zh",
+      "topics": [
+        "hardware",
+        "research"
+      ]
+    },
+    {
+      "id": "mianao",
+      "name": "不吐不快",
+      "rss": "https://mianao.info/atom.xml",
+      "home": "https://mianao.info",
+      "lang": "zh",
+      "topics": [
+        "hardware",
+        "tutorials"
+      ]
+    },
+    {
+      "id": "mfwt",
+      "name": "枫林灯语",
+      "rss": "https://blog.mfwt.top/index.php/feed/",
+      "home": "https://blog.mfwt.top/",
+      "lang": "zh",
+      "topics": [
+        "hardware"
+      ]
+    },
+    {
+      "id": "raymondhouch",
+      "name": "雷蒙三十",
+      "rss": "https://raymondhouch.com/feed",
+      "home": "https://raymondhouch.com/",
+      "lang": "zh",
+      "topics": [
+        "hardware",
+        "indie-dev",
+        "tools"
+      ]
+    },
+    {
+      "id": "lenciel",
+      "name": "@Lenciel",
+      "rss": "https://lenciel.com/feed.xml",
+      "home": "https://lenciel.com/",
+      "lang": "zh",
+      "topics": [
+        "indie-dev"
+      ]
+    },
+    {
+      "id": "est",
+      "name": "Est's Blog",
+      "rss": "http://feeds.feedburner.com/initiative",
+      "home": "https://blog.est.im/",
+      "lang": "zh",
+      "topics": [
+        "indie-dev"
+      ]
+    },
+    {
+      "id": "macin",
+      "name": "Macin",
+      "rss": "https://www.macin.org/atom.xml",
+      "home": "https://macin.org",
+      "lang": "zh",
+      "topics": [
+        "indie-dev",
+        "tutorials"
+      ]
+    },
+    {
+      "id": "peagothedreamer",
+      "name": "peago · 空想家",
+      "rss": "https://peagothedreamer.github.io/index.xml",
+      "home": "https://peagothedreamer.github.io/",
+      "lang": "zh",
+      "topics": [
+        "indie-dev"
+      ]
+    },
+    {
+      "id": "shuzhi",
+      "name": "shuzhi.zone",
+      "rss": "https://shuzhi.zone/rss.xml",
+      "home": "https://shuzhi.zone/",
+      "lang": "zh",
+      "topics": [
+        "indie-dev",
+        "open-source"
+      ]
+    },
+    {
+      "id": "weiwuhui",
+      "name": "扯氮集",
+      "rss": "http://weiwuhui.com/feed",
+      "home": "http://weiwuhui.com/",
+      "lang": "zh",
+      "topics": [
+        "indie-dev"
+      ]
+    },
+    {
+      "id": "1q43",
+      "name": "虹线",
+      "rss": "https://1q43.blog/feed",
+      "home": "https://1q43.blog",
+      "lang": "zh",
+      "topics": [
+        "indie-dev",
+        "tech"
+      ]
+    },
+    {
+      "id": "t9t",
+      "name": "透明创业实验",
+      "rss": "https://t9t.io/blog/zh/rss.xml",
+      "home": "https://t9t.io/blog/zh",
+      "lang": "zh",
+      "topics": [
+        "indie-dev",
+        "open-source"
+      ]
+    },
+    {
+      "id": "ruanyifeng",
+      "name": "阮一峰的网络日志",
+      "rss": "http://feeds.feedburner.com/ruanyifeng",
+      "home": "https://www.ruanyifeng.com/blog/",
+      "lang": "zh",
+      "topics": [
+        "indie-dev"
+      ]
+    },
+    {
+      "id": "liao-ke",
+      "name": "LiaoKe的博客",
+      "rss": "https://blog.liao-ke.com/rss.xml",
+      "home": "https://blog.liao-ke.com",
+      "lang": "zh",
+      "topics": [
+        "open-source"
+      ]
+    },
+    {
+      "id": "yishuai",
+      "name": "Yishuai · 作品、文字与日常",
+      "rss": "https://yishuai.wang/feed.xml",
+      "home": "https://yishuai.wang/",
+      "lang": "zh",
+      "topics": [
+        "open-source"
+      ]
+    },
+    {
+      "id": "ixiqin",
+      "name": "西秦公子",
+      "rss": "https://www.ixiqin.com/feed/",
+      "home": "https://www.ixiqin.com/",
+      "lang": "zh",
+      "topics": [
+        "open-source"
+      ]
+    },
+    {
+      "id": "domon",
+      "name": "Domon",
+      "rss": "https://www.domon.cn/rss/",
+      "home": "https://www.domon.cn/",
+      "lang": "zh",
+      "topics": [
+        "product-design"
+      ]
+    },
+    {
+      "id": "cubxxw",
+      "name": "Xinwei's Blog",
+      "rss": "https://cubxxw.com/zh/index.xml",
+      "home": "https://cubxxw.com/zh/",
+      "lang": "zh",
+      "topics": [
+        "product-design",
+        "thinking"
+      ]
+    },
+    {
+      "id": "zhheo",
+      "name": "张洪Heo",
+      "rss": "https://blog.zhheo.com/rss.xml",
+      "home": "https://blog.zhheo.com/",
+      "lang": "zh",
+      "topics": [
+        "product-design"
+      ]
+    },
+    {
+      "id": "tortorse",
+      "name": "愆伏",
+      "rss": "https://www.tortorse.com/atom.xml",
+      "home": "https://www.tortorse.com",
+      "lang": "zh",
+      "topics": [
+        "product-design"
+      ]
+    },
+    {
+      "id": "wjd",
+      "name": "王佳冬中文博客",
+      "rss": "http://wjd.name/feed/",
+      "home": "http://wjd.name/",
+      "lang": "zh",
+      "topics": [
+        "product-design"
+      ]
+    },
+    {
+      "id": "kanchuan",
+      "name": "陈看川博客",
+      "rss": "https://kanchuan.com/feed.xml",
+      "home": "https://kanchuan.com/blog",
+      "lang": "zh",
+      "topics": [
+        "product-design"
+      ]
+    },
+    {
+      "id": "giserlab",
+      "name": "GISerLab 地理空间",
+      "rss": "https://blog.giserlab.cn/feed.xml",
+      "home": "https://blog.giserlab.cn",
+      "lang": "zh",
+      "topics": [
+        "research",
+        "tools"
+      ]
+    },
+    {
+      "id": "seis-jun",
+      "name": "seisamuse",
+      "rss": "https://www.seis-jun.xyz/atom.xml",
+      "home": "https://seis-jun.xyz",
+      "lang": "zh",
+      "topics": [
+        "research",
+        "tutorials"
+      ]
+    },
+    {
+      "id": "yufree",
+      "name": "于淼",
+      "rss": "https://yufree.cn/index.xml",
+      "home": "https://yufree.cn/",
+      "lang": "zh",
+      "topics": [
+        "research"
+      ]
+    },
+    {
+      "id": "changhai",
+      "name": "卢昌海的个人主页",
+      "rss": "https://www.changhai.org/feed.xml",
+      "home": "https://www.changhai.org/",
+      "lang": "zh",
+      "topics": [
+        "research"
+      ]
+    },
+    {
+      "id": "gis2all",
+      "name": "知行（gis2all）",
+      "rss": "https://blog.gis2all.top/rss.xml",
+      "home": "https://blog.gis2all.top",
+      "lang": "zh",
+      "topics": [
+        "research"
+      ]
+    },
+    {
+      "id": "physnya",
+      "name": "菲兹克斯喵",
+      "rss": "https://physnya.top/atom.xml",
+      "home": "https://physnya.top",
+      "lang": "zh",
+      "topics": [
+        "research"
+      ]
+    },
+    {
+      "id": "mountaye",
+      "name": "阿掖山·博客",
+      "rss": "https://blog.mountaye.com/feed.xml",
+      "home": "https://blog.mountaye.com",
+      "lang": "zh",
+      "topics": [
+        "research"
+      ]
+    },
+    {
+      "id": "weekly",
+      "name": "Tw93 潮流周刊",
+      "rss": "https://weekly.tw93.fun/rss.xml",
+      "home": "https://weekly.tw93.fun/",
+      "lang": "zh",
+      "topics": [
+        "tech"
+      ]
+    },
+    {
+      "id": "bluehe",
+      "name": "云心怀鹤",
+      "rss": "https://bluehe.cn/feed/",
+      "home": "https://bluehe.cn/",
+      "lang": "zh",
+      "topics": [
+        "tech"
+      ]
+    },
+    {
+      "id": "douchi",
+      "name": "椒盐豆豉",
+      "rss": "https://blog.douchi.space/index.xml",
+      "home": "https://blog.douchi.space/",
+      "lang": "zh",
+      "topics": [
+        "tech"
+      ]
+    },
+    {
+      "id": "ccgxk",
+      "name": "独元殇",
+      "rss": "https://www.ccgxk.com/rss.php",
+      "home": "https://www.ccgxk.com",
+      "lang": "zh",
+      "topics": [
+        "tech"
+      ]
+    },
+    {
+      "id": "owent",
+      "name": "I'm OWenT",
+      "rss": "https://owent.net/index.xml",
+      "home": "https://owent.net/",
+      "lang": "zh",
+      "topics": [
+        "thinking"
+      ]
+    },
+    {
+      "id": "mocusez",
+      "name": "Mox的笔记库",
+      "rss": "https://mocusez.site/zh-CN/atom.xml",
+      "home": "https://mocusez.site",
+      "lang": "zh",
+      "topics": [
+        "thinking",
+        "tutorials"
+      ]
+    },
+    {
+      "id": "shuiba",
+      "name": "Shuibaco • 水八口",
+      "rss": "https://shuiba.co/feed",
+      "home": "https://shuiba.co/",
+      "lang": "zh",
+      "topics": [
+        "thinking"
+      ]
+    },
+    {
+      "id": "ouorz",
+      "name": "TonyHe 的博客",
+      "rss": "https://www.ouorz.com/feed",
+      "home": "https://www.ouorz.com",
+      "lang": "zh",
+      "topics": [
+        "thinking"
+      ]
+    },
+    {
+      "id": "renfei",
+      "name": "任霏博客",
+      "rss": "https://blog.renfei.net/rss.xml",
+      "home": "https://blog.renfei.net/",
+      "lang": "zh",
+      "topics": [
+        "thinking"
+      ]
+    },
+    {
+      "id": "glowisle",
+      "name": "映屿",
+      "rss": "https://www.glowisle.me/atom.xml",
+      "home": "https://www.glowisle.me",
+      "lang": "zh",
+      "topics": [
+        "thinking"
+      ]
+    },
+    {
+      "id": "mcenahle",
+      "name": "梅之夏",
+      "rss": "https://blog.mcenahle.page/feed.xml",
+      "home": "https://blog.mcenahle.page",
+      "lang": "zh",
+      "topics": [
+        "thinking",
+        "tutorials"
+      ]
+    },
+    {
+      "id": "ourai",
+      "name": "欧雷流",
+      "rss": "https://ourai.ws/atom.xml",
+      "home": "https://ourai.ws/",
+      "lang": "zh",
+      "topics": [
+        "thinking"
+      ]
+    },
+    {
+      "id": "pens",
+      "name": "Pens.me",
+      "rss": "https://pens.me/feed/",
+      "home": "https://pens.me",
+      "lang": "zh",
+      "topics": [
+        "tools"
+      ]
+    },
+    {
+      "id": "localfreedom",
+      "name": "局域自由",
+      "rss": "https://localfreedom.pages.dev/index.xml",
+      "home": "https://localfreedom.pages.dev/",
+      "lang": "zh",
+      "topics": [
+        "tools"
+      ]
+    },
+    {
+      "id": "penghh",
+      "name": "效率工具指南",
+      "rss": "https://penghh.fun/atom.xml",
+      "home": "https://penghh.fun",
+      "lang": "zh",
+      "topics": [
+        "tools"
+      ]
+    },
+    {
+      "id": "wangdu",
+      "name": "文武科技柜",
+      "rss": "https://www.wangdu.site/feed",
+      "home": "https://www.wangdu.site",
+      "lang": "zh",
+      "topics": [
+        "tools"
+      ]
+    },
+    {
+      "id": "eu",
+      "name": "619's blog",
+      "rss": "https://66619.eu.org/feed/",
+      "home": "https://66619.eu.org/",
+      "lang": "zh",
+      "topics": [
+        "tutorials"
+      ]
+    },
+    {
+      "id": "hsuyeung",
+      "name": "Hsu Yeung 的博客",
+      "rss": "https://www.hsuyeung.com/feed",
+      "home": "https://www.hsuyeung.com/",
+      "lang": "zh",
+      "topics": [
+        "tutorials"
+      ]
+    },
+    {
+      "id": "kekkj123",
+      "name": "KEKKJ BLOG",
+      "rss": "https://kekkj123.github.io/RSS_atom.xml",
+      "home": "https://kekkj123.github.io/",
+      "lang": "zh",
+      "topics": [
+        "tutorials"
+      ]
+    },
+    {
+      "id": "cyrusyip",
+      "name": "叶寻的博客",
+      "rss": "https://cyrusyip.org/zh-cn/index.xml",
+      "home": "https://cyrusyip.org/",
+      "lang": "zh",
+      "topics": [
+        "tutorials"
+      ]
+    },
+    {
+      "id": "2019527",
+      "name": "王志满律师个人博客",
+      "rss": "https://2019527.xyz/feed.xml",
+      "home": "https://2019527.xyz/",
+      "lang": "zh",
+      "topics": [
+        "tutorials"
       ]
     }
   ]
