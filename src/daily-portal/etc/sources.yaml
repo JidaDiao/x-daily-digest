@@ -23,9 +23,5 @@ signals:
 content:
   - {name: github-trending, type: html,  url: "https://github.com/trending?since=daily", limit: 10}
   - {name: github-search,   type: api,   url: "https://api.github.com/search/repositories?q=created:>{since}&sort=stars&order=desc", limit: 10}
-  - {name: hf-trending,     type: api,   url: "https://huggingface.co/api/models?sort=trendingScore&limit=10"}
-  - {name: hn-top,          type: api,   url: "https://hacker-news.firebaseio.com/v0/topstories.json", limit: 15}
-  - {name: linuxdo-latest,  type: rss,   url: "https://linux.do/latest.rss", limit: 15}
-  - {name: reddit,          type: rss,   url: "https://www.reddit.com/r/{sub}/top/.rss?t=day", subs: [LocalLLaMA, programming, webdev], limit: 10}
-  - {name: dcr-news,        type: rss,   url: "https://didcodexreset.com/rss/news.xml?lang=zh-CN", limit: 50}
+  - {name: linuxdo-latest,  type: rss,   url: "https://linux.do/latest.rss", limit: 15, note: "暂停待恢复（Cloudflare 403，采集器优雅跳过）"}
   - {name: blog-indie,      type: rss,   url: "feeds-blog.json", note: "白名单个人实践博客；首发 fomoxx；每日 picked≤2"}

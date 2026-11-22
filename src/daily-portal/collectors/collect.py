@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""DiaoDaily 公开来源抓取器：GitHub Trending/Search、HF 模型/论文、HN、linux.do RSS、Reddit RSS、Did Codex Reset AI 快讯、白名单个人实践博客。
+"""DiaoDaily 公开来源抓取器：GitHub Trending/Search、linux.do RSS（暂停待恢复，优雅跳过）、白名单个人实践博客（93 站）。
 无账号。token 不落盘：画像读取与入库都经 SSH 在 VPS 端用 /etc/daily/api.env 执行。"""
 import json, re, sys, os, html, time, datetime, random, urllib.request, urllib.parse, xml.etree.ElementTree as ET, argparse
 from email.utils import parsedate_to_datetime
@@ -50,26 +50,6 @@ def gh_search():
                [r.get("language") or ""] + r.get("topics", [])[:6], r["owner"]["login"], stars=r["stargazers_count"], via="search-new")
             for r in d.get("items", [])]
 
-def hf():
-    out = []
-    for m in json.loads(get("https://huggingface.co/api/models?sort=trendingScore&direction=-1&limit=30")):
-        out.append(it("hf", "model/" + m["id"], m["id"], "https://huggingface.co/" + m["id"], m.get("pipeline_tag") or "",
-                      [m.get("pipeline_tag") or "", m.get("library_name") or ""] + [t for t in m.get("tags", []) if ":" not in t][:5],
-                      m["id"].split("/")[0], likes=m.get("likes", 0), via="trending-model"))
-    try:
-        for p in json.loads(get("https://huggingface.co/api/daily_papers?limit=20")):
-            pp = p.get("paper", p); pid = pp.get("id")
-            out.append(it("hf", "paper/" + pid, pp.get("title", ""), "https://huggingface.co/papers/" + pid, pp.get("summary", ""),
-                          ["paper"] + (pp.get("ai_keywords") or [])[:5], "", upvotes=pp.get("upvotes", 0), via="daily-paper"))
-    except Exception as e: print("hf papers fail:", e, file=sys.stderr)
-    return out
-
-def hn():
-    d = json.loads(get("https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=40"))
-    return [it("hn", h["objectID"], h.get("title", ""), h.get("url") or f"https://news.ycombinator.com/item?id={h['objectID']}", "",
-               ["hn"], h.get("author", ""), points=h.get("points", 0), comments=h.get("num_comments", 0),
-               discuss=f"https://news.ycombinator.com/item?id={h['objectID']}") for h in d.get("hits", [])]
-
 def rss(src, url, idf):
     x = get(url, "application/rss+xml, application/atom+xml, application/xml")
     if x.lstrip().startswith("<!DOCTYPE html") or "<html" in x[:300].lower(): raise RuntimeError("got HTML (blocked/challenge)")
@@ -91,38 +71,6 @@ def linuxdo():
         if out: break
     if not out: raise RuntimeError("linux.do RSS 不可用（多为 Cloudflare 挑战）")
     return out
-
-def reddit(subs=("LocalLLaMA", "ClaudeAI", "selfhosted", "programming")):
-    out, errs = [], []
-    for s in subs:
-        try: out += rss("reddit", f"https://www.reddit.com/r/{s}/top/.rss?t=day&limit=10", lambda l: (re.search(r"/comments/([a-z0-9]+)", l) or re.search(r"(.+)", l)).group(1))
-        except Exception as e: errs.append(f"{s}:{getattr(e,'code',e)}")
-        time.sleep(3)
-    if not out: raise RuntimeError("全部失败 " + ",".join(errs))
-    return out
-
-def dcr():
-    """Did Codex Reset · AI 快讯（中文 RSS）。专用解析：多 category、剥「显示语言」。"""
-    url = "https://didcodexreset.com/rss/news.xml?lang=zh-CN"
-    x = get(url, "application/rss+xml, application/atom+xml, application/xml")
-    if x.lstrip().startswith("<!DOCTYPE html") or "<html" in x[:300].lower():
-        raise RuntimeError("got HTML (blocked/challenge)")
-    root = ET.fromstring(x); out = []
-    for e in root.iter("item"):
-        link = (e.findtext("link") or "").strip()
-        guid = (e.findtext("guid") or "").strip()
-        m = re.search(r":news:([0-9a-f]+)$", guid, re.I) or re.search(r"/news/([0-9a-f]+)\.html", link, re.I)
-        if not m: continue
-        desc = e.findtext("description") or ""
-        desc = re.sub(r"\s*显示语言:\s*\S+\s*$", "", desc).strip()
-        cats = [c.text.strip() for c in e.findall("category") if (c.text or "").strip()]
-        pub = (e.findtext("pubDate") or "").strip()
-        kw = {"via": "rss"}
-        if pub: kw["published_at"] = pub
-        out.append(it("dcr", m.group(1).lower(), e.findtext("title") or "", link, desc, cats, "", **kw))
-    if not out: raise RuntimeError("dcr RSS empty")
-    return out
-
 
 def _blog_feeds():
     path = os.path.join(HERE, "feeds-blog.json")
@@ -268,7 +216,7 @@ def blog(debug=False):
     if not out: raise RuntimeError("blog RSS empty " + ",".join(errs))
     return out
 
-SOURCES = {"github": lambda: gh_trending() + gh_search(), "hf": hf, "hn": hn, "linuxdo": linuxdo, "reddit": reddit, "dcr": dcr, "blog": blog}
+SOURCES = {"github": lambda: gh_trending() + gh_search(), "linuxdo": linuxdo, "blog": blog}
 
 def ssh(cmd, stdin=None):
     import paramiko
