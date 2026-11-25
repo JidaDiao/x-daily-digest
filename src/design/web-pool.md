@@ -67,6 +67,14 @@
 - **Arc**：2026-10-31 检查，arc.net 已是「A farewell to Arc」告别页（宣布 2026-12-22 停服），排除。
 
 ## 池外用过
+| 2026-11-25 | ChatLab | https://chatlab.fun/cn/ | 头像胶囊选择条（回访，11-12 用过叠层倾斜评论轮播） |
+| 2026-11-25 | gpt888 | https://gpt888.vip | 模糊文字切换（回访，11-15 用过 grid 展开） |
+| 2026-11-25 | DigVPS | https://digvps.com | 网格格子闪现（回访，11-15 用过漂浮标签） |
+| 2026-11-25 | Lthero · 线描门牌 | https://lthero.com | 线描门牌入口（回访，11-06 用过同元素；本期卡片条） |
+| 2026-11-25 | Crumbl Cookies | https://mobbin.com/screens/5bfb5a06-8e95-431f-9c85-1a62f37b2079 | 点心单数量步进器 |
+| 2026-11-25 | Blue Apron | https://mobbin.com/screens/9e4b0753-0988-4a35-be2f-d1de6b7c816b | 菜谱筛选滑块 |
+| 2026-11-25 | Alta | https://mobbin.com/screens/54b0699d-3414-42be-b2d2-123612dc358b | 天气穿搭建议卡 |
+| 2026-11-25 | Halide Mark III | https://mobbin.com/screens/298d9809-7e34-4cb6-9c07-4a0fa712c8ba | 滤镜快调 |
 | 2026-11-20 | Obsidian | https://obsidian.md | 图谱节点轻漂浮（回访，11-05 用过点节点聚焦邻居） |
 | 2026-11-20 | Framer | https://www.framer.com | 卡片跟着手指倾斜（回访，11-06 用过同元素） |
 | 2026-11-20 | Rive | https://rive.app | 按钮三态切换（回访，11-06 用过同元素） |
